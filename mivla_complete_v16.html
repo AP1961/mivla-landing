@@ -2771,8 +2771,8 @@ function updateSem(s){
 // Pricing
 const prices={m:{b:'4.99',p:'9.99'},a:{b:'4.16',p:'8.33'}};
 function setP(m){
-  document.getElementById('bM').classList.toggle('on',m==='m');
-  document.getElementById('bA').classList.toggle('on',m==='a');
+  var bM=document.getElementById('bM'); if(bM) bM.classList.toggle('on',m==='m');
+  var bA=document.getElementById('bA'); if(bA) bA.classList.toggle('on',m==='a');
   const prices={m:{b:'4.99',p:'9.99'},a:{b:'4.16',p:'8.33'}};
   var bp2=document.getElementById('bp'); if(bp2) bp2.textContent=prices[m].b;
   var pp2=document.getElementById('pp'); if(pp2) pp2.textContent=prices[m].p;
