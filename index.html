@@ -1,6 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<script>
+// ── LEGAL MODAL + BILINGUAL CONTENT ──
+var _lmLang = 'en';
+
+function _lmSetLang(lang) {
+  _lmLang = (lang === 'pt' || lang === 'pt-br') ? 'pt' : 'en';
+  if (_lmLang === 'pt') {
+    document.body.classList.add('legal-pt');
+  } else {
+    document.body.classList.remove('legal-pt');
+  }
+}
+
+function lmOpen(doc) {
+  try {
+    var ov = document.getElementById('legal-overlay');
+    if (!ov) return;
+    ov.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    var panes = document.querySelectorAll('.lm-pane');
+    for (var i=0; i<panes.length; i++) panes[i].classList.remove('on');
+    var tabs = document.querySelectorAll('.lm-tab');
+    for (var i=0; i<tabs.length; i++) tabs[i].classList.remove('on');
+    var pane = document.getElementById('lm-' + doc);
+    if (pane) pane.classList.add('on');
+    var tab = document.querySelector('.lm-tab[data-doc=' + doc + ']');
+    if (tab) tab.classList.add('on');
+    var lmbody = document.getElementById('lm-body');
+    if (lmbody) lmbody.scrollTop = 0;
+    _lmSetLang(_lmLang);
+  } catch(e) { console.error('lmOpen error:', e); }
+}
+
+function lmShow(doc, btn) {
+  try {
+    var panes = document.querySelectorAll('.lm-pane');
+    for (var i=0; i<panes.length; i++) panes[i].classList.remove('on');
+    var tabs = document.querySelectorAll('.lm-tab');
+    for (var i=0; i<tabs.length; i++) tabs[i].classList.remove('on');
+    var pane = document.getElementById('lm-' + doc);
+    if (pane) pane.classList.add('on');
+    if (btn) btn.classList.add('on');
+    var lmbody = document.getElementById('lm-body');
+    if (lmbody) lmbody.scrollTop = 0;
+    _lmSetLang(_lmLang);
+  } catch(e) { console.error('lmShow error:', e); }
+}
+
+function lmClose() {
+  var ov = document.getElementById('legal-overlay');
+  if (ov) ov.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  var ov = document.getElementById('legal-overlay');
+  if (ov) ov.addEventListener('click', function(e){ if (e.target===ov) lmClose(); });
+  document.addEventListener('keydown', function(e){ if (e.key==='Escape') lmClose(); });
+  var def = document.getElementById('lm-pp');
+  if (def) def.classList.add('on');
+  var deftab = document.querySelector('.lm-tab[data-doc=pp]');
+  if (deftab) deftab.classList.add('on');
+});
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MIVLA™ — Know What's Real</title>
@@ -623,11 +688,11 @@ to{background-position:0 100px}}
 
 
 /* PLATFORMS */
-.plat-row{display:flex;flex-direction:row;justify-content:center;align-items:center;gap:clamp(12px,2vw,24px);margin-top:32px;flex-wrap:nowrap}
+.plat-row{display:flex;flex-direction:row;justify-content:center;align-items:center;gap:clamp(8px,1.5vw,20px);margin-top:28px;flex-wrap:nowrap;overflow-x:auto}
 .pi{display:flex!important;flex-direction:column!important;align-items:center;gap:10px;opacity:.5;transition:opacity .3s,transform .3s var(--e);flex-shrink:0}
 .pi:hover{opacity:1;transform:translateY(-4px)}
-.pi-icon{width:56px;height:56px;border-radius:14px;overflow:hidden;flex-shrink:0}
-.pi-icon svg{width:56px;height:56px;display:block}
+.pi-icon{width:48px;height:48px;border-radius:12px;overflow:hidden;flex-shrink:0}
+.pi-icon svg{width:48px;height:48px;display:block}
 .pi-name{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
 /* PRICING */
@@ -668,9 +733,8 @@ to{background-position:0 100px}}
 .np-platform-note{font-size:11px;color:var(--muted);font-style:italic}
 
 
-.new-plans{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;align-items:stretch;max-width:640px;margin-left:auto;margin-right:auto}
-@media(max-width:540px){.new-plans{grid-template-columns:1fr 1fr}}
-@media(max-width:360px){.new-plans{grid-template-columns:1fr}}
+.new-plans{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:16px;margin-top:32px;align-items:start}
+@media(max-width:700px){.new-plans{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}}
 /* Annual card */
 .np-card{background:#fff;border-radius:20px;padding:28px 24px;border:1px solid var(--border);box-shadow:0 2px 16px rgba(10,22,40,0.05);transition:transform .3s,box-shadow .3s}
 .np-annual{border:2px solid var(--blue);box-shadow:0 8px 32px rgba(59,91,219,0.12)}
@@ -682,6 +746,14 @@ to{background-position:0 100px}}
 .np-badge-save{background:rgba(34,197,94,0.12);color:#15803D;border:1px solid rgba(34,197,94,0.3);font-size:11px;font-weight:700;padding:4px 12px;border-radius:100px}
 .np-title{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
 .np-monthly .np-title,.np-shake .np-title{color:var(--muted)}
+.np-annual-featured{border:2px solid var(--blue);box-shadow:0 8px 40px rgba(59,91,219,0.15)}
+.np-monthly-premium{border:1.5px solid rgba(215,170,70,0.4)}
+.np-price-gold{color:var(--gold)!important}
+.np-title-gold{color:var(--gold)!important}
+.np-cta-gold{background:var(--gold)!important;color:#1a1a1a!important}
+.np-cta-gold:hover{background:#c9a832!important}
+.np-plan-type{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+
 .np-plans-row{display:flex;align-items:center;gap:0;margin-bottom:20px}
 .np-divider{width:1px;height:60px;background:var(--border);margin:0 16px;flex-shrink:0}
 .np-plan{flex:1;text-align:center}
@@ -970,6 +1042,13 @@ footer{background:#0A1628;padding:44px 5vw 32px;border-top:1px solid rgba(255,25
 .hw-drag-trail{position:absolute;inset:0;pointer-events:none;z-index:1}
 /* Drag ghost dots */
 .hw-trail-dot{position:absolute;border-radius:50%;background:rgba(59,91,219,0.25);pointer-events:none;transform:translate(-50%,-50%);transition:opacity .4s}
+
+/* BILINGUAL LEGAL CONTENT */
+.lm-pt { display: none; }
+body.legal-pt .lm-pt { display: block; }
+body.legal-pt li.lm-pt { display: list-item; }
+body.legal-pt span.lm-pt { display: inline; }
+body.legal-pt .lm-en { display: none; }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -1171,9 +1250,9 @@ footer{background:#0A1628;padding:44px 5vw 32px;border-top:1px solid rgba(255,25
       <span class="lang-code" id="langCode">EN</span>
       <span class="lang-arrow">▼</span>
       <div class="lang-dropdown" id="langDropdown">
-        <div data-lang="en" class="lang-option active" onclick="setLang('en','🇬🇧','EN','€','EUR',event)"><span class="lang-option-flag">🇬🇧</span><span class="lang-option-name">English (UK)</span><span class="lang-option-currency">EUR €</span></div>
+        <div class="lm-en" class="lang-option active" onclick="setLang('en','🇬🇧','EN','€','EUR',event)"><span class="lang-option-flag">🇬🇧</span><span class="lang-option-name">English (UK)</span><span class="lang-option-currency">EUR €</span></div>
         <div data-lang="en-us" class="lang-option" onclick="setLang('en-us','🇺🇸','EN','€','EUR',event)"><span class="lang-option-flag">🇺🇸</span><span class="lang-option-name">English (US)</span><span class="lang-option-currency">EUR €</span></div>
-        <div data-lang="pt" class="lang-option" onclick="setLang('pt','🇵🇹','PT','€','EUR',event)"><span class="lang-option-flag">🇵🇹</span><span class="lang-option-name">Português (PT)</span><span class="lang-option-currency">EUR €</span></div>
+        <div class="lm-pt" class="lang-option" onclick="setLang('pt','🇵🇹','PT','€','EUR',event)"><span class="lang-option-flag">🇵🇹</span><span class="lang-option-name">Português (PT)</span><span class="lang-option-currency">EUR €</span></div>
         <div data-lang="pt-br" class="lang-option" onclick="setLang('pt-br','🇧🇷','PT','€','EUR',event)"><span class="lang-option-flag">🇧🇷</span><span class="lang-option-name">Português (BR)</span><span class="lang-option-currency">EUR €</span></div>
         <div data-lang="es" class="lang-option" onclick="setLang('es','🇪🇸','ES','€','EUR',event)"><span class="lang-option-flag">🇪🇸</span><span class="lang-option-name">Español</span><span class="lang-option-currency">EUR €</span></div>
         <div data-lang="fr" class="lang-option" onclick="setLang('fr','🇫🇷','FR','€','EUR',event)"><span class="lang-option-flag">🇫🇷</span><span class="lang-option-name">Français</span><span class="lang-option-currency">EUR €</span></div>
@@ -2470,6 +2549,1063 @@ footer{background:#0A1628;padding:44px 5vw 32px;border-top:1px solid rgba(255,25
 
     <div class="new-plans reveal">
 
+      <!-- ANNUAL — FEATURED (both plans inside) -->
+      <div class="np-card np-annual np-annual-featured">
+        <div class="np-badge-row">
+          <span class="np-badge-best" data-i18n="np-best-value">⭐ Melhor relação qualidade-preço</span>
+        </div>
+        <div class="np-title" data-i18n="np-annual-title">Subscrição anual</div>
+        <div class="np-plans-row">
+          <!-- Base annual -->
+          <div class="np-plan" id="npAnnualBase">
+            <div class="np-plan-name" data-i18n="plan-base">Base</div>
+            <div class="np-plan-price-wrap">
+              <div class="np-orig" id="npOrigBase" style="display:none"></div>
+              <div class="np-price"><span class="np-sym" id="sym1">€</span><span id="npPriceBase">49.99</span><span class="np-per-yr" data-i18n="per-yr">/ano</span></div>
+              <div class="np-mo" id="npMoBaseWrap">≈ <span class="np-sym">€</span><span id="npMoBase">4.16</span><span data-i18n="per-month-short">/mês</span></div>
+            </div>
+            <div class="np-amb-badge" id="npAmbBase" style="display:none" data-i18n="amb-price-badge">Embaixador · 50% DESC.</div>
+          </div>
+          <div class="np-divider"></div>
+          <!-- Premium annual -->
+          <div class="np-plan" id="npAnnualPrem">
+            <div class="np-plan-name" data-i18n="plan-premium">Premium</div>
+            <div class="np-plan-price-wrap">
+              <div class="np-orig" id="npOrigPrem" style="display:none"></div>
+              <div class="np-price np-price-gold"><span class="np-sym" id="sym2">€</span><span id="npPricePrem">99.99</span><span class="np-per-yr" data-i18n="per-yr">/ano</span></div>
+              <div class="np-mo" id="npMoPremWrap">≈ <span class="np-sym">€</span><span id="npMoPrem">8.33</span><span data-i18n="per-month-short">/mês</span></div>
+            </div>
+            <div class="np-amb-badge" id="npAmbPrem" style="display:none" data-i18n="amb-price-badge">Embaixador · 50% DESC.</div>
+          </div>
+        </div>
+        <!-- Ambassador banner -->
+        <div class="amb-price-banner" id="ambPriceBanner" style="display:none">
+          <span class="amb-price-banner-crown">👑</span>
+          <span data-i18n="amb-banner-text">Oferta embaixador — <strong>50% de desconto</strong> nos planos anuais.</span>
+        </div>
+        <a href="#" class="np-cta np-cta-primary" data-i18n="trial-btn">Começar o Teste Gratuito de 3 Dias</a>
+        <p class="np-trial-note" data-i18n="np-trial-note">Grátis 3 dias · Cancela quando quiseres · via App Store</p>
+      </div>
+
+      <!-- BASE MENSAL -->
+      <div class="np-card np-monthly">
+        <div class="np-title" data-i18n="plan-base">Base</div>
+        <div class="np-plan-type" data-i18n="np-monthly-title">Mensal</div>
+        <div class="np-plan">
+          <div class="np-price">€4.99<span class="np-per-yr" data-i18n="per-month-short">/mês</span></div>
+        </div>
+        <a href="#" class="np-cta np-cta-secondary" data-i18n="trial-btn">Começar o Teste Gratuito de 3 Dias</a>
+        <p class="np-trial-note" data-i18n="np-trial-note">Grátis 3 dias · Cancela quando quiseres · via App Store</p>
+      </div>
+
+      <!-- PREMIUM MENSAL -->
+      <div class="np-card np-monthly np-monthly-premium">
+        <div class="np-title np-title-gold" data-i18n="plan-premium">Premium</div>
+        <div class="np-plan-type" data-i18n="np-monthly-title">Mensal</div>
+        <div class="np-plan">
+          <div class="np-price np-price-gold">€9.99<span class="np-per-yr" data-i18n="per-month-short">/mês</span></div>
+        </div>
+        <a href="#" class="np-cta np-cta-secondary np-cta-gold" data-i18n="trial-btn">Começar o Teste Gratuito de 3 Dias</a>
+        <p class="np-trial-note" data-i18n="np-trial-note">Grátis 3 dias · Cancela quando quiseres · via App Store</p>
+      </div>
+
+      <!-- SHAKE TO WIN -->
+      <div class="sw-card reveal d1">
+        <div class="sw-phone-wrap">
+          <div class="sw-phone sw-phone-dark" id="swPhoneShake">
+            <!-- Shake state: idle -->
+            <div class="sw-shake-idle" id="swShakeIdle">
+              <div class="sw-shake-icon" id="swShakeIcon">📱</div>
+              <p class="sw-shake-hint" data-i18n="sw-shake-prompt">Shake your iPhone</p>
+            </div>
+            <!-- Shake state: result -->
+            <div class="sw-discount-panel" id="swDiscountPanel">
+              <div class="sw-confetti" id="swConfetti"></div>
+              <div class="sw-discount-badge">
+                <div class="sw-discount-pct" id="swDiscountPct">30%</div>
+                <div class="sw-discount-off" data-i18n="sw-off">OFF</div>
+              </div>
+              <p class="sw-discount-sub" data-i18n="sw-discount-sub">Send to a friend · Expires in 48h</p>
+              <div class="sw-send-row">
+                <div class="sw-send-btn">💬</div>
+                <div class="sw-send-btn">✉️</div>
+                <div class="sw-send-btn" style="font-size:11px;font-weight:800">AirDrop</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sw-text">
+          <div class="sw-gesture-badge">📳 <span data-i18n="sw-gesture-shake">Shake your iPhone</span></div>
+          <h3 class="sw-h3" data-i18n="sw-shake-title">Win a discount. Give it away.</h3>
+          <p class="sw-desc" data-i18n="sw-shake-desc">Shake your iPhone and MIVLA draws a random discount — 10%, 30%, 50% or even a free Premium month. Send it to whoever you want to protect. They get MIVLA cheaper. You get the satisfaction of having protected someone.</p>
+          <div class="sw-detail" data-i18n="sw-shake-detail">✓ Random draw &nbsp;·&nbsp; ✓ Send via WhatsApp or iMessage &nbsp;·&nbsp; ✓ Expires in 48h</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+/* ══ SHARE & WIN ══ */
+.sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:56px;align-items:start}
+.sw-card{background:#fff;border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:0 4px 24px rgba(10,22,40,0.07);padding:32px 28px 28px;display:flex;flex-direction:column;gap:28px}
+.sw-phone-wrap{display:flex;justify-content:center}
+.sw-phone{
+  width:220px;height:190px;background:#0D1B3E;border-radius:20px;
+  position:relative;overflow:hidden;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  box-shadow:0 12px 40px rgba(13,27,62,0.3),0 0 0 1px rgba(255,255,255,0.06);
+}
+.sw-phone-dark{background:#070E1C}
+
+/* Semaphore bar */
+.sw-sem-bar{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(13,27,62,0.92);border-radius:100px;
+  padding:10px 18px 10px 10px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.3);
+  position:absolute;
+  transition:transform 0.55s cubic-bezier(0.16,1,0.3,1),opacity 0.4s;
+}
+.sw-sem-bar.swiped{transform:translateX(-260px);opacity:0}
+.sw-sem-dot{width:32px;height:32px;border-radius:50%;flex-shrink:0}
+.sw-sem-dot.green{background:#22C55E;box-shadow:0 0 0 5px rgba(34,197,94,.2),0 0 16px rgba(34,197,94,.5)}
+.sw-sem-dot.yellow{background:#F59E0B;box-shadow:0 0 0 5px rgba(245,158,11,.2),0 0 16px rgba(245,158,11,.5)}
+.sw-sem-dot.red{background:#EF4444;box-shadow:0 0 0 5px rgba(239,68,68,.2),0 0 16px rgba(239,68,68,.5)}
+.sw-sem-label{color:#fff;font-size:14px;font-weight:700;white-space:nowrap}
+
+/* QR panel */
+.sw-qr-panel{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  position:absolute;opacity:0;transform:scale(0.85);
+  transition:opacity 0.4s 0.2s,transform 0.4s 0.2s cubic-bezier(0.16,1,0.3,1);
+}
+.sw-qr-panel.visible{opacity:1;transform:scale(1)}
+.sw-qr-code{background:#fff;border-radius:10px;padding:8px;box-shadow:0 4px 16px rgba(0,0,0,0.3)}
+.sw-qr-label{color:rgba(255,255,255,0.7);font-size:11px;font-weight:600;letter-spacing:.04em}
+
+/* Scan line animation */
+@keyframes swScan{0%{transform:translateY(0)}100%{transform:translateY(56px)}}
+.sw-scan-line{animation:swScan 1.8s ease-in-out infinite alternate}
+
+/* Swipe hint */
+.sw-swipe-hint{
+  position:absolute;bottom:14px;
+  display:flex;align-items:center;gap:5px;
+  color:rgba(255,255,255,0.4);font-size:11px;font-weight:600;
+  animation:swHintBounce 1.6s ease-in-out infinite;
+}
+.sw-swipe-hint.gone{display:none}
+.sw-arrow{font-size:14px;animation:swArrowSlide 1.6s ease-in-out infinite}
+@keyframes swHintBounce{0%,100%{opacity:.4}50%{opacity:.8}}
+@keyframes swArrowSlide{0%,100%{transform:translateX(0)}50%{transform:translateX(-4px)}}
+
+/* Shake phone */
+.sw-shake-idle{display:flex;flex-direction:column;align-items:center;gap:10px}
+.sw-shake-icon{font-size:44px;animation:swShakeAnim 2.4s ease-in-out infinite}
+.sw-shake-hint{color:rgba(255,255,255,0.55);font-size:12px;font-weight:600}
+@keyframes swShakeAnim{
+  0%,100%{transform:rotate(0deg) translateX(0)}
+  8%{transform:rotate(-8deg) translateX(-4px)}
+  16%{transform:rotate(8deg) translateX(4px)}
+  24%{transform:rotate(-6deg) translateX(-3px)}
+  32%{transform:rotate(6deg) translateX(3px)}
+  40%{transform:rotate(0deg) translateX(0)}
+}
+
+/* Discount panel */
+.sw-discount-panel{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  position:absolute;opacity:0;transform:scale(0.8);
+  transition:opacity 0.4s,transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.sw-discount-panel.popped{opacity:1;transform:scale(1)}
+.sw-discount-badge{
+  width:110px;height:110px;border-radius:50%;
+  background:linear-gradient(135deg,#3B5BDB 0%,#5C7CFA 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 0 0 8px rgba(59,91,219,0.2),0 8px 32px rgba(59,91,219,0.5);
+  animation:swPulseBlue 2s ease-in-out infinite;
+}
+@keyframes swPulseBlue{0%,100%{box-shadow:0 0 0 8px rgba(59,91,219,0.2),0 8px 32px rgba(59,91,219,0.5)}50%{box-shadow:0 0 0 14px rgba(59,91,219,0.1),0 8px 40px rgba(59,91,219,0.7)}}
+.sw-discount-pct{font-size:32px;font-weight:900;color:#fff;line-height:1}
+.sw-discount-off{font-size:12px;font-weight:800;color:rgba(255,255,255,0.8);letter-spacing:.1em}
+.sw-discount-sub{color:rgba(255,255,255,0.5);font-size:10px;font-weight:600;text-align:center}
+.sw-send-row{display:flex;gap:8px}
+.sw-send-btn{
+  background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);
+  border-radius:8px;padding:5px 10px;font-size:16px;
+  color:#fff;cursor:default;
+}
+
+/* Confetti */
+.sw-confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:20px}
+@keyframes swFetti{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(220px) rotate(720deg);opacity:0}}
+
+/* Text side */
+.sw-gesture-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(59,91,219,0.08);border:1px solid rgba(59,91,219,0.18);
+  border-radius:100px;padding:5px 14px;
+  font-size:12px;font-weight:700;color:var(--blue);
+  margin-bottom:8px;
+}
+.sw-h3{font-size:20px;font-weight:800;color:var(--navy);line-height:1.25;margin-bottom:10px}
+.sw-desc{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px}
+.sw-detail{font-size:12px;color:var(--blue);font-weight:600;letter-spacing:.01em}
+
+@media(max-width:768px){
+  .sw-grid{grid-template-columns:1fr;gap:24px}
+  .sw-card{padding:24px 20px}
+  .sw-phone{width:180px;height:160px}
+}
+</style>
+
+<script>
+
+/* ── Step 04 drag animation ── */
+(function(){
+  var positions = [
+    {x:8,  y:12, color:'#22C55E', shadow:'rgba(34,197,94,0.5)',  label:'hw4-low'},
+    {x:52, y:8,  color:'#F59E0B', shadow:'rgba(245,158,11,0.5)', label:'hw4-mod'},
+    {x:78, y:55, color:'#EF4444', shadow:'rgba(239,68,68,0.6)',  label:'hw4-high'},
+    {x:18, y:70, color:'#22C55E', shadow:'rgba(34,197,94,0.5)',  label:'hw4-low'},
+  ];
+  var labelMap = {
+    'hw4-low':  {en:'Low Risk',      pt:'Baixo Risco',   es:'Bajo Riesgo',    fr:'Faible Risque',  it:'Rischio Basso',   de:'Nied. Risiko', id:'Risiko Rendah'},
+    'hw4-mod':  {en:'Moderate Risk', pt:'Risco Moderado',es:'Riesgo Moderado',fr:'Risque Modéré',  it:'Rischio Moderato',de:'Mod. Risiko',   id:'Risiko Sedang'},
+    'hw4-high': {en:'High Risk',     pt:'Alto Risco',    es:'Alto Riesgo',    fr:'Risque Élevé',   it:'Rischio Alto',    de:'Hoh. Risiko',  id:'Risiko Tinggi'},
+  };
+  var posIdx = 0;
+  var trail = [];
+  var animFrame;
+
+  function getLang(){ return typeof currentLang !== 'undefined' ? currentLang : 'en'; }
+
+  function getLabel(key){
+    var lang = getLang();
+    var map = labelMap[key] || labelMap['hw4-low'];
+    return map[lang] || map[lang.split('-')[0]] || map['en'];
+  }
+
+  function animateDrag(){
+    var wrap = document.getElementById('hwDragWrap');
+    var sem  = document.getElementById('hwMiniSem');
+    var dot  = document.getElementById('hwMiniDot');
+    var lbl  = document.getElementById('hwMiniLabel');
+    var trailEl = document.getElementById('hwDragTrail');
+    if(!wrap || !sem) return;
+
+    var W = wrap.offsetWidth || 52;
+    var H = wrap.offsetHeight || 52;
+    var from = positions[posIdx % positions.length];
+    var to   = positions[(posIdx + 1) % positions.length];
+    posIdx++;
+
+    // Update colour + label for destination
+    dot.style.background = to.color;
+    dot.style.boxShadow  = '0 0 0 3px rgba(0,0,0,0.1), 0 0 10px ' + to.shadow;
+    lbl.textContent = getLabel(to.label);
+
+    var startX = from.x / 100 * (W - 10) - W/2;
+    var startY = from.y / 100 * (H - 4)  - H/2;
+    var endX   = to.x   / 100 * (W - 10) - W/2;
+    var endY   = to.y   / 100 * (H - 4)  - H/2;
+
+    var startTime = null;
+    var dur = 900;
+
+    // Spawn a trail ghost
+    function spawnTrail(px, py){
+      var d = document.createElement('div');
+      d.className = 'hw-trail-dot';
+      d.style.left = (px + W/2) + 'px';
+      d.style.top  = (py + H/2) + 'px';
+      var sz = 6 + Math.random()*4;
+      d.style.width  = sz + 'px';
+      d.style.height = sz + 'px';
+      trailEl.appendChild(d);
+      setTimeout(function(){ d.style.opacity='0'; }, 200);
+      setTimeout(function(){ if(d.parentNode) d.parentNode.removeChild(d); }, 600);
+    }
+
+    var lastTrail = 0;
+
+    function step(ts){
+      if(!startTime) startTime = ts;
+      var p = Math.min(1, (ts - startTime) / dur);
+      // Ease in-out cubic
+      var e = p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p+2,3)/2;
+
+      var cx = startX + (endX - startX) * e;
+      var cy = startY + (endY - startY) * e;
+      sem.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
+
+      // Trail every 80ms
+      if(ts - lastTrail > 80 && p > 0.05 && p < 0.95){
+        spawnTrail(cx, cy);
+        lastTrail = ts;
+      }
+
+      if(p < 1){
+        animFrame = requestAnimationFrame(step);
+      } else {
+        // Pause then animate to next position
+        setTimeout(animateDrag, 900);
+      }
+    }
+
+    animFrame = requestAnimationFrame(step);
+  }
+
+  function startDrag(){
+    var card = document.getElementById('hwDrag');
+    if(!card){ setTimeout(startDrag, 300); return; }
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ animateDrag(); obs.disconnect(); }
+      });
+    }, {threshold:0.4});
+    obs.observe(card);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', startDrag);
+  } else { startDrag(); }
+})();
+
+
+/* ── AMBASSADOR LAUNCH SYSTEM ── */
+(function(){
+
+  // ── 1. Read ?ref= from URL ──────────────────────────────────────────
+  var refId = (new URLSearchParams(window.location.search)).get('ref') || '';
+  var hasRef = refId.length > 0;
+
+  // ── 2. Countdown to 72h from first page load ─────────────────────────
+  // Target = launch date + 3 days. We use April 1 2026 10:00 UTC as T0.
+  var launch = new Date('2026-04-01T10:00:00Z').getTime();
+  var expire = launch + (72 * 60 * 60 * 1000);
+
+  function updateCountdown(){
+    var now  = Date.now();
+    var diff = Math.max(0, expire - now);
+    var h = Math.floor(diff / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    var pad = function(n){ return n < 10 ? '0'+n : ''+n; };
+    var dEl = document.getElementById('cdD');
+    var mEl = document.getElementById('cdM');
+    var sEl = document.getElementById('cdS');
+    if(dEl) dEl.textContent = pad(h);
+    if(mEl) mEl.textContent = pad(m);
+    if(sEl) sEl.textContent = pad(s);
+    if(diff > 0) setTimeout(updateCountdown, 1000);
+  }
+  updateCountdown();
+
+  // ── 3. Activate ambassador mode if ref present ────────────────────────
+  function activateAmbassador(){
+    var wrap   = document.getElementById('ambDiscountWrap');
+    var teaser = document.getElementById('ambTeaser');
+    var refEl  = document.getElementById('ambRefId');
+    var cta    = document.getElementById('ambCta');
+
+    if(wrap)   wrap.style.display   = 'flex';
+    if(teaser) teaser.style.display = 'none';
+
+    if(refEl) refEl.textContent = '🔑 ' + refId.toUpperCase();
+
+    // Update CTA to go direct to App Store (with ref param in URL for tracking)
+    if(cta){
+      cta.href = 'https://apps.apple.com/app/mivla/id0000000000?ref=' + encodeURIComponent(refId);
+      cta.target = '_blank';
+      var lang = typeof currentLang !== 'undefined' ? currentLang : 'en';
+      var ctaLabels = {
+        en: 'Claim your 50% — Install now',
+        pt: 'Activa o teu desconto de 50% — Instala agora',
+        'pt-br': 'Ative seu desconto de 50% — Instale agora',
+        es: 'Activa tu 50% — Instala ahora',
+        fr: 'Activez vos 50% — Installez maintenant',
+        it: 'Attiva il tuo 50% — Installa ora',
+        de: 'Aktiviere 50% — Jetzt installieren',
+        id: 'Klaim 50% kamu — Pasang sekarang'
+      };
+      cta.textContent = ctaLabels[lang] || ctaLabels[lang.split('-')[0]] || ctaLabels['en'];
+    }
+
+    // Switch pricing to annual and reveal ambassador prices
+    if(typeof setP === 'function') setP('a');
+    // Gold shimmer on card
+    var card = document.getElementById('ambCard');
+    if(card) card.classList.add('amb-activated');
+  }
+
+  if(hasRef) activateAmbassador();
+
+  // ── 4. Public shake slot machine ──────────────────────────────────────
+  var pctVals = ['10%','20%','30%','50%','FREE'];
+  var pctIdx  = 0;
+  var pctEl   = document.getElementById('pubShakePct');
+  if(pctEl){
+    setInterval(function(){
+      pctIdx = (pctIdx + 1) % pctVals.length;
+      pctEl.textContent = pctVals[pctIdx];
+    }, 1400);
+  }
+
+  // ── 5. Hook setLang to update ambassador CTA if activated ─────────────
+  var _origSetLang = window.setLang;
+  if(typeof _origSetLang === 'function'){
+    window.setLang = function(lang, flag, code, sym, currency, evt){
+      _origSetLang.apply(this, arguments);
+      if(hasRef) activateAmbassador();
+    };
+  }
+
+})();
+
+/* ── SHARE & WIN animations ── */
+(function(){
+  // QR swipe animation
+  var swSwiped = false;
+  var swTimer;
+  function runQR(){
+    var bar = document.getElementById('swSemBar');
+    var qr = document.getElementById('swQrPanel');
+    var hint = document.getElementById('swHint');
+    if(!bar || !qr) return;
+    // Reset
+    bar.classList.remove('swiped');
+    qr.classList.remove('visible');
+    hint && hint.classList.remove('gone');
+    // After 2.5s swipe
+    swTimer = setTimeout(function(){
+      bar.classList.add('swiped');
+      hint && hint.classList.add('gone');
+      setTimeout(function(){
+        qr.classList.add('visible');
+        // Reset after 3.5s
+        setTimeout(runQR, 3500);
+      }, 300);
+    }, 2500);
+  }
+
+  // Shake animation
+  var discounts = ['10%','20%','30%','50%','FREE'];
+  var shakeIdx = 0;
+  function runShake(){
+    var idle = document.getElementById('swShakeIdle');
+    var panel = document.getElementById('swDiscountPanel');
+    var pct = document.getElementById('swDiscountPct');
+    if(!idle || !panel) return;
+    idle.style.opacity = '1';
+    idle.style.transform = 'scale(1)';
+    panel.classList.remove('popped');
+    panel.style.opacity = '0';
+    panel.style.transform = 'scale(0.8)';
+    // After 2.2s shake reveals discount
+    setTimeout(function(){
+      idle.style.opacity = '0';
+      idle.style.transform = 'scale(0.8)';
+      if(pct) pct.textContent = discounts[shakeIdx % discounts.length];
+      shakeIdx++;
+      spawnConfetti();
+      setTimeout(function(){
+        panel.classList.add('popped');
+        // Reset after 3.5s
+        setTimeout(runShake, 3500);
+      }, 200);
+    }, 2200);
+  }
+
+  function spawnConfetti(){
+    var c = document.getElementById('swConfetti');
+    if(!c) return;
+    c.innerHTML = '';
+    var cols = ['#3B5BDB','#22C55E','#F59E0B','#EF4444','#A78BFA','#fff'];
+    for(var i=0; i<18; i++){
+      var d = document.createElement('div');
+      var size = 4 + Math.random()*5;
+      d.style.cssText = 'position:absolute;border-radius:2px;'+
+        'width:'+size+'px;height:'+size+'px;'+
+        'left:'+(10+Math.random()*80)+'%;'+
+        'top:-10px;'+
+        'background:'+cols[Math.floor(Math.random()*cols.length)]+';'+
+        'animation:swFetti '+(1.2+Math.random()*.8)+'s '+(Math.random()*.4)+'s ease-out forwards;';
+      c.appendChild(d);
+    }
+  }
+
+  // Start when elements are in view
+  function startSW(){
+    var card = document.querySelector('.sw-card');
+    if(!card){ setTimeout(startSW, 200); return; }
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          runQR();
+          runShake();
+          obs.disconnect();
+        }
+      });
+    }, {threshold:0.3});
+    obs.observe(card);
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', startSW);
+  } else { startSW(); }
+})();
+</script>
+
+
+
+<!-- IN ACTION -->
+<section class="sec sec-alt" id="action">
+  <div class="wrap">
+    <div class="eyebrow reveal" data-i18n="action-eyebrow">Real examples</div>
+    <h2 class="h2 reveal"><span data-i18n="action-title">The same feed. <span class="hl">A different clarity.</span></span></h2>
+    <p class="subline reveal" data-i18n="action-sub">Real content. Real detections. What MIVLA sees as you scroll.</p>
+    <div class="act-grid">
+      <div class="ac reveal">
+        <div class="ac-head">
+          <div class="ac-src"><span class="ac-src-dot" style="background:var(--green)"></span>YouTube · @QuantumCosmicSpace</div>
+          <div class="ac-thumb"><div style="text-align:center"><div style="font-size:22px;margin-bottom:6px">🎓</div><div style="font-size:12px;font-weight:600;color:var(--navy)">Yale professor · Susskind<br>Quantum Mechanics</div><div style="font-size:10px;color:var(--dim);margin-top:3px">210K likes · verified</div></div></div>
+          <div class="ac-sig g"><div class="ac-sig-dot"></div><span data-i18n="ac-sig-g">Low Risk — Authentic</span></div>
+        </div>
+        <div class="ac-body"><div class="ac-why" data-i18n="ac-why">What MIVLA saw</div><p data-i18n="ac-body-g">All 8 layers clear. Verified institutional source. Authentic visual signatures. No manipulation signals.</p></div>
+      </div>
+      <div class="ac reveal d1">
+        <div class="ac-head">
+          <div class="ac-src"><span class="ac-src-dot" style="background:var(--yellow)"></span>Instagram · @palestine.pixel</div>
+          <div class="ac-thumb"><div style="text-align:center"><div style="font-size:22px;margin-bottom:6px">🏛️</div><div style="font-size:12px;font-weight:600;color:var(--navy)">Trump at "Who Wants to<br>be a Millionaire"</div><div style="font-size:10px;color:var(--dim);margin-top:3px">23.8K likes</div></div></div>
+          <div class="ac-sig y"><div class="ac-sig-dot"></div><span data-i18n="ac-sig-y">AI · Moderate Risk</span></div>
+        </div>
+        <div class="ac-body"><div class="ac-why" data-i18n="ac-why">What MIVLA saw</div><p data-i18n="ac-body-y">Political figure in fabricated TV context. AI composite — face inserted. No disclaimer. Both layers triggered.</p></div>
+      </div>
+      <div class="ac reveal d2">
+        <div class="ac-head">
+          <div class="ac-src"><span class="ac-src-dot" style="background:var(--red)"></span>Instagram · @anthon.tv · ✓</div>
+          <div class="ac-thumb"><div style="text-align:center"><div style="font-size:22px;margin-bottom:6px">📱</div><div style="font-size:12px;font-weight:600;color:var(--navy)">"El truco que nadie<br>quiere contarte 😱"</div><div style="font-size:10px;color:var(--dim);margin-top:3px">APP PARA NO QUEDARME SIN SEÑAL</div></div></div>
+          <div class="ac-sig r"><div class="ac-sig-dot"></div><span data-i18n="ac-sig-r">High Risk — Phishing</span></div>
+        </div>
+        <div class="ac-body"><div class="ac-why" data-i18n="ac-why">What MIVLA saw</div><p data-i18n="ac-body-r">Classic phishing pattern. Urgency + fake app + "nadie quiere contarte". Hard override — 1 of 7 languages.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- WHO -->
+<section class="sec" id="who">
+  <div class="wrap">
+    <div class="eyebrow reveal" data-i18n="who-eyebrow">Who it protects</div>
+    <h2 class="h2 reveal"><span data-i18n="who-title">Built for the person who <span class="hl">doesn't know they need it.</span></span></h2>
+    <div class="who-grid">
+
+      <div class="wc wc-war reveal" id="wcWar">
+        <div class="wc-bg"></div>
+        <video class="wc-canvas" id="vidwcWar" autoplay muted loop playsinline></video>
+        <div class="wc-overlay"></div>
+        <div class="wc-content">
+          <div class="wc-icon">🌍</div>
+          <div class="wc-title" data-i18n="who1-title">Active conflicts</div>
+          <p class="wc-desc"><span data-i18n="who1-desc">In war zones, deepfakes are weapons — fake atrocities, fabricated victories, false casualty numbers. MIVLA's war context multiplier raises the alert threshold automatically for military content.</span></p>
+          <div class="wc-note"><span data-i18n="who1-note">The most dangerous deepfakes are the ones during war.</span></div>
+        </div>
+      </div>
+
+      <div class="wc wc-parents reveal d1" id="wcParents">
+        <div class="wc-bg"></div>
+        <video class="wc-canvas" id="vidwcParents" autoplay muted loop playsinline></video>
+        <div class="wc-overlay"></div>
+        <div class="wc-content">
+          <div class="wc-icon">👴</div>
+          <div class="wc-title" data-i18n="who2-title">Your parents</div>
+          <p class="wc-desc"><span data-i18n="who2-desc">They share what they see. They trust what looks real. MIVLA gives them a quiet second opinion — without changing how they use their phone.</span></p>
+          <div class="wc-note"><span data-i18n="who2-note">Install it on their device. It runs silently.</span></div>
+        </div>
+      </div>
+
+      <div class="wc wc-elections reveal d2" id="wcElections">
+        <div class="wc-bg"></div>
+        <video class="wc-canvas" id="vidwcElections" autoplay muted loop playsinline></video>
+        <div class="wc-overlay"></div>
+        <div class="wc-content">
+          <div class="wc-icon">🗳</div>
+          <div class="wc-title" data-i18n="who3-title">Elections worldwide</div>
+          <p class="wc-desc"><span data-i18n="who3-desc">Fake videos of candidates, fabricated speeches, manipulated rallies. MIVLA automatically raises detection sensitivity during electoral periods.</span></p>
+          <div class="wc-note"><span data-i18n="who3-note">One deepfake can change a vote.</span></div>
+        </div>
+      </div>
+
+      <div class="wc wc-fifa reveal d3" id="wcFifa">
+        <div class="wc-bg"></div>
+        <video class="wc-canvas" id="vidwcFifa" autoplay muted loop playsinline></video>
+        <div class="wc-overlay"></div>
+        <div class="wc-content">
+          <div class="wc-icon">⚽</div>
+          <div class="wc-title" data-i18n="who4-title">FIFA World Cup 2026</div>
+          <p class="wc-desc"><span data-i18n="who4-desc">Player deepfakes, fake injury reports, betting scams, fabricated results. The World Cup is the single largest misinformation event on the calendar.</span></p>
+          <div class="wc-note"><span data-i18n="who4-note">Available on iOS & Android — aligned with the World Cup.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- PLATFORMS -->
+<section class="sec sec-alt" style="text-align:center">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="justify-content:center" data-i18n="plat-eyebrow">Coverage</div>
+    <h2 class="h2 reveal" style="text-align:center"><span data-i18n="plat-title">Todas as cinco. <span class="hl">Uma só app.</span></span></h2>
+    <div class="plat-row" style="margin-top:72px">
+      <div class="pi reveal"><div class="pi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none"><defs><linearGradient id="ig" x1="0" y1="80" x2="80" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFDC80"/><stop offset=".25" stop-color="#F77737"/><stop offset=".5" stop-color="#E1306C"/><stop offset=".75" stop-color="#833AB4"/><stop offset="1" stop-color="#405DE6"/></linearGradient></defs><rect width="80" height="80" rx="18" fill="url(#ig)"/><rect x="13" y="13" width="54" height="54" rx="14" stroke="white" stroke-width="5"/><circle cx="40" cy="40" r="13" stroke="white" stroke-width="5"/><circle cx="57.5" cy="22.5" r="4.5" fill="white"/></svg></div><span class="pi-name">Instagram</span></div>
+      <div class="pi reveal d1"><div class="pi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#010101"/><path d="M44 14h10c1 7 5 10 12 11v9c-4 0-8-2-12-5v23c0 10-8 18-18 18S18 62 18 52s8-18 18-18l3 .3V44l-3-.2c-5 0-9 4-9 9s4 9 9 9 9-4 9-9V14z" fill="#25F4EE" transform="translate(-2,0)"/><path d="M44 14h10c1 7 5 10 12 11v9c-4 0-8-2-12-5v23c0 10-8 18-18 18S18 62 18 52s8-18 18-18l3 .3V44l-3-.2c-5 0-9 4-9 9s4 9 9 9 9-4 9-9V14z" fill="#FE2C55" transform="translate(2,0)"/><path d="M44 14h10c1 7 5 10 12 11v9c-4 0-8-2-12-5v23c0 10-8 18-18 18S18 62 18 52s8-18 18-18l3 .3V44l-3-.2c-5 0-9 4-9 9s4 9 9 9 9-4 9-9V14z" fill="white"/></svg></div><span class="pi-name">TikTok</span></div>
+      <div class="pi reveal d2"><div class="pi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#FF0000"/><rect x="8" y="23" width="64" height="34" rx="9" fill="white"/><polygon points="33,31 33,49 51,40" fill="#FF0000"/></svg></div><span class="pi-name">YouTube</span></div>
+      <div class="pi reveal d3"><div class="pi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#1877F2"/><path d="M42 80V52H54L56 40H42V31C42 27 44 25 48 25H56V14C56 14 51 13 47 13C36 13 30 19 30 30V40H20V52H30V80Z" fill="white"/></svg></div><span class="pi-name">Facebook</span></div>
+      <div class="pi reveal d4"><div class="pi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" rx="18" fill="#000"/><path d="M16 16H28L64 64H52Z M64 16H52L16 64H28Z" fill="white"/></svg></div><span class="pi-name">X</span></div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- PREMIUM IN ACTION -->
+<section class="premium-sec" id="premium">
+  <div class="wrap">
+    <span class="eyebrow reveal" data-i18n="prem-eyebrow">Premium — what you actually see</span>
+    <h2 class="h2 reveal"><span data-i18n="prem-h2">Base shows the signal.<br><span class="hl">Premium explains why.</span></span></h2>
+    <p class="subline reveal" data-i18n="prem-sub">Same content. Same analysis. Premium opens the full report — layer by layer, signal by signal.</p>
+
+    <!-- Row 1: Result + Conclusion -->
+    <div class="premium-grid reveal">
+      <div class="prem-phone">
+        <div class="prem-phone-title">MIVLA™</div>
+
+        <!-- Top result card -->
+        <div class="prem-result">
+          <div class="prem-shield">
+            ✓
+            <div class="prem-ai-badge">AI</div>
+          </div>
+          <div>
+            <div class="prem-score">85%</div>
+            <div class="prem-verdict" data-i18n="prem-verdict1">No risk signals detected</div>
+          </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="prem-conclusion">
+          <div style="font-size:22px">✅</div>
+          <div class="prem-conc-title" data-i18n="prem-verdict1">No risk signals detected</div>
+          <div class="prem-conc-desc" data-i18n="prem-conc-desc1">AI-generated content with no deceptive intent detected. Likely creative or entertainment.</div>
+        </div>
+
+        <!-- What we checked -->
+        <div class="prem-checked">
+          <div class="prem-checked-title" data-i18n="prem-checked-title">What we checked</div>
+          <div class="prem-check-item"><div class="prem-check-dot">✓</div><span data-i18n="prem-chk1">Anomalous signal detected in content</span></div>
+          <div class="prem-check-item"><div class="prem-check-dot">✓</div><span data-i18n="prem-chk2">Source reputation verified</span></div>
+          <div class="prem-check-item"><div class="prem-check-dot">✓</div><span data-i18n="prem-chk3">No physical plausibility issues</span></div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="prem-feedback">
+          <div class="prem-fb-btn correct" data-i18n="prem-fb-ok">👍 Correct</div>
+          <div class="prem-fb-btn wrong" data-i18n="prem-fb-ng">👎 Wrong</div>
+        </div>
+
+        <div style="font-size:10px;color:rgba(255,255,255,0.25);text-align:center;line-height:1.5" data-i18n="prem-mivla-note">MIVLA shows probabilities, not certainties.<br>Best commercial detectors reach ~78% accuracy.</div>
+      </div>
+
+      <div class="prem-text">
+        <ul class="prem-feature-list">
+          <li>
+            <div class="prem-feat-icon">📊</div>
+            <div>
+              <span class="prem-feat-title" data-i18n="pf1-title">Full risk verdict</span>
+              <span data-i18n="pf1-desc">The probability score, the risk level and a plain-language conclusion — what was found and what it likely means.</span>
+            </div>
+          </li>
+          <li>
+            <div class="prem-feat-icon">🔍</div>
+            <div>
+              <span class="prem-feat-title" data-i18n="pf2-title">What we checked</span>
+              <span data-i18n="pf2-desc">Every signal that fired — source reputation, visual anomalies, physical plausibility — listed clearly so you understand the result.</span>
+            </div>
+          </li>
+          <li>
+            <div class="prem-feat-icon">👍</div>
+            <div>
+              <span class="prem-feat-title" data-i18n="pf3-title">Your feedback trains MIVLA</span>
+              <span data-i18n="pf3-desc">"Correct / Wrong" buttons let you tell MIVLA when it got it right or wrong. Your corrections become ground truth for future model retraining.</span>
+            </div>
+          </li>
+          <li>
+            <div class="prem-feat-icon">📸</div>
+            <div>
+              <span class="prem-feat-title" data-i18n="pf4-title">Screenshot analysis</span>
+              <span data-i18n="pf4-desc">Received a suspicious WhatsApp or email? Screenshot it and MIVLA analyses it with the same 8-layer system — outside the 5 platforms.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Row 2: Layer breakdown (Founder view simplified) -->
+    <div class="premium-grid reverse reveal" style="margin-top:64px">
+      <div class="prem-phone">
+        <div class="prem-phone-title">MIVLA™</div>
+
+        <div class="prem-result">
+          <div class="prem-shield">✓</div>
+          <div>
+            <div class="prem-score">85%</div>
+            <div class="prem-verdict" data-i18n="prem-verdict2">Low Risk · 16 frames · OCR: 277 chars</div>
+          </div>
+        </div>
+
+        <div class="prem-layers">
+          <div class="prem-layers-title" data-i18n="prem-layers-title">Detection layers</div>
+          <div class="prem-layer-row">
+            <div class="prem-layer-id">C0</div>
+            <div class="prem-layer-name" data-i18n="prem-l-c0">Forensic proof</div>
+            <div style="flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.08)"></div>
+            <div class="prem-layer-pct" style="color:rgba(255,255,255,0.25)">—</div>
+          </div>
+          <div class="prem-layer-row">
+            <div class="prem-layer-id">C1</div>
+            <div class="prem-layer-name" style="color:#fff;font-weight:700" data-i18n="prem-l-c1">OCR semantic</div>
+            <div style="flex:1;height:4px;border-radius:2px;background:linear-gradient(90deg,#A78BFA 92%,rgba(255,255,255,0.08) 92%)"></div>
+            <div class="prem-layer-pct" style="color:#A78BFA">92%</div>
+            <div class="prem-layer-badge lbadge-override">OVERRIDE</div>
+          </div>
+          <div class="prem-layer-row">
+            <div class="prem-layer-id">C2</div>
+            <div class="prem-layer-name" style="color:#fff;font-weight:700" data-i18n="prem-l-c2">Source intel</div>
+            <div style="flex:1;height:4px;border-radius:2px;background:linear-gradient(90deg,#22C55E 90%,rgba(255,255,255,0.08) 90%)"></div>
+            <div class="prem-layer-pct" style="color:#22C55E">90%</div>
+            <div class="prem-layer-badge lbadge-ok">OK</div>
+          </div>
+          <div class="prem-layer-row">
+            <div class="prem-layer-id">C3</div>
+            <div class="prem-layer-name" data-i18n="prem-l-c3">Plausibility</div>
+            <div style="flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.08)"></div>
+            <div class="prem-layer-pct" style="color:rgba(255,255,255,0.25)">—</div>
+          </div>
+          <div class="prem-layer-row">
+            <div class="prem-layer-id">C4</div>
+            <div class="prem-layer-name" data-i18n="prem-l-c4">Claim vs. visual</div>
+            <div style="flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.08)"></div>
+            <div class="prem-layer-pct" style="color:rgba(255,255,255,0.25)">—</div>
+          </div>
+          <div class="prem-layer-row">
+            <div class="prem-layer-id">C5</div>
+            <div class="prem-layer-name" style="color:#fff;font-weight:700" data-i18n="prem-l-c5">Generator sig.</div>
+            <div style="flex:1;height:4px;border-radius:2px;background:linear-gradient(90deg,#EF4444 1%,rgba(255,255,255,0.08) 1%)"></div>
+            <div class="prem-layer-pct" style="color:#EF4444">1%</div>
+            <div class="prem-layer-badge lbadge-risk">RISK</div>
+          </div>
+          <div class="prem-layer-row">
+            <div class="prem-layer-id">C6</div>
+            <div class="prem-layer-name" data-i18n="prem-l-c6">Global context</div>
+            <div style="flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,0.08)"></div>
+            <div class="prem-layer-pct" style="color:rgba(255,255,255,0.25)">—</div>
+          </div>
+          <div class="prem-layer-row">
+            <div class="prem-layer-id">C7</div>
+            <div class="prem-layer-name" style="color:#fff;font-weight:700" data-i18n="prem-l-c7">CoreML model</div>
+            <div style="flex:1;height:4px;border-radius:2px;background:linear-gradient(90deg,#F59E0B 68%,rgba(255,255,255,0.08) 68%)"></div>
+            <div class="prem-layer-pct" style="color:#F59E0B">68%</div>
+            <div class="prem-layer-badge lbadge-alert">ALERT</div>
+          </div>
+        </div>
+
+        <div style="font-size:10px;color:rgba(255,255,255,0.25);text-align:center" data-i18n="prem-full-tag">Premium · Full layer breakdown</div>
+      </div>
+
+      <div class="prem-text">
+        <ul class="prem-feature-list">
+          <li>
+            <div class="prem-feat-icon">🧬</div>
+            <div>
+              <span class="prem-feat-title" data-i18n="pf5-title">8-layer breakdown</span>
+              <span data-i18n="pf5-desc">C0 to C7 — every detection layer shows its individual score. See exactly which layers fired, which were inconclusive, and which triggered a hard override.</span>
+            </div>
+          </li>
+          <li>
+            <div class="prem-feat-icon">⚡</div>
+            <div>
+              <span class="prem-feat-title" data-i18n="pf6-title">Override signals</span>
+              <span data-i18n="pf6-desc">When a hard override fires — OCR detected "FAKE VIDEO", C2PA metadata confirmed AI origin, or a known scam pattern matched — the report shows exactly which signal forced the result.</span>
+            </div>
+          </li>
+          <li>
+            <div class="prem-feat-icon">📄</div>
+            <div>
+              <span class="prem-feat-title"><span data-i18n="f12">Exportable PDF report</span></span>
+              <span data-i18n="pf7-desc">Save and share the full analysis as a PDF — useful for reporting to authorities, sharing with family, or keeping as evidence.</span>
+            </div>
+          </li>
+          <li>
+            <div class="prem-feat-icon">🔗</div>
+            <div>
+              <span class="prem-feat-title"><span data-i18n="f6">Fact-check with source links</span></span>
+              <span data-i18n="pf8-desc">For content with verifiable claims, MIVLA cross-references against Google Fact Check, EUvsDisinfo and trusted news sources — with links to the original verification.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AMBASSADOR LAUNCH -->
+<section class="amb-sec" id="ambassador">
+  <div class="wrap">
+
+    <!-- Header -->
+    <div class="amb-header reveal">
+      <div class="amb-date-badge">
+        <span class="amb-date-dot"></span>
+        <span data-i18n="amb-live">Live — 1 April 2026</span>
+      </div>
+      <h2 class="amb-title" data-i18n="amb-title">Today the world lies.<br><span class="amb-hl">We don't.</span></h2>
+      <p class="amb-sub" data-i18n="amb-sub">MIVLA launched today — because no other day makes more sense. If you're reading this, you were chosen. An ambassador. Your opinion is worth more than any market study.</p>
+    </div>
+
+    <!-- Two columns: ambassador offer + public -->
+    <div class="amb-grid">
+
+      <!-- LEFT: Ambassador offer -->
+      <div class="amb-card amb-card-gold reveal" id="ambCard">
+        <div class="amb-card-inner">
+          <div class="amb-crown">👑</div>
+          <div class="amb-card-title" data-i18n="amb-card-title">Ambassador Offer</div>
+
+          <!-- Discount display — shown when ref detected -->
+          <div class="amb-discount-wrap" id="ambDiscountWrap" style="display:none">
+            <div class="amb-discount-ring">
+              <div class="amb-discount-pct">50%</div>
+              <div class="amb-discount-off" data-i18n="amb-off">OFF</div>
+            </div>
+            <p class="amb-discount-label" data-i18n="amb-discount-label">Annual subscription · Base or Premium</p>
+            <div class="amb-ref-id" id="ambRefId"></div>
+          </div>
+
+          <!-- Generic teaser — shown without ref -->
+          <div class="amb-teaser" id="ambTeaser">
+            <div class="amb-teaser-pct">50%</div>
+            <p class="amb-teaser-label" data-i18n="amb-teaser-label">Reserved for ambassadors.<br>Check your email for your personal link.</p>
+          </div>
+
+          <!-- Countdown -->
+          <div class="amb-countdown" id="ambCountdown">
+            <div class="amb-cd-label" data-i18n="amb-expires">Offer expires in</div>
+            <div class="amb-cd-boxes">
+              <div class="amb-cd-box"><span id="cdD">72</span><small data-i18n="amb-hours">h</small></div>
+              <div class="amb-cd-sep">:</div>
+              <div class="amb-cd-box"><span id="cdM">00</span><small data-i18n="amb-min">m</small></div>
+              <div class="amb-cd-sep">:</div>
+              <div class="amb-cd-box"><span id="cdS">00</span><small data-i18n="amb-sec">s</small></div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <a href="#pricing" class="amb-cta" id="ambCta" data-i18n="amb-cta-generic">Install now · Explore · Break it</a>
+
+          <!-- TIREX teaser -->
+          <div class="amb-tirex-hint">
+            <span class="amb-tirex-dot">→</span>
+            <span data-i18n="amb-tirex-hint">And there's another reason this exists. <a href="#about" class="amb-tirex-link">Find it here.</a></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Public / everyone else -->
+      <div class="amb-card amb-card-public reveal d1">
+        <div class="amb-card-inner">
+          <div class="amb-crown">🎲</div>
+          <div class="amb-card-title" data-i18n="amb-public-title">Everyone else</div>
+          <p class="amb-public-desc" data-i18n="amb-public-desc">No ambassador link? No problem. The MIVLA discount isn't given — it's won. Shake your iPhone after installing and let luck decide. 10%, 30%, 50% or a free Premium month.</p>
+          <div class="amb-shake-demo">
+            <div class="amb-shake-phone">📱</div>
+            <div class="amb-shake-arrow">→</div>
+            <div class="amb-shake-result">
+              <div class="amb-shake-pct" id="pubShakePct">?</div>
+            </div>
+          </div>
+          <p class="amb-shake-note" data-i18n="amb-shake-note">Discounts expire in 48h. Share them with whoever you want to protect.</p>
+          <a href="#pricing" class="amb-cta amb-cta-s" data-i18n="amb-try">Try free for 3 days</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+/* ══ AMBASSADOR SECTION ══ */
+.amb-sec{
+  padding:100px 0;
+  background:var(--navy);
+  position:relative;overflow:hidden;
+}
+.amb-sec::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(200,164,90,0.08) 0%,transparent 60%),
+             radial-gradient(ellipse at 70% 50%,rgba(59,91,219,0.08) 0%,transparent 60%);
+  pointer-events:none;
+}
+.amb-header{text-align:center;margin-bottom:56px;position:relative}
+.amb-date-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(200,164,90,0.12);border:1px solid rgba(200,164,90,0.3);
+  border-radius:100px;padding:6px 18px;
+  font-size:12px;font-weight:700;color:#fff;letter-spacing:.06em;
+  margin-bottom:24px;
+}
+.amb-date-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold);animation:blink 2s ease-in-out infinite}
+.amb-title{font-size:clamp(32px,4.5vw,54px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.025em;margin-bottom:16px}
+.amb-hl{color:var(--gold)}
+.amb-sub{font-size:17px;color:#fff;line-height:1.75;max-width:600px;margin:0 auto}
+
+/* Grid */
+.amb-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto}
+
+/* Cards */
+.amb-card{border-radius:20px;position:relative;overflow:hidden}
+.amb-card-inner{padding:36px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;height:100%}
+
+/* Gold card */
+.amb-card-gold{
+  background:linear-gradient(135deg,#1a2442 0%,#0f1728 100%);
+  border:1px solid rgba(200,164,90,0.35);
+  box-shadow:0 0 0 1px rgba(200,164,90,0.1),0 24px 64px rgba(0,0,0,0.4),inset 0 1px 0 rgba(200,164,90,0.15);
+}
+.amb-card-gold::before{
+  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,164,90,0.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+/* Public card */
+.amb-card-public{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+}
+.amb-crown{font-size:32px}
+.amb-card-title{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff}
+.amb-card-public .amb-card-title{color:#fff}
+
+/* Discount ring */
+.amb-discount-wrap{display:flex;flex-direction:column;align-items:center;gap:10px}
+.amb-discount-ring{
+  width:120px;height:120px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(200,164,90,0.2) 0%,rgba(200,164,90,0.05) 100%);
+  border:2px solid rgba(200,164,90,0.5);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 0 0 8px rgba(200,164,90,0.06),0 0 40px rgba(200,164,90,0.2);
+  animation:ambPulse 3s ease-in-out infinite;
+}
+@keyframes ambPulse{0%,100%{box-shadow:0 0 0 8px rgba(200,164,90,0.06),0 0 40px rgba(200,164,90,0.2)}50%{box-shadow:0 0 0 16px rgba(200,164,90,0.03),0 0 60px rgba(200,164,90,0.35)}}
+.amb-discount-pct{font-size:36px;font-weight:900;color:var(--gold);line-height:1}
+.amb-discount-off{font-size:12px;font-weight:800;color:#fff;letter-spacing:.12em}
+.amb-discount-label{font-size:13px;color:#fff;line-height:1.5}
+.amb-ref-id{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(200,164,90,0.1);border:1px solid rgba(200,164,90,0.2);
+  border-radius:8px;padding:4px 12px;
+  font-size:11px;font-weight:700;color:#fff;letter-spacing:.08em;
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* Teaser (no ref) */
+.amb-teaser{display:flex;flex-direction:column;align-items:center;gap:10px}
+.amb-teaser-pct{
+  font-size:56px;font-weight:900;
+  background:linear-gradient(135deg,var(--gold) 0%,rgba(200,164,90,0.4) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;filter:blur(2px);user-select:none;
+}
+.amb-teaser-label{font-size:13px;color:#fff;line-height:1.6}
+
+/* Countdown */
+.amb-countdown{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.amb-cd-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff}
+.amb-cd-boxes{display:flex;align-items:center;gap:6px}
+.amb-cd-box{
+  background:rgba(200,164,90,0.08);border:1px solid rgba(200,164,90,0.2);
+  border-radius:8px;padding:8px 14px;min-width:52px;text-align:center;
+}
+.amb-cd-box span{font-size:22px;font-weight:800;color:var(--gold);font-family:'JetBrains Mono',monospace;display:block;line-height:1}
+.amb-cd-box small{font-size:9px;font-weight:700;letter-spacing:.1em;color:#fff;text-transform:uppercase}
+.amb-cd-sep{font-size:18px;font-weight:800;color:#fff}
+
+/* CTA buttons */
+.amb-cta{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--gold);color:#0a0e1a;
+  padding:13px 28px;border-radius:100px;
+  font-size:14px;font-weight:800;text-decoration:none;
+  letter-spacing:.02em;
+  box-shadow:0 4px 20px rgba(200,164,90,0.35);
+  transition:transform .2s,box-shadow .2s;
+  width:100%;max-width:280px;
+}
+.amb-cta:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(200,164,90,0.5)}
+.amb-cta-s{background:rgba(255,255,255,0.08);color:#fff;box-shadow:none;border:1px solid rgba(255,255,255,0.12)}
+.amb-cta-s:hover{background:rgba(255,255,255,0.12);box-shadow:none}
+
+/* TIREX hint */
+.amb-tirex-hint{font-size:12px;color:#fff;display:flex;align-items:center;gap:6px}
+.amb-tirex-dot{color:#fff;font-weight:800}
+.amb-tirex-link{color:#fff;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(200,164,90,0.3);transition:color .2s}
+.amb-tirex-link:hover{color:#fff;opacity:.8}
+
+/* Public card internals */
+.amb-public-desc{font-size:14px;color:#fff;line-height:1.75;margin:0}
+.amb-shake-demo{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 0}
+.amb-shake-phone{font-size:36px;animation:swShakeAnim 2.4s ease-in-out infinite}
+.amb-shake-arrow{font-size:18px;color:#fff}
+.amb-shake-result{
+  width:56px;height:56px;border-radius:50%;
+  background:rgba(59,91,219,0.15);border:2px solid rgba(59,91,219,0.3);
+  display:flex;align-items:center;justify-content:center;
+}
+.amb-shake-pct{font-size:14px;font-weight:900;color:#fff;font-family:'JetBrains Mono',monospace}
+.amb-shake-note{font-size:12px;color:#fff;line-height:1.6}
+
+
+.amb-card-gold.amb-activated{
+  border-color:#fff;
+  box-shadow:0 0 0 1px rgba(200,164,90,0.2),0 24px 64px rgba(0,0,0,0.4),0 0 80px rgba(200,164,90,0.12);
+}
+@media(max-width:768px){
+  .amb-grid{grid-template-columns:1fr}
+  .amb-card-inner{padding:28px 22px}
+}
+</style>
+
+<!-- PRICING -->
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <div class="eyebrow reveal" style="justify-content:center" data-i18n="price-eyebrow">Pricing</div>
+    <h2 class="h2 reveal" style="text-align:center"><span data-i18n="pricing-title">Less than two coffees a month.<br><span class="hl">No algorithm can fool you.</span></span></h2>
+    <p class="subline reveal" style="max-width:420px;margin:12px auto 0;text-align:center"><span data-i18n="you-pay">You pay for protection. Not for your data.</span></p>
+
+    <!-- Ambassador banner — shown with ?ref= -->
+    <div class="amb-price-banner reveal" id="ambPriceBanner" style="display:none">
+      <span class="amb-price-banner-crown">👑</span>
+      <span data-i18n="amb-banner-text">Ambassador offer — <strong>50% OFF</strong> on annual plans. Applied below.</span>
+    </div>
+
+    <div class="new-plans reveal">
+
       <!-- BASE ANUAL -->
       <div class="np-card np-annual">
         <div class="np-badge-row">
@@ -2705,11 +3841,11 @@ footer{background:#0A1628;padding:44px 5vw 32px;border-top:1px solid rgba(255,25
       <p class="fleg">© 2026 XTREME PROJECTS · INPI Portugal Reg. nº 20262007760334<br><a href="mailto:[email protected]" style="color:var(--gold);font-weight:600">support@mivla.app</a> · Made in Portugal 🇵🇹</p>
     </div>
     <div class="flinks">
-      <a href="#" onclick="lmOpen('pp');return false" data-i18n="fl-privacy">Privacy Policy</a>
-      <a href="#" onclick="lmOpen('tu');return false" data-i18n="fl-terms">Terms of Use</a>
-      <a href="#" onclick="lmOpen('sp');return false" data-i18n="fl-support">Support</a>
-      <a href="#" onclick="lmOpen('pk');return false" data-i18n="fl-press">Press Kit</a>
-      <a href="#" onclick="lmOpen('xp');return false">XTREME PROJECTS</a>
+      <a href="javascript:void(0)" onclick="lmOpen('pp')" data-i18n="fl-privacy">Privacy Policy</a>
+      <a href="javascript:void(0)" onclick="lmOpen('tu')" data-i18n="fl-terms">Terms of Use</a>
+      <a href="javascript:void(0)" onclick="lmOpen('sp')" data-i18n="fl-support">Support</a>
+      <a href="javascript:void(0)" onclick="lmOpen('pk')" data-i18n="fl-press">Press Kit</a>
+      <a href="javascript:void(0)" onclick="lmOpen('xp')">XTREME PROJECTS</a>
     </div>
   </div>
   <div class="fbot">
@@ -3725,6 +4861,8 @@ function setLang(lang, flag, code, sym, currency, evt){
   currentLang = lang; currentSymbol = sym; currentCurrency = currency;
   document.getElementById('langFlag').textContent = flag;
   document.getElementById('langCode').textContent = code;
+  if (typeof _lmSetLang === 'function') _lmSetLang(lang);
+
   // Mark active option
   document.querySelectorAll('.lang-option').forEach(o=>{
     o.classList.toggle('active', o.getAttribute('data-lang') === lang);
@@ -3768,6 +4906,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
   const d = detectInitialLang();
   if(d.l !== 'en') setLang(d.l, d.f, d.c, d.sym, d.cur);
   else { buildFaq('en'); buildMarquee('en'); }
+
   setP('a');  // Default to annual view
 });
 
@@ -4948,41 +6087,48 @@ window.initDashboard=function(){
       <div class="doc-label" data-i18n="lm-pp-label">🔒 Privacy Policy</div>
       <h1 class="doc-title" data-i18n="lm-pp-title">Your data stays<br>on your device.</h1>
       <div class="doc-meta">
-        <span>📅 Effective: 1 January 2026</span>
-        <span>🔄 Last updated: 24 March 2026</span>
+        <span class="lm-en">📅 Effective: 1 January 2026</span>
+        <span class="lm-pt">📅 Em vigor: 1 de Janeiro de 2026</span>
+        <span class="lm-en">🔄 Last updated: 24 March 2026</span>
+        <span class="lm-pt">🔄 Última actualização: 24 de Março de 2026</span>
         <span>🏢 XTREME PROJECTS · Portugal</span>
       </div>
     </div>
-
     <div class="doc-toc">
       <div class="doc-toc-title" data-i18n="lm-contents">Contents</div>
       <ol>
-        <li><a href="#pp1"><span class="toc-n">01</span>Who We Are</a></li>
-        <li><a href="#pp2"><span class="toc-n">02</span>What MIVLA Does Not Collect</a></li>
-        <li><a href="#pp3"><span class="toc-n">03</span>What We Do Collect</a></li>
-        <li><a href="#pp4"><span class="toc-n">04</span>On-Device Processing</a></li>
-        <li><a href="#pp5"><span class="toc-n">05</span>Third-Party Services</a></li>
-        <li><a href="#pp6"><span class="toc-n">06</span>Data Retention</a></li>
-        <li><a href="#pp7"><span class="toc-n">07</span>Your Rights (GDPR)</a></li>
-        <li><a href="#pp8"><span class="toc-n">08</span>Children</a></li>
-        <li><a href="#pp9"><span class="toc-n">09</span>Changes</a></li>
-        <li><a href="#pp10"><span class="toc-n">10</span>Contact</a></li>
+        <li><a href="#pp1"><span class="toc-n">01</span><span class="lm-en">Who We Are</span><span class="lm-pt">Quem Somos</span></a></li>
+        <li><a href="#pp2"><span class="toc-n">02</span><span class="lm-en">What MIVLA Does Not Collect</span><span class="lm-pt">O Que a MIVLA Não Recolhe</span></a></li>
+        <li><a href="#pp3"><span class="toc-n">03</span><span class="lm-en">What We Do Collect</span><span class="lm-pt">O Que Recolhemos</span></a></li>
+        <li><a href="#pp4"><span class="toc-n">04</span><span class="lm-en">On-Device Processing</span><span class="lm-pt">Processamento No Dispositivo</span></a></li>
+        <li><a href="#pp5"><span class="toc-n">05</span><span class="lm-en">Third-Party Services</span><span class="lm-pt">Serviços de Terceiros</span></a></li>
+        <li><a href="#pp6"><span class="toc-n">06</span><span class="lm-en">Data Retention</span><span class="lm-pt">Retenção de Dados</span></a></li>
+        <li><a href="#pp7"><span class="toc-n">07</span><span class="lm-en">Your Rights (GDPR)</span><span class="lm-pt">Os Teus Direitos (RGPD)</span></a></li>
+        <li><a href="#pp8"><span class="toc-n">08</span><span class="lm-en">Children</span><span class="lm-pt">Crianças</span></a></li>
+        <li><a href="#pp9"><span class="toc-n">09</span><span class="lm-en">Changes</span><span class="lm-pt">Alterações</span></a></li>
+        <li><a href="#pp10"><span class="toc-n">10</span><span class="lm-en">Contact</span><span class="lm-pt">Contacto</span></a></li>
       </ol>
     </div>
 
     <div class="section" id="pp1">
       <div class="section-n">01</div>
       <h2 data-i18n="lm-h2-whoweare">Who We Are</h2>
-      <p>MIVLA™ is developed and operated by <strong>XTREME PROJECTS, Lda.</strong>, a company registered in Portugal (INPI Reg. nº 20262007760334). Our registered address is Portugal 🇵🇹.</p>
-      <p>We built MIVLA with a privacy-first architecture. This is not a marketing phrase — it is a technical decision we imposed on ourselves from day one.</p>
+      <p class="lm-en">MIVLA™ is developed and operated by <strong>XTREME PROJECTS, Lda.</strong>, a company registered in Portugal (INPI Reg. nº 20262007760334). Our registered address is Portugal 🇵🇹.</p>
+      <p class="lm-pt">A MIVLA™ é desenvolvida e operada pela <strong>XTREME PROJECTS, Lda.</strong>, empresa registada em Portugal (INPI Reg. nº 20262007760334). A nossa sede está localizada em Portugal 🇵🇹.</p>
+      <p class="lm-en">We built MIVLA with a privacy-first architecture. This is not a marketing phrase — it is a technical decision we imposed on ourselves from day one.</p>
+      <p class="lm-pt">Construímos a MIVLA com uma arquitectura que privilegia a privacidade. Não se trata de um argumento de marketing — é uma decisão técnica que nos impusemos desde o primeiro dia.</p>
     </div>
 
     <div class="section" id="pp2">
       <div class="section-n">02</div>
       <h2 data-i18n="lm-h2-notcollect">What MIVLA Does Not Collect</h2>
-      <div class="green-box"><p>✅ <strong>MIVLA never accesses, stores, transmits or processes any social media content you view.</strong> Your feed, posts, messages, images and videos are analysed entirely on your device and never leave it.</p></div>
-      <p>Specifically, MIVLA does <strong>not</strong> collect:</p>
-      <ul>
+      <div class="green-box">
+        <p class="lm-en">✅ <strong>MIVLA never accesses, stores, transmits or processes any social media content you view.</strong> Your feed, posts, messages, images and videos are analysed entirely on your device and never leave it.</p>
+        <p class="lm-pt">✅ <strong>A MIVLA nunca acede, armazena, transmite ou processa qualquer conteúdo das redes sociais que visualizes.</strong> O teu feed, publicações, mensagens, imagens e vídeos são analisados exclusivamente no teu dispositivo e nunca o abandonam.</p>
+      </div>
+      <p class="lm-en">Specifically, MIVLA does <strong>not</strong> collect:</p>
+      <p class="lm-pt">Especificamente, a MIVLA <strong>não</strong> recolhe:</p>
+      <ul class="lm-en">
         <li>The content of any post, video, image or story you scan</li>
         <li>Your social media login credentials or session tokens</li>
         <li>Your social media contacts, followers or following lists</li>
@@ -4991,27 +6137,48 @@ window.initDashboard=function(){
         <li>Your precise GPS location</li>
         <li>Your biometric data (Face ID / Touch ID data never leaves Apple's Secure Enclave)</li>
       </ul>
+      <ul class="lm-pt">
+        <li>O conteúdo de qualquer publicação, vídeo, imagem ou story que analises</li>
+        <li>As tuas credenciais de acesso às redes sociais ou tokens de sessão</li>
+        <li>Os teus contactos, seguidores ou listas de seguidos nas redes sociais</li>
+        <li>Capturas de ecrã de qualquer conteúdo das redes sociais</li>
+        <li>O teu histórico de navegação dentro do browser da MIVLA</li>
+        <li>A tua localização GPS precisa</li>
+        <li>Os teus dados biométricos (os dados do Face ID / Touch ID nunca saem do Secure Enclave da Apple)</li>
+      </ul>
     </div>
 
     <div class="section" id="pp3">
       <div class="section-n">03</div>
       <h2 data-i18n="lm-h2-collect">What We Do Collect</h2>
-      <p>To operate the service and improve detection accuracy, we collect the following <strong>minimal, non-personal data</strong>:</p>
-      <ul>
+      <p class="lm-en">To operate the service and improve detection accuracy, we collect the following <strong>minimal, non-personal data</strong>:</p>
+      <p class="lm-pt">Para operar o serviço e melhorar a precisão de detecção, recolhemos os seguintes <strong>dados mínimos e não pessoais</strong>:</p>
+      <ul class="lm-en">
         <li><strong>Subscription status</strong> — whether you have an active subscription and which plan (Base or Premium), managed by Apple's StoreKit. We never see your payment details.</li>
-        <li><strong>Aggregate scan statistics</strong> — anonymised counts of scans per platform (e.g. "87 scans on Instagram today") with no content attached. Used to improve detection models.</li>
+        <li><strong>Aggregate scan statistics</strong> — anonymised counts of scans per platform with no content attached. Used to improve detection models.</li>
         <li><strong>Crash reports</strong> — anonymised crash logs via Apple's standard crash reporting. No user content is included.</li>
         <li><strong>Referral attribution</strong> — if you installed MIVLA via a referral link (e.g. <code>?ref=F01</code>), we record which referral ID was used. This is a single code, not personal data.</li>
         <li><strong>App version and OS version</strong> — used for compatibility and support.</li>
       </ul>
-      <div class="highlight-box"><p>All data collected is anonymised before leaving your device. It is not possible to link any collected data back to your individual identity.</p></div>
+      <ul class="lm-pt">
+        <li><strong>Estado de subscrição</strong> — se tens uma subscrição activa e qual o plano (Base ou Premium), gerido pelo StoreKit da Apple. Nunca vemos os teus dados de pagamento.</li>
+        <li><strong>Estatísticas agregadas de deteções</strong> — contagens anónimas de análises por plataforma, sem conteúdo associado. Usadas para melhorar os modelos de detecção.</li>
+        <li><strong>Relatórios de falhas</strong> — registos anónimos de falhas via o sistema standard de crash reporting da Apple. Sem conteúdo do utilizador incluído.</li>
+        <li><strong>Atribuição de referral</strong> — se instalaste a MIVLA via uma ligação de referral (ex. <code>?ref=F01</code>), registamos qual o ID utilizado. É um código único, não dados pessoais.</li>
+        <li><strong>Versão da app e versão do sistema operativo</strong> — utilizados para compatibilidade e suporte.</li>
+      </ul>
+      <div class="highlight-box">
+        <p class="lm-en">All data collected is anonymised before leaving your device. It is not possible to link any collected data back to your individual identity.</p>
+        <p class="lm-pt">Todos os dados recolhidos são anonimizados antes de saírem do teu dispositivo. Não é possível associar nenhum dado recolhido à tua identidade individual.</p>
+      </div>
     </div>
 
     <div class="section" id="pp4">
       <div class="section-n">04</div>
       <h2 data-i18n="lm-h2-ondevice">On-Device Processing</h2>
-      <p>MIVLA's entire detection engine runs on your iPhone's <strong>Neural Engine</strong> using Apple's CoreML framework. This includes:</p>
-      <ul>
+      <p class="lm-en">MIVLA's entire detection engine runs on your smartphone's <strong>Neural Engine</strong> using Apple's CoreML framework. This includes:</p>
+      <p class="lm-pt">Todo o motor de detecção da MIVLA é executado no Neural Engine do teu smartphone através do framework CoreML da Apple. Isto inclui:</p>
+      <ul class="lm-en">
         <li>Visual forensics and FFT spectral analysis</li>
         <li>OCR semantic analysis</li>
         <li>Physical plausibility scoring</li>
@@ -5019,39 +6186,66 @@ window.initDashboard=function(){
         <li>Source reputation lookup (cached locally)</li>
         <li>Situational risk multipliers</li>
       </ul>
-      <p>The risk score and AI badge are computed locally and displayed to you. No frame, pixel, or text from your feed is uploaded to any server.</p>
+      <ul class="lm-pt">
+        <li>Forense visual e análise espectral FFT</li>
+        <li>Análise semântica OCR</li>
+        <li>Pontuação de plausibilidade física</li>
+        <li>Inspecção de metadados</li>
+        <li>Consulta de reputação da fonte (cache local)</li>
+        <li>Multiplicadores situacionais de risco</li>
+      </ul>
+      <p class="lm-en">The risk score and AI badge are computed locally and displayed to you. No frame, pixel, or text from your feed is uploaded to any server.</p>
+      <p class="lm-pt">A pontuação de risco e o badge IA são calculados localmente e apresentados ao utilizador. Nenhum fotograma, pixel ou texto do teu feed é enviado para qualquer servidor.</p>
     </div>
 
     <div class="section" id="pp5">
       <div class="section-n">05</div>
       <h2 data-i18n="lm-h2-thirdparty">Third-Party Services</h2>
-      <p>MIVLA integrates with the following third-party services, each with their own privacy policies:</p>
-      <ul>
+      <p class="lm-en">MIVLA integrates with the following third-party services, each with their own privacy policies:</p>
+      <p class="lm-pt">A MIVLA integra os seguintes serviços de terceiros, cada um com as suas próprias políticas de privacidade:</p>
+      <ul class="lm-en">
         <li><strong>Apple App Store / StoreKit</strong> — subscription management and payment processing. Subject to <a href="https://www.apple.com/legal/privacy/" target="_blank">Apple's Privacy Policy</a>.</li>
         <li><strong>Apple Sign-In / WebAuthn</strong> — optional biometric authentication. No data is shared with Apple beyond what is standard for these APIs.</li>
         <li><strong>Firebase (Google)</strong> — used only for referral attribution and anonymised aggregate analytics. Subject to <a href="https://firebase.google.com/support/privacy" target="_blank">Firebase's Privacy Policy</a>. No content data is stored.</li>
       </ul>
-      <div class="warn-box"><p>⚠️ MIVLA loads social media platforms (Instagram, TikTok, YouTube, Facebook, X) via Apple's WKWebView. These platforms have their own privacy policies and may set cookies or track behaviour according to their own terms. MIVLA does not control and is not responsible for data collected by these platforms.</p></div>
+      <ul class="lm-pt">
+        <li><strong>Apple App Store / StoreKit</strong> — gestão de subscrições e processamento de pagamentos. Sujeito à <a href="https://www.apple.com/legal/privacy/" target="_blank">Política de Privacidade da Apple</a>.</li>
+        <li><strong>Apple Sign-In / WebAuthn</strong> — autenticação biométrica opcional. Nenhum dado é partilhado com a Apple para além do standard destas APIs.</li>
+        <li><strong>Firebase (Google)</strong> — utilizado apenas para atribuição de referral e análises agregadas anónimas. Sujeito à <a href="https://firebase.google.com/support/privacy" target="_blank">Política de Privacidade da Firebase</a>. Nenhum dado de conteúdo é armazenado.</li>
+      </ul>
+      <div class="warn-box">
+        <p class="lm-en">⚠️ MIVLA loads social media platforms (Instagram, TikTok, YouTube, Facebook, X) via Apple's WKWebView. These platforms have their own privacy policies and may set cookies or track behaviour according to their own terms. MIVLA does not control and is not responsible for data collected by these platforms.</p>
+        <p class="lm-pt">⚠️ A MIVLA carrega as plataformas de redes sociais (Instagram, TikTok, YouTube, Facebook, X) através do WKWebView da Apple. Estas plataformas têm as suas próprias políticas de privacidade e podem instalar cookies ou rastrear comportamentos de acordo com os seus próprios termos. A MIVLA não controla e não é responsável pelos dados recolhidos por estas plataformas.</p>
+      </div>
     </div>
 
     <div class="section" id="pp6">
       <div class="section-n">06</div>
       <h2 data-i18n="lm-h2-retention">Data Retention</h2>
-      <p>The minimal anonymised data we collect is retained as follows:</p>
-      <ul>
+      <p class="lm-en">The minimal anonymised data we collect is retained as follows:</p>
+      <p class="lm-pt">Os dados mínimos anonimizados que recolhemos são retidos da seguinte forma:</p>
+      <ul class="lm-en">
         <li><strong>Subscription data</strong> — retained for the duration of your subscription plus 90 days, then deleted.</li>
         <li><strong>Aggregate scan statistics</strong> — retained in anonymised, aggregated form for up to 24 months for model improvement, then deleted.</li>
         <li><strong>Crash reports</strong> — retained for 60 days then automatically deleted.</li>
         <li><strong>Referral attribution</strong> — retained for 90 days from install date, then deleted.</li>
       </ul>
-      <p>You may request immediate deletion of any data associated with your account by contacting us at the address below.</p>
+      <ul class="lm-pt">
+        <li><strong>Dados de subscrição</strong> — retidos durante o período da subscrição mais 90 dias, depois eliminados.</li>
+        <li><strong>Estatísticas agregadas de deteções</strong> — retidas em forma anónima e agregada até 24 meses para melhoria do modelo, depois eliminadas.</li>
+        <li><strong>Relatórios de falhas</strong> — retidos durante 60 dias e depois eliminados automaticamente.</li>
+        <li><strong>Atribuição de referral</strong> — retida durante 90 dias a partir da data de instalação, depois eliminada.</li>
+      </ul>
+      <p class="lm-en">You may request immediate deletion of any data associated with your account by contacting us at the address below.</p>
+      <p class="lm-pt">Podes solicitar a eliminação imediata de quaisquer dados associados à tua conta contactando-nos no endereço abaixo.</p>
     </div>
 
     <div class="section" id="pp7">
       <div class="section-n">07</div>
       <h2 data-i18n="lm-h2-gdpr">Your Rights Under GDPR</h2>
-      <p>If you are located in the European Union or United Kingdom, you have the following rights under the General Data Protection Regulation (GDPR) and UK GDPR:</p>
-      <ul>
+      <p class="lm-en">If you are located in the European Union or United Kingdom, you have the following rights under the General Data Protection Regulation (GDPR) and UK GDPR:</p>
+      <p class="lm-pt">Se estás localizado na União Europeia ou no Reino Unido, tens os seguintes direitos ao abrigo do Regulamento Geral sobre a Proteção de Dados (RGPD) e do UK GDPR:</p>
+      <ul class="lm-en">
         <li><strong>Right of access</strong> — request a copy of any personal data we hold about you</li>
         <li><strong>Right to rectification</strong> — request correction of inaccurate data</li>
         <li><strong>Right to erasure</strong> — request deletion of your data ("right to be forgotten")</li>
@@ -5060,197 +6254,194 @@ window.initDashboard=function(){
         <li><strong>Right to object</strong> — object to processing of your data</li>
         <li><strong>Right to withdraw consent</strong> — withdraw consent at any time where processing is based on consent</li>
       </ul>
-      <p>To exercise any of these rights, contact us at <strong><a href="mailto:[email protected]">privacy@mivla.app</a></strong>. We will respond within 30 days.</p>
-      <div class="highlight-box"><p>MIVLA is designed so that, in practice, we hold minimal data about you as an individual. In most cases, exercising the right to erasure means deleting your account, which you can do directly from the app settings.</p></div>
-      <p>Our legal basis for processing the minimal data we collect is <strong>Legitimate Interest</strong> (aggregate analytics for service improvement) and <strong>Contract Performance</strong> (subscription management). We do not rely on consent as the primary legal basis because we collect so little data.</p>
+      <ul class="lm-pt">
+        <li><strong>Direito de acesso</strong> — solicitar uma cópia dos dados pessoais que detemos sobre ti</li>
+        <li><strong>Direito de rectificação</strong> — solicitar a correcção de dados inexactos</li>
+        <li><strong>Direito ao apagamento</strong> — solicitar a eliminação dos teus dados ("direito a ser esquecido")</li>
+        <li><strong>Direito à limitação</strong> — solicitar que limitemos o processamento dos teus dados</li>
+        <li><strong>Direito à portabilidade</strong> — receber os teus dados num formato legível por máquina</li>
+        <li><strong>Direito de oposição</strong> — opor-te ao processamento dos teus dados</li>
+        <li><strong>Direito de retirar consentimento</strong> — retirar o consentimento a qualquer momento quando o processamento se baseia no consentimento</li>
+      </ul>
+      <p class="lm-en">To exercise any of these rights, contact us at <strong><a href="mailto:privacy@mivla.app">privacy@mivla.app</a></strong>. We will respond within 30 days.</p>
+      <p class="lm-pt">Para exercer qualquer um destes direitos, contacta-nos em <strong><a href="mailto:privacy@mivla.app">privacy@mivla.app</a></strong>. Responderemos no prazo de 30 dias.</p>
+      <div class="highlight-box">
+        <p class="lm-en">MIVLA is designed so that, in practice, we hold minimal data about you as an individual. In most cases, exercising the right to erasure means deleting your account, which you can do directly from the app settings.</p>
+        <p class="lm-pt">A MIVLA foi concebida de forma a que, na prática, detenhamos dados mínimos sobre ti como indivíduo. Na maioria dos casos, exercer o direito ao apagamento significa eliminar a tua conta, o que podes fazer directamente nas definições da app.</p>
+      </div>
+      <p class="lm-en">Our legal basis for processing the minimal data we collect is <strong>Legitimate Interest</strong> (aggregate analytics for service improvement) and <strong>Contract Performance</strong> (subscription management).</p>
+      <p class="lm-pt">A nossa base legal para o processamento dos dados mínimos que recolhemos é o <strong>Interesse Legítimo</strong> (análises agregadas para melhoria do serviço) e a <strong>Execução do Contrato</strong> (gestão de subscrições).</p>
     </div>
 
     <div class="section" id="pp8">
       <div class="section-n">08</div>
       <h2 data-i18n="lm-h2-children">Children</h2>
-      <p>MIVLA is not directed at children under the age of 13. We do not knowingly collect personal data from children under 13. If you believe a child under 13 has provided us with personal data, please contact us immediately at <strong><a href="mailto:[email protected]">privacy@mivla.app</a></strong> and we will delete it.</p>
+      <p class="lm-en">MIVLA is not directed at children under the age of 13. We do not knowingly collect personal data from children under 13. If you believe a child under 13 has provided us with personal data, please contact us immediately at <strong><a href="mailto:privacy@mivla.app">privacy@mivla.app</a></strong> and we will delete it.</p>
+      <p class="lm-pt">A MIVLA não se destina a crianças com menos de 13 anos. Não recolhemos conscientemente dados pessoais de crianças com menos de 13 anos. Se acreditas que uma criança com menos de 13 anos nos forneceu dados pessoais, contacta-nos imediatamente em <strong><a href="mailto:privacy@mivla.app">privacy@mivla.app</a></strong> e eliminaremos os dados.</p>
     </div>
 
     <div class="section" id="pp9">
       <div class="section-n">09</div>
       <h2 data-i18n="lm-h2-changes">Changes to This Policy</h2>
-      <p>We may update this Privacy Policy from time to time. Material changes will be communicated via an in-app notification at least 14 days before they take effect. The "Last Updated" date at the top of this page will always reflect the most recent version.</p>
-      <p>Continued use of MIVLA after a policy change constitutes your acceptance of the new terms.</p>
+      <p class="lm-en">We may update this Privacy Policy from time to time. Material changes will be communicated via an in-app notification at least 14 days before they take effect. The "Last Updated" date at the top of this page will always reflect the most recent version.</p>
+      <p class="lm-pt">Podemos actualizar esta Política de Privacidade periodicamente. As alterações materiais serão comunicadas através de uma notificação na app com pelo menos 14 dias de antecedência. A data de "Última Actualização" no topo desta página reflectirá sempre a versão mais recente.</p>
+      <p class="lm-en">Continued use of MIVLA after a policy change constitutes your acceptance of the new terms.</p>
+      <p class="lm-pt">A utilização continuada da MIVLA após uma alteração à política constitui a tua aceitação dos novos termos.</p>
     </div>
 
     <div class="section" id="pp10">
       <div class="section-n">10</div>
       <h2 data-i18n="lm-h2-contact">Contact</h2>
-      <p>For any privacy-related questions, data subject requests, or concerns:</p>
-      <ul>
-        <li><strong>Email:</strong> <a href="mailto:[email protected]">privacy@mivla.app</a></li>
+      <p class="lm-en">For any privacy-related questions, data subject requests, or concerns:</p>
+      <p class="lm-pt">Para quaisquer questões relacionadas com privacidade, pedidos de titulares de dados, ou preocupações:</p>
+      <ul class="lm-en">
+        <li><strong>Email:</strong> <a href="mailto:privacy@mivla.app">privacy@mivla.app</a></li>
         <li><strong>Company:</strong> XTREME PROJECTS</li>
         <li><strong>Registration:</strong> INPI Portugal Reg. nº 20262007760334</li>
         <li><strong>Country:</strong> Portugal 🇵🇹 (EU)</li>
       </ul>
-      <p>You also have the right to lodge a complaint with the Portuguese data protection authority, the <strong>CNPD</strong> (Comissão Nacional de Proteção de Dados) at <a href="https://www.cnpd.pt" target="_blank">cnpd.pt</a>.</p>
+      <ul class="lm-pt">
+        <li><strong>Email:</strong> <a href="mailto:privacy@mivla.app">privacy@mivla.app</a></li>
+        <li><strong>Empresa:</strong> XTREME PROJECTS</li>
+        <li><strong>Registo:</strong> INPI Portugal Reg. nº 20262007760334</li>
+        <li><strong>País:</strong> Portugal 🇵🇹 (EU)</li>
+      </ul>
+      <p class="lm-en">You also have the right to lodge a complaint with the Portuguese data protection authority, the <strong>CNPD</strong> (Comissão Nacional de Proteção de Dados) at <a href="https://www.cnpd.pt" target="_blank">cnpd.pt</a>.</p>
+      <p class="lm-pt">Tens também o direito de apresentar uma queixa à autoridade portuguesa de protecção de dados, a <strong>CNPD</strong> (Comissão Nacional de Proteção de Dados) em <a href="https://www.cnpd.pt" target="_blank">cnpd.pt</a>.</p>
     </div></div>
+
     <div class="lm-pane" id="lm-tu"><div class="doc-hero">
       <div class="doc-label" data-i18n="lm-tu-label">📋 Terms of Use</div>
       <h1 class="doc-title" data-i18n="lm-tu-title">Simple rules.<br>No surprises.</h1>
       <div class="doc-meta">
-        <span>📅 Effective: 1 January 2026</span>
-        <span>🔄 Last updated: 24 March 2026</span>
+        <span class="lm-en">📅 Effective: 1 January 2026</span>
+        <span class="lm-pt">📅 Em vigor: 1 de Janeiro de 2026</span>
+        <span class="lm-en">🔄 Last updated: 24 March 2026</span>
+        <span class="lm-pt">🔄 Última actualização: 24 de Março de 2026</span>
         <span>🏢 XTREME PROJECTS · Portugal</span>
       </div>
     </div>
-
     <div class="doc-toc">
       <div class="doc-toc-title" data-i18n="lm-contents">Contents</div>
       <ol>
-        <li><a href="#tu1"><span class="toc-n">01</span>Acceptance</a></li>
-        <li><a href="#tu2"><span class="toc-n">02</span>What MIVLA Is</a></li>
-        <li><a href="#tu3"><span class="toc-n">03</span>Subscriptions & Billing</a></li>
-        <li><a href="#tu4"><span class="toc-n">04</span>Founder Programme</a></li>
-        <li><a href="#tu5"><span class="toc-n">05</span>Referral Programme</a></li>
-        <li><a href="#tu6"><span class="toc-n">06</span>Acceptable Use</a></li>
-        <li><a href="#tu7"><span class="toc-n">07</span>Intellectual Property</a></li>
-        <li><a href="#tu8"><span class="toc-n">08</span>Disclaimers</a></li>
-        <li><a href="#tu9"><span class="toc-n">09</span>Limitation of Liability</a></li>
-        <li><a href="#tu10"><span class="toc-n">10</span>Governing Law</a></li>
+        <li><a href="#tu1"><span class="toc-n">01</span><span class="lm-en">Acceptance</span><span class="lm-pt">Aceitação</span></a></li>
+        <li><a href="#tu2"><span class="toc-n">02</span><span class="lm-en">What MIVLA Is</span><span class="lm-pt">O Que é a MIVLA</span></a></li>
+        <li><a href="#tu3"><span class="toc-n">03</span><span class="lm-en">Subscriptions &amp; Billing</span><span class="lm-pt">Subscrições e Facturação</span></a></li>
+        <li><a href="#tu4"><span class="toc-n">04</span><span class="lm-en">Founder Programme</span><span class="lm-pt">Programa Fundadores</span></a></li>
+        <li><a href="#tu5"><span class="toc-n">05</span><span class="lm-en">Referral Programme</span><span class="lm-pt">Programa de Referral</span></a></li>
+        <li><a href="#tu6"><span class="toc-n">06</span><span class="lm-en">Acceptable Use</span><span class="lm-pt">Uso Aceitável</span></a></li>
+        <li><a href="#tu7"><span class="toc-n">07</span><span class="lm-en">Intellectual Property</span><span class="lm-pt">Propriedade Intelectual</span></a></li>
+        <li><a href="#tu8"><span class="toc-n">08</span><span class="lm-en">Disclaimers</span><span class="lm-pt">Isenções de Responsabilidade</span></a></li>
+        <li><a href="#tu9"><span class="toc-n">09</span><span class="lm-en">Limitation of Liability</span><span class="lm-pt">Limitação de Responsabilidade</span></a></li>
+        <li><a href="#tu10"><span class="toc-n">10</span><span class="lm-en">Governing Law</span><span class="lm-pt">Lei Aplicável</span></a></li>
       </ol>
     </div>
 
     <div class="section" id="tu1">
       <div class="section-n">01</div>
       <h2 data-i18n="lm-h2-acceptance">Acceptance of Terms</h2>
-      <p>By downloading, installing or using MIVLA™, you agree to these Terms of Use. If you do not agree, please do not use the app.</p>
-      <p>These Terms constitute a binding agreement between you and <strong>XTREME PROJECTS</strong> (Portugal, INPI Reg. nº 20262007760334), the developer and operator of MIVLA™.</p>
-      <p>We may update these Terms from time to time. Continued use after changes are posted constitutes acceptance of the revised Terms. Material changes will be notified in-app at least 14 days in advance.</p>
+      <p class="lm-en">By downloading, installing or using MIVLA™, you agree to these Terms of Use. If you do not agree, please do not use the app.</p>
+      <p class="lm-pt">Ao descarregar, instalar ou utilizar a MIVLA™, aceitas os presentes Termos de Utilização. Se não concordares, por favor não utilizes a app.</p>
+      <p class="lm-en">These Terms constitute a binding agreement between you and <strong>XTREME PROJECTS</strong> (Portugal, INPI Reg. nº 20262007760334), the developer and operator of MIVLA™.</p>
+      <p class="lm-pt">Estes Termos constituem um acordo vinculativo entre ti e a <strong>XTREME PROJECTS</strong> (Portugal, INPI Reg. nº 20262007760334), a entidade desenvolvedora e operadora da MIVLA™.</p>
+      <p class="lm-en">We may update these Terms from time to time. Continued use after changes are posted constitutes acceptance of the revised Terms. Material changes will be notified in-app at least 14 days in advance.</p>
+      <p class="lm-pt">Podemos actualizar estes Termos periodicamente. A utilização continuada após a publicação das alterações constitui aceitação dos Termos revistos. As alterações materiais serão notificadas na app com pelo menos 14 dias de antecedência.</p>
     </div>
 
     <div class="section" id="tu2">
       <div class="section-n">02</div>
       <h2 data-i18n="lm-h2-whatis">What MIVLA Is — and Is Not</h2>
-      <p>MIVLA is a <strong>probabilistic risk assessment tool</strong>. It analyses social media content using 8 independent algorithmic layers and returns a statistical probability score — not a verdict.</p>
-      <div class="highlight-box"><p>🚦 A MIVLA result means: <em>"Based on the available signals, this content has a [X]% probability of digital manipulation."</em> It never means: <em>"This content is false."</em></p></div>
-      <p>MIVLA is <strong>not</strong>:</p>
-      <ul>
-        <li>A fact-checking service or journalistic verification tool</li>
-        <li>A legal instrument for establishing the authenticity of content</li>
-        <li>A guarantee that any content is real or fake</li>
-        <li>A replacement for critical thinking, professional judgement, or journalistic standards</li>
-      </ul>
-      <p>The best commercial AI detectors reach approximately <strong>78% accuracy on real-world content</strong>. MIVLA performs within this range. Always apply your own judgement before acting on any result.</p>
+      <p class="lm-en">MIVLA is a <strong>probabilistic risk assessment tool</strong>. It analyses social media content using 8 independent algorithmic layers and returns a statistical probability score — not a verdict.</p>
+      <p class="lm-pt">A MIVLA é uma <strong>ferramenta de avaliação probabilística de risco</strong>. Analisa conteúdo de redes sociais através de 8 camadas algorítmicas independentes e devolve uma pontuação de probabilidade estatística — nunca um veredicto.</p>
+      <div class="highlight-box">
+        <p class="lm-en">🚦 A MIVLA result means: <em>«Com base nos sinais disponíveis, este conteúdo tem uma probabilidade de [X]% de ter sido digitalmente manipulado.»</em> It never means: <em>«Este conteúdo é falso.»</em></p>
+        <p class="lm-pt">🚦 Um resultado MIVLA significa: <em>«Com base nos sinais disponíveis, este conteúdo tem uma probabilidade de [X]% de ter sido digitalmente manipulado.»</em> Nunca significa: <em>«Este conteúdo é falso.»</em></p>
+      </div>
+      <p class="lm-en">MIVLA is <strong>not</strong>: a fact-checking service, a legal instrument, a guarantee of authenticity, or a replacement for critical thinking.</p>
+      <p class="lm-pt">A MIVLA <strong>não é</strong>: um serviço de fact-checking, um instrumento legal, uma garantia de autenticidade, nem um substituto do pensamento crítico.</p>
+      <p class="lm-en">The best commercial AI detectors reach approximately <strong>78% accuracy on real-world content</strong>. MIVLA performs within this range. Always apply your own judgement before acting on any result.</p>
+      <p class="lm-pt">Os melhores detectores comerciais de IA atingem aproximadamente <strong>78% de precisão em conteúdo real</strong>. A MIVLA actua dentro deste intervalo. Aplica sempre o teu próprio julgamento antes de agir com base em qualquer resultado.</p>
     </div>
 
     <div class="section" id="tu3">
       <div class="section-n">03</div>
       <h2 data-i18n="lm-h2-billing">Subscriptions and Billing</h2>
-      <p>MIVLA offers two subscription tiers:</p>
-      <ul>
-        <li><strong>Base</strong> — risk semaphore (🟢🟡🔴) and AI badge (⚪)</li>
-        <li><strong>Premium</strong> — full 8-layer breakdown, fact-check sources with links, screenshot analysis</li>
-      </ul>
-      <p>Both tiers are available as <strong>monthly</strong> or <strong>annual</strong> subscriptions. Prices are displayed in-app in your local currency at the time of purchase.</p>
-      <p>All subscriptions include a <strong>3-day free trial</strong> for new users. You will not be charged during the trial. Cancel before the trial ends to avoid any charge.</p>
+      <p class="lm-en">MIVLA offers two subscription tiers — <strong>Base</strong> and <strong>Premium</strong> — available as monthly or annual subscriptions, each with a <strong>3-day free trial</strong> for new users.</p>
+      <p class="lm-pt">A MIVLA oferece dois níveis de subscrição — <strong>Base</strong> e <strong>Premium</strong> — disponíveis como subscrições mensais ou anuais, cada um com um <strong>teste gratuito de 3 dias</strong> para novos utilizadores.</p>
       <div class="highlight-box">
-        <p><strong>Billing is handled entirely by Apple's App Store.</strong> XTREME PROJECTS never sees or processes your payment details. All billing disputes, refund requests and subscription management are handled through your Apple ID account settings or at <a href="https://reportaproblem.apple.com" target="_blank">reportaproblem.apple.com</a>.</p>
+        <p class="lm-en"><strong>Billing is handled by Apple's App Store (iOS) or Paddle (Android).</strong> XTREME PROJECTS never sees or processes your payment details. All billing disputes and subscription management are handled through your App Store or Paddle account settings.</p>
+        <p class="lm-pt"><strong>A facturação é gerida pela App Store da Apple (iOS) ou pelo Paddle (Android).</strong> A XTREME PROJECTS nunca vê nem processa os teus dados de pagamento. Todas as disputas de facturação e gestão de subscrições são tratadas através das definições da tua conta App Store ou Paddle.</p>
       </div>
-      <p>Subscriptions <strong>auto-renew</strong> unless cancelled at least 24 hours before the end of the current period. You may cancel at any time; you will retain access until the end of the paid period.</p>
-      <p>XTREME PROJECTS reserves the right to change subscription prices with at least <strong>30 days' notice</strong> delivered via in-app notification and email (if provided).</p>
+      <p class="lm-en">Subscriptions <strong>auto-renew</strong> unless cancelled at least 24 hours before the end of the current period. XTREME PROJECTS reserves the right to change subscription prices with at least <strong>30 days' notice</strong>.</p>
+      <p class="lm-pt">As subscrições <strong>renovam automaticamente</strong> salvo cancelamento com pelo menos 24 horas de antecedência em relação ao fim do período actual. A XTREME PROJECTS reserva-se o direito de alterar os preços das subscrições com pelo menos <strong>30 dias de aviso prévio</strong>.</p>
     </div>
 
     <div class="section" id="tu4">
       <div class="section-n">04</div>
       <h2 data-i18n="lm-h2-founder">Founder Programme</h2>
-      <p>MIVLA's Founder Programme offers early supporters a <strong>30-day free trial</strong> followed by preferential pricing on annual subscriptions.</p>
-      <p>Founder pricing rules:</p>
-      <ul>
-        <li><strong>Annual subscription:</strong> 50% discount on the standard annual price (Base or Premium). This discount is applied for the lifetime of the subscription as long as it remains active.</li>
-        <li><strong>Monthly subscription:</strong> Standard pricing applies. The 50% Founder discount is not available on monthly plans, except where specifically awarded by a promotional lottery (see below).</li>
-        <li><strong>Trial period:</strong> 30 days from the date of activation. At the end of the trial, you must choose a subscription plan or your account will be deactivated.</li>
-        <li><strong>Inactivity:</strong> If no subscription is selected within 30 days of activation, the Founder account becomes inactive. Reactivation is subject to availability.</li>
-      </ul>
-      <div class="warn-box"><p>⚠️ The Founder discount on annual plans is tied to maintaining an active subscription. If a Founder subscription lapses and is restarted, the discount may not be restored. Contact support if this applies to you.</p></div>
-      <p>Founder status is personal and non-transferable. It cannot be sold, gifted or assigned to another individual.</p>
+      <p class="lm-en">MIVLA's Founder Programme offers early supporters a <strong>30-day free trial</strong> followed by <strong>50% discount on annual subscriptions</strong> (Base or Premium), applied for the lifetime of the subscription as long as it remains active. Founder status is personal and non-transferable.</p>
+      <p class="lm-pt">O Programa Fundadores da MIVLA oferece aos apoiantes iniciais um <strong>teste gratuito de 30 dias</strong> seguido de <strong>50% de desconto nas subscrições anuais</strong> (Base ou Premium), aplicado durante toda a vida da subscrição enquanto esta se mantiver activa. O estatuto de Fundador é pessoal e intransmissível.</p>
+      <div class="warn-box">
+        <p class="lm-en">⚠️ The Founder discount is tied to maintaining an active subscription. If a Founder subscription lapses and is restarted, the discount may not be restored. Contact support if this applies to you.</p>
+        <p class="lm-pt">⚠️ O desconto de Fundador está vinculado à manutenção de uma subscrição activa. Se uma subscrição de Fundador caducar e for reiniciada, o desconto poderá não ser restabelecido. Contacta o suporte se isto te diz respeito.</p>
+      </div>
     </div>
 
     <div class="section" id="tu5">
       <div class="section-n">05</div>
       <h2 data-i18n="lm-h2-referral">Referral Programme</h2>
-      <p>MIVLA includes a referral system. When you share a scan result via the semaphore QR code, your referral ID (<code>?ref=FXXX</code>) is embedded in the share URL.</p>
-      <p>If someone installs MIVLA using your referral link:</p>
-      <ul>
-        <li>They are attributed to you as a referral in the system</li>
-        <li>You may receive referral rewards (described in-app), subject to the referred user completing installation and activating an account</li>
-        <li>Attribution is first-touch: if a user installs via multiple referral links, only the first valid referral is recorded</li>
-      </ul>
-      <p>XTREME PROJECTS reserves the right to modify, suspend or terminate the referral programme at any time, with 14 days' notice where reasonably practicable. Accrued referral rewards at the time of termination will be honoured.</p>
-      <p>Referral fraud — including self-referral, using automated tools, or creating fake accounts — will result in immediate disqualification and account termination.</p>
+      <p class="lm-en">When you share a scan result via the semaphore QR code, your referral ID (<code>?ref=FXXX</code>) is embedded in the share URL. Referral fraud — including self-referral or automated tools — will result in immediate account termination.</p>
+      <p class="lm-pt">Quando partilhas um resultado de análise através do QR code do semáforo, o teu ID de referral (<code>?ref=FXXX</code>) é incorporado no URL de partilha. A fraude de referral — incluindo auto-referral ou ferramentas automatizadas — resultará na terminação imediata da conta.</p>
     </div>
 
     <div class="section" id="tu6">
       <div class="section-n">06</div>
       <h2 data-i18n="lm-h2-acceptable">Acceptable Use</h2>
-      <p>You agree to use MIVLA only for lawful purposes and in accordance with these Terms. You agree <strong>not</strong> to:</p>
-      <ul>
-        <li>Use MIVLA results as definitive proof of content authenticity in legal, journalistic or official proceedings without independent verification</li>
-        <li>Reverse engineer, decompile or attempt to extract the source code of MIVLA</li>
-        <li>Attempt to circumvent the subscription paywall or trial limitations</li>
-        <li>Use automated scripts, bots or tools to interact with MIVLA</li>
-        <li>Publish MIVLA results in a manner that claims certainty beyond what MIVLA's probabilistic language warrants</li>
-        <li>Use MIVLA to harass, defame or harm any individual based on a detection result</li>
-        <li>Attempt to manipulate MIVLA's detection by specifically crafting content to evade detection</li>
-      </ul>
-      <p>Violation of these rules may result in immediate suspension or termination of your account without refund.</p>
+      <p class="lm-en">You agree to use MIVLA only for lawful purposes. You agree <strong>not</strong> to reverse engineer the app, circumvent subscription limits, use automated scripts, or publish MIVLA results claiming certainty beyond what the probabilistic language warrants.</p>
+      <p class="lm-pt">Concordas em utilizar a MIVLA apenas para fins legais. Concordas em <strong>não</strong> fazer engenharia reversa da app, contornar os limites de subscrição, usar scripts automatizados, ou publicar resultados da MIVLA alegando certezas para além do que a linguagem probabilística permite.</p>
     </div>
 
     <div class="section" id="tu7">
       <div class="section-n">07</div>
       <h2 data-i18n="lm-h2-ip">Intellectual Property</h2>
-      <p>MIVLA™ and all associated logos, trademarks, algorithms, code, design, text and other content are the exclusive property of XTREME PROJECTS and are protected by Portuguese, EU and international intellectual property law.</p>
-      <p>Your subscription grants you a <strong>personal, non-exclusive, non-transferable, revocable licence</strong> to use MIVLA on devices you own or control, solely for your personal, non-commercial use.</p>
-      <p>You may not reproduce, distribute, create derivative works from, or commercially exploit any part of MIVLA without express written permission from XTREME PROJECTS.</p>
+      <p class="lm-en">MIVLA™ and all associated logos, trademarks, algorithms, code, design, text and other content are the exclusive property of XTREME PROJECTS, protected by Portuguese, EU and international intellectual property law. Your subscription grants you a personal, non-exclusive, non-transferable licence to use MIVLA on devices you own or control, solely for personal, non-commercial use.</p>
+      <p class="lm-pt">A MIVLA™ e todos os logótipos, marcas, algoritmos, código, design, texto e outros conteúdos associados são propriedade exclusiva da XTREME PROJECTS, protegidos pela lei de propriedade intelectual portuguesa, da UE e internacional. A tua subscrição confere-te uma licença pessoal, não exclusiva e intransmissível para utilizar a MIVLA em dispositivos que possuas ou controles, exclusivamente para uso pessoal e não comercial.</p>
     </div>
 
     <div class="section" id="tu8">
       <div class="section-n">08</div>
       <h2 data-i18n="lm-h2-disclaimers">Disclaimers</h2>
-      <p>MIVLA is provided <strong>"as is"</strong> and <strong>"as available"</strong> without warranties of any kind, express or implied, to the fullest extent permitted by applicable law.</p>
-      <p>We do not warrant that:</p>
-      <ul>
-        <li>MIVLA will be uninterrupted, error-free or free of viruses</li>
-        <li>Any detection result is accurate, complete or reliable</li>
-        <li>MIVLA will detect all manipulated content or correctly classify all authentic content</li>
-        <li>The service will be available in all countries or on all devices</li>
-      </ul>
-      <div class="warn-box"><p>⚠️ Detection accuracy is approximately 78% on real-world content. Approximately 22% of results may be incorrect. <strong>Never rely solely on a MIVLA result to make consequential decisions.</strong></p></div>
+      <div class="warn-box">
+        <p class="lm-en">⚠️ Detection accuracy is approximately 78% on real-world content. Approximately 22% of results may be incorrect. <strong>Never rely solely on a MIVLA result to make consequential decisions.</strong></p>
+        <p class="lm-pt">⚠️ A precisão de detecção é aproximadamente 78% em conteúdo real. Aproximadamente 22% dos resultados podem estar incorrectos. <strong>Nunca te baseies exclusivamente num resultado da MIVLA para tomar decisões com consequências.</strong></p>
+      </div>
+      <p class="lm-en">MIVLA is provided "as is" without warranties of any kind. We do not warrant that MIVLA will detect all manipulated content or correctly classify all authentic content.</p>
+      <p class="lm-pt">A MIVLA é fornecida "tal como está" sem garantias de qualquer tipo. Não garantimos que a MIVLA detectará todo o conteúdo manipulado ou classificará correctamente todo o conteúdo autêntico.</p>
     </div>
 
     <div class="section" id="tu9">
       <div class="section-n">09</div>
       <h2 data-i18n="lm-h2-liability">Limitation of Liability</h2>
-      <p>To the maximum extent permitted by applicable law, XTREME PROJECTS shall not be liable for any:</p>
-      <ul>
-        <li>Indirect, incidental, special, consequential or punitive damages</li>
-        <li>Loss of profits, data, goodwill or business opportunity</li>
-        <li>Damages resulting from reliance on a MIVLA detection result</li>
-        <li>Damages arising from the content of third-party social media platforms accessed through MIVLA</li>
-      </ul>
-      <p>Our total aggregate liability to you for any claim arising from your use of MIVLA shall not exceed the total subscription fees paid by you in the 12 months preceding the claim.</p>
-      <p>Some jurisdictions do not allow limitations on implied warranties or liability for consequential damages, so some of the above limitations may not apply to you.</p>
+      <p class="lm-en">To the maximum extent permitted by applicable law, XTREME PROJECTS shall not be liable for any indirect, incidental, or consequential damages, or damages resulting from reliance on a MIVLA detection result. Our total aggregate liability shall not exceed the total subscription fees paid by you in the 12 months preceding the claim.</p>
+      <p class="lm-pt">Na máxima extensão permitida pela lei aplicável, a XTREME PROJECTS não será responsável por quaisquer danos indirectos, incidentais ou consequenciais, nem por danos resultantes da confiança num resultado de detecção da MIVLA. A nossa responsabilidade agregada total não excederá o total das taxas de subscrição pagas por ti nos 12 meses anteriores à reclamação.</p>
     </div>
 
     <div class="section" id="tu10">
       <div class="section-n">10</div>
       <h2 data-i18n="lm-h2-governing">Governing Law and Disputes</h2>
-      <p>These Terms are governed by the laws of <strong>Portugal</strong> and the <strong>European Union</strong>, without regard to conflict of law principles.</p>
-      <p>Any dispute arising from these Terms or your use of MIVLA shall first be submitted to good-faith negotiation between the parties. If unresolved within 30 days, disputes shall be submitted to the exclusive jurisdiction of the courts of <strong>Lisbon, Portugal</strong>.</p>
-      <p>If you are an EU consumer, you may also use the European Commission's Online Dispute Resolution platform at <a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a>.</p>
-      <p>For support and general enquiries: <strong><a href="mailto:[email protected]">support@mivla.app</a></strong></p>
+      <p class="lm-en">These Terms are governed by the laws of <strong>Portugal</strong> and the <strong>European Union</strong>. Any dispute shall first be submitted to good-faith negotiation. If unresolved within 30 days, disputes shall be submitted to the exclusive jurisdiction of the courts of <strong>Lisbon, Portugal</strong>. EU consumers may also use the <a href="https://ec.europa.eu/consumers/odr" target="_blank">EU ODR platform</a>.</p>
+      <p class="lm-pt">Estes Termos são regidos pelas leis de <strong>Portugal</strong> e da <strong>União Europeia</strong>. Qualquer disputa será primeiramente submetida a negociação de boa-fé. Se não for resolvida em 30 dias, as disputas serão submetidas à jurisdição exclusiva dos tribunais de <strong>Lisboa, Portugal</strong>. Os consumidores da UE podem também utilizar a <a href="https://ec.europa.eu/consumers/odr" target="_blank">plataforma ODR da UE</a>.</p>
+      <p class="lm-en">For support: <strong><a href="mailto:support@mivla.app">support@mivla.app</a></strong></p>
+      <p class="lm-pt">Para suporte: <strong><a href="mailto:support@mivla.app">support@mivla.app</a></strong></p>
     </div></div>
+
     <div class="lm-pane" id="lm-sp"><div class="doc-hero">
       <div class="doc-label" data-i18n="lm-sp-label">🛟 Support</div>
       <h1 class="doc-title" data-i18n="lm-sp-title">We're here.<br>Let's fix it.</h1>
       <div class="doc-meta">
-        <span>📧 <a href="mailto:[email protected]">support@mivla.app</a></span>
-        <span>⏱ Response within 48h</span>
+        <span>📧 <a href="mailto:support@mivla.app">support@mivla.app</a></span>
+        <span class="lm-en">⏱ Response within 48h</span>
+        <span class="lm-pt">⏱ Resposta no prazo de 48h</span>
         <span>🇵🇹 Based in Portugal</span>
       </div>
     </div>
@@ -5258,161 +6449,146 @@ window.initDashboard=function(){
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-contact">CONTACT</div>
       <h2 data-i18n="lm-h2-touch">Get in Touch</h2>
-      <div class="highlight-box"><p>📧 For all support requests: <strong><a href="mailto:[email protected]">support@mivla.app</a></strong><br>We respond to every message within 48 hours on business days.</p></div>
-      <p>Before reaching out, check the FAQ on the main page — most questions about detection accuracy, subscription billing and platform compatibility are answered there.</p>
+      <div class="highlight-box">
+        <p class="lm-en">📧 For all support requests: <strong><a href="mailto:support@mivla.app">support@mivla.app</a></strong><br>We respond to every message within 48 hours on business days.</p>
+        <p class="lm-pt">📧 Para todos os pedidos de suporte: <strong><a href="mailto:support@mivla.app">support@mivla.app</a></strong><br>Respondemos a todas as mensagens no prazo de 48 horas em dias úteis.</p>
+      </div>
+      <p class="lm-en">Before reaching out, check the FAQ on the main page — most questions about detection accuracy, subscription billing and platform compatibility are answered there.</p>
+      <p class="lm-pt">Antes de entrar em contacto, consulta as FAQ na página principal — a maioria das questões sobre precisão de detecção, facturação de subscrições e compatibilidade de plataformas encontra resposta aí.</p>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-subscriptions">SUBSCRIPTIONS</div>
-      <h2>Billing & Subscription Issues</h2>
-      <p>Billing is handled by <strong>Apple's App Store</strong> (iOS) or <strong>Paddle</strong> (Android), depending on the platform. XTREME PROJECTS does not process or store any payment information in either case.</p>
-      <ul>
+      <h2 data-i18n="lm-h2-billingissues">Billing &amp; Subscription Issues</h2>
+      <p class="lm-en">Billing is handled by <strong>Apple's App Store</strong> (iOS) or <strong>Paddle</strong> (Android). XTREME PROJECTS does not process or store any payment information in either case.</p>
+      <p class="lm-pt">A facturação é gerida pela <strong>App Store da Apple</strong> (iOS) ou pelo <strong>Paddle</strong> (Android), consoante a plataforma. A XTREME PROJECTS não processa nem guarda qualquer informação de pagamento em nenhum dos casos.</p>
+      <ul class="lm-en">
         <li><strong>Cancel subscription (iOS)</strong> — Settings → Apple ID → Subscriptions → MIVLA → Cancel</li>
+        <li><strong>Cancel subscription (Android)</strong> — paddle.com/account or via app settings</li>
         <li><strong>Request a refund (iOS)</strong> — <a href="https://reportaproblem.apple.com" target="_blank">reportaproblem.apple.com</a></li>
         <li><strong>Request a refund (Android)</strong> — Contact support@mivla.app with your Paddle account email</li>
         <li><strong>Restore purchases (iOS)</strong> — Settings → Restore Purchases inside the MIVLA app</li>
         <li><strong>Restore purchases (Android)</strong> — Settings → Restore Purchases → enter your Paddle account email</li>
         <li><strong>Upgrade from Base to Premium</strong> — Settings → Subscription inside the MIVLA app</li>
       </ul>
-      <p>If your subscription is active but Premium features are not showing, try: Settings → Restore Purchases. If the problem persists, contact <strong><a href="mailto:[email protected]">support@mivla.app</a></strong> with your Apple ID email (never your password).</p>
+      <ul class="lm-pt">
+        <li><strong>Cancelar subscrição (iOS)</strong> — Definições → Apple ID → Subscrições → MIVLA → Cancelar</li>
+        <li><strong>Cancelar subscrição (Android)</strong> — paddle.com/account ou através das definições da app</li>
+        <li><strong>Pedir reembolso (iOS)</strong> — <a href="https://reportaproblem.apple.com" target="_blank">reportaproblem.apple.com</a></li>
+        <li><strong>Pedir reembolso (Android)</strong> — Contacta support@mivla.app com o email da tua conta Paddle</li>
+        <li><strong>Restaurar subscrição (iOS)</strong> — Definições → Restaurar Subscrição dentro da app MIVLA</li>
+        <li><strong>Restaurar subscrição (Android)</strong> — Definições → Restaurar Subscrição → introduz o email da tua conta Paddle</li>
+        <li><strong>Actualizar de Base para Premium</strong> — Definições → Subscrição dentro da app MIVLA</li>
+      </ul>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-detection">DETECTION</div>
       <h2 data-i18n="lm-h2-detection">Detection Questions</h2>
-      <p>MIVLA uses 8 independent algorithmic layers to produce a probabilistic risk score. The best commercial detectors reach ~78% accuracy on real-world content. False positives and false negatives are expected.</p>
-      <div class="warn-box"><p>⚠️ If MIVLA gives a result you believe is incorrect, <strong>do not share the result as a definitive verdict</strong>. MIVLA shows probabilities, not certainties. Always verify independently.</p></div>
-      <p>To report a detection you believe is wrong, email <strong><a href="mailto:[email protected]">support@mivla.app</a></strong> with:</p>
-      <ul>
-        <li>The platform (Instagram, TikTok, YouTube, etc.)</li>
-        <li>A description of the content (do not send screenshots of other people's private content)</li>
-        <li>The MIVLA result shown</li>
-        <li>Why you believe the result is incorrect</li>
-      </ul>
-      <p>Reports are reviewed weekly and used to improve detection models. We cannot respond individually to every detection report but all are read.</p>
+      <div class="warn-box">
+        <p class="lm-en">⚠️ If MIVLA gives a result you believe is incorrect, <strong>do not share the result as a definitive verdict</strong>. MIVLA shows probabilities, not certainties. Always verify independently.</p>
+        <p class="lm-pt">⚠️ Se a MIVLA apresentar um resultado que consideras incorrecto, <strong>não partilhes o resultado como um veredicto definitivo</strong>. A MIVLA mostra probabilidades, não certezas. Verifica sempre de forma independente.</p>
+      </div>
+      <p class="lm-en">To report a detection you believe is wrong, email <strong><a href="mailto:support@mivla.app">support@mivla.app</a></strong> with: the platform, a description of the content, the MIVLA result shown, and why you believe it is incorrect.</p>
+      <p class="lm-pt">Para reportar uma detecção que consideras errada, envia email para <strong><a href="mailto:support@mivla.app">support@mivla.app</a></strong> com: a plataforma, uma descrição do conteúdo, o resultado da MIVLA apresentado e o motivo pelo qual acreditas que está incorrecto.</p>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-founders">FOUNDERS</div>
       <h2 data-i18n="lm-h2-foundersup">Founder Programme Support</h2>
-      <p>If you are a MIVLA Founder and have a question about your trial, discount or referral attribution:</p>
-      <ul>
+      <ul class="lm-en">
         <li><strong>Trial not starting</strong> — ensure you activated via the Founder link sent to your registered email</li>
         <li><strong>50% discount not applied</strong> — the discount applies to annual plans only; ensure you selected Annual during checkout</li>
-        <li><strong>Referrals not showing in dashboard</strong> — referral attribution can take up to 24 hours; installs via QR code are tracked automatically</li>
+        <li><strong>Referrals not showing</strong> — referral attribution can take up to 24 hours</li>
         <li><strong>Account shows Inactive</strong> — your 30-day trial has ended without a subscription; contact us to discuss reactivation</li>
       </ul>
-      <p>For any Founder issue not covered above: <strong><a href="mailto:[email protected]">support@mivla.app</a></strong> — include your registered email and Founder ID (found in your activation email).</p>
+      <ul class="lm-pt">
+        <li><strong>Teste não iniciou</strong> — certifica-te de que activaste através da ligação de Fundador enviada para o teu email registado</li>
+        <li><strong>Desconto de 50% não aplicado</strong> — o desconto aplica-se apenas a planos anuais; certifica-te de que seleccionaste Anual durante o checkout</li>
+        <li><strong>Referrals não aparecem</strong> — a atribuição de referral pode demorar até 24 horas</li>
+        <li><strong>Conta aparece como Inactiva</strong> — o teu teste de 30 dias terminou sem subscrição; contacta-nos para discutir a reactivação</li>
+      </ul>
+      <p class="lm-en">For any Founder issue: <strong><a href="mailto:support@mivla.app">support@mivla.app</a></strong> — include your registered email and Founder ID.</p>
+      <p class="lm-pt">Para qualquer questão de Fundador: <strong><a href="mailto:support@mivla.app">support@mivla.app</a></strong> — inclui o teu email registado e o Founder ID.</p>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-technical">TECHNICAL</div>
       <h2 data-i18n="lm-h2-technical">Technical Issues</h2>
-      <p>Known issues and workarounds:</p>
-      <ul>
-        <li><strong>Videos not loading in "Who It Protects" section</strong> — ensure JavaScript is enabled in your browser; videos are embedded and require a modern browser (Chrome 90+, Safari 14+, Firefox 88+)</li>
-        <li><strong>App crashes on launch</strong> — force-quit the app, then reopen; if the problem persists, delete and reinstall from the App Store (your subscription is tied to your Apple ID and will be restored)</li>
-        <li><strong>Semaphore not appearing on some content</strong> — some content types (e.g. Stories, Reels) may have limited analysis on certain platforms depending on how the platform renders the content in WKWebView</li>
-        <li><strong>Dashboard not opening</strong> — use Ctrl+Shift+M on desktop or triple-click the MIVLA logo (founder access only)</li>
+      <ul class="lm-en">
+        <li><strong>App crashes on launch</strong> — force-quit the app, then reopen; if the problem persists, delete and reinstall (your subscription is tied to your account and will be restored)</li>
+        <li><strong>Semaphore not appearing on some content</strong> — some content types may have limited analysis depending on how the platform renders in WKWebView</li>
+        <li><strong>Premium features not showing after subscription</strong> — Settings → Restore Purchases inside MIVLA</li>
       </ul>
-      <p>For bugs and technical issues: <strong><a href="mailto:[email protected]">support@mivla.app</a></strong> — include your device model, iOS version, and MIVLA version (found in app Settings).</p>
+      <ul class="lm-pt">
+        <li><strong>App fecha ao arrancar</strong> — fecha a app por completo e reaabre; se o problema persistir, elimina e reinstala (a tua subscrição está vinculada à tua conta e será restaurada)</li>
+        <li><strong>Semáforo não aparece em algum conteúdo</strong> — alguns tipos de conteúdo podem ter análise limitada dependendo de como a plataforma é renderizada no WKWebView</li>
+        <li><strong>Funcionalidades Premium não aparecem após subscrição</strong> — Definições → Restaurar Subscrição dentro da MIVLA</li>
+      </ul>
+      <p class="lm-en">For bugs: <strong><a href="mailto:support@mivla.app">support@mivla.app</a></strong> — include your device model, iOS/Android version, and MIVLA version.</p>
+      <p class="lm-pt">Para erros técnicos: <strong><a href="mailto:support@mivla.app">support@mivla.app</a></strong> — inclui o modelo do teu dispositivo, versão iOS/Android e versão da MIVLA.</p>
     </div>
 
     <div class="section">
-      <div class="section-n" data-i18n="lm-sn-data">DATA & PRIVACY</div>
-      <h2>Data & Privacy Requests</h2>
-      <p>For all data subject requests under GDPR (access, erasure, portability, correction):</p>
-      <ul>
-        <li><strong>Email:</strong> <a href="mailto:[email protected]">privacy@mivla.app</a></li>
+      <div class="section-n" data-i18n="lm-sn-data">DATA &amp; PRIVACY</div>
+      <h2>Data &amp; Privacy Requests</h2>
+      <ul class="lm-en">
+        <li><strong>Email:</strong> <a href="mailto:privacy@mivla.app">privacy@mivla.app</a></li>
         <li><strong>Response time:</strong> 30 days (as required by GDPR)</li>
         <li><strong>Delete your account:</strong> Settings → Account → Delete Account inside the MIVLA app</li>
       </ul>
-      <p>Deleting your account removes all data associated with your profile. Your subscription will be cancelled simultaneously. Anonymised aggregate statistics (not linked to you) may be retained as described in the Privacy Policy.</p>
+      <ul class="lm-pt">
+        <li><strong>Email:</strong> <a href="mailto:privacy@mivla.app">privacy@mivla.app</a></li>
+        <li><strong>Tempo de resposta:</strong> 30 dias (conforme exigido pelo RGPD)</li>
+        <li><strong>Eliminar a tua conta:</strong> Definições → Conta → Eliminar Conta dentro da app MIVLA</li>
+      </ul>
+    </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-newphone">NEW PHONE</div>
       <h2 data-i18n="lm-h2-newphone">Changed Smartphone?</h2>
       <p data-i18n="lm-sp-newphone-intro2">Available on iOS and Android. The restore process differs slightly between platforms.</p>
 
-      <!-- iOS -->
       <div class="np-platform-header">
         <span class="np-platform-badge np-ios">🍎 iPhone — iOS</span>
         <span class="np-platform-note" data-i18n="lm-npos-ios-note">Subscription linked to your Apple ID</span>
       </div>
       <div class="newphone-steps">
-        <div class="np-step">
-          <div class="np-step-num">1</div>
-          <div class="np-step-body">
-            <strong data-i18n="lm-nps1-title">Install MIVLA on your new iPhone</strong>
-            <span data-i18n="lm-nps1-desc">Open the App Store → search MIVLA → Install. Use the same Apple ID you used to purchase.</span>
-          </div>
-        </div>
+        <div class="np-step"><div class="np-step-num">1</div><div class="np-step-body"><strong data-i18n="lm-nps1-title">Instala a MIVLA no teu novo iPhone</strong><span data-i18n="lm-nps1-desc">Abre a App Store → pesquisa MIVLA → Instala.</span></div></div>
         <div class="np-step-arrow">↓</div>
-        <div class="np-step">
-          <div class="np-step-num">2</div>
-          <div class="np-step-body">
-            <strong data-i18n="lm-nps2-title">Restore your purchase</strong>
-            <span data-i18n="lm-nps2-desc">Inside MIVLA → Settings → Restore Purchases. Your subscription is restored immediately at no extra cost.</span>
-          </div>
-        </div>
+        <div class="np-step"><div class="np-step-num">2</div><div class="np-step-body"><strong data-i18n="lm-nps2-title">Restaura a tua subscrição</strong><span data-i18n="lm-nps2-desc">Na MIVLA → Definições → Restaurar Subscrição. Restaurada imediatamente, sem custo adicional.</span></div></div>
         <div class="np-step-arrow">↓</div>
-        <div class="np-step">
-          <div class="np-step-num">3</div>
-          <div class="np-step-body">
-            <strong data-i18n="lm-nps3-title">Reposition your semaphore</strong>
-            <span data-i18n="lm-nps3-desc">The semaphore position resets on a new device. Long-press and drag it to wherever you prefer — MIVLA remembers it from that point on.</span>
-          </div>
-        </div>
+        <div class="np-step"><div class="np-step-num">3</div><div class="np-step-body"><strong data-i18n="lm-nps3-title">Reposiciona o teu semáforo</strong><span data-i18n="lm-nps3-desc">Toca sem soltar e arrasta para onde preferires — a MIVLA memoriza a partir daí.</span></div></div>
       </div>
 
-      <!-- Android -->
       <div class="np-platform-header" style="margin-top:20px">
         <span class="np-platform-badge np-android">🤖 Android</span>
         <span class="np-platform-note" data-i18n="lm-npos-android-note">Subscription linked to your Paddle account email</span>
       </div>
       <div class="newphone-steps">
-        <div class="np-step">
-          <div class="np-step-num">1</div>
-          <div class="np-step-body">
-            <strong data-i18n="lm-npa1-title">Install MIVLA on your new Android</strong>
-            <span data-i18n="lm-npa1-desc">Open Google Play → search MIVLA → Install.</span>
-          </div>
-        </div>
+        <div class="np-step"><div class="np-step-num">1</div><div class="np-step-body"><strong data-i18n="lm-npa1-title">Instala a MIVLA no teu novo Android</strong><span data-i18n="lm-npa1-desc">Abre o Google Play → pesquisa MIVLA → Instala.</span></div></div>
         <div class="np-step-arrow">↓</div>
-        <div class="np-step">
-          <div class="np-step-num">2</div>
-          <div class="np-step-body">
-            <strong data-i18n="lm-npa2-title">Restore your purchase</strong>
-            <span data-i18n="lm-npa2-desc">Inside MIVLA → Settings → Restore Purchases → enter the email you used to subscribe via Paddle. Your subscription is restored immediately.</span>
-          </div>
-        </div>
+        <div class="np-step"><div class="np-step-num">2</div><div class="np-step-body"><strong data-i18n="lm-npa2-title">Restaura a tua subscrição</strong><span data-i18n="lm-npa2-desc">Na MIVLA → Definições → Restaurar Subscrição → introduz o email da conta Paddle.</span></div></div>
         <div class="np-step-arrow">↓</div>
-        <div class="np-step">
-          <div class="np-step-num">3</div>
-          <div class="np-step-body">
-            <strong data-i18n="lm-nps3-title">Reposition your semaphore</strong>
-            <span data-i18n="lm-nps3-desc">The semaphore position resets on a new device. Long-press and drag it to wherever you prefer — MIVLA remembers it from that point on.</span>
-          </div>
-        </div>
+        <div class="np-step"><div class="np-step-num">3</div><div class="np-step-body"><strong data-i18n="lm-nps3-title">Reposiciona o teu semáforo</strong><span data-i18n="lm-nps3-desc">Toca sem soltar e arrasta para onde preferires — a MIVLA memoriza a partir daí.</span></div></div>
       </div>
 
       <div class="highlight-box" style="margin-top:16px">
-        <p data-i18n="lm-sp-newphone-note">⚠️ <strong>Detection history is stored on-device by design.</strong> It does not transfer to your new device — this is intentional, not a bug. Your privacy is protected because no scan data ever reaches our servers.</p>
+        <p data-i18n="lm-sp-newphone-note">⚠️ <strong>O histórico de detecções é guardado no dispositivo por design.</strong> Não transfere para o novo dispositivo — é intencional. A tua privacidade está protegida.</p>
       </div>
-
       <div class="green-box">
-        <p data-i18n="lm-sp-newphone-founder">👑 <strong>Founder?</strong> Your 50% discount transfers automatically — via Apple ID on iOS, via your Paddle email on Android. Your Founder ID is in your original activation email.</p>
+        <p data-i18n="lm-sp-newphone-founder">👑 <strong>Fundador?</strong> O teu desconto de 50% transfere automaticamente — via Apple ID no iOS, via email Paddle no Android.</p>
       </div>
-
-      <p style="margin-top:12px" data-i18n="lm-sp-newphone-help2">Problems restoring? Contact <a href="mailto:[email protected]" style="color:var(--gold);font-weight:700">support@mivla.app</a> — include your platform (iOS/Android) and your account email.</p>
+      <p style="margin-top:12px" data-i18n="lm-sp-newphone-help2">Problemas a restaurar? Contacta <a href="mailto:support@mivla.app" style="color:var(--gold);font-weight:700">support@mivla.app</a> — indica a tua plataforma (iOS/Android) e o teu email de conta.</p>
     </div>
     </div></div>
+
     <div class="lm-pane" id="lm-pk"><div class="doc-hero">
       <div class="doc-label" data-i18n="lm-pk-label">📰 Press Kit</div>
       <h1 class="doc-title" data-i18n="lm-pk-title">Everything you need<br>to cover MIVLA.</h1>
       <div class="doc-meta">
-        <span>📧 <a href="mailto:[email protected]">press@mivla.app</a></span>
-        <span>🗓 Available: 2026</span>
+        <span>📧 <a href="mailto:press@mivla.app">press@mivla.app</a></span>
+        <span>🗓 2026</span>
         <span>🌍 Global launch</span>
       </div>
     </div>
@@ -5420,163 +6596,186 @@ window.initDashboard=function(){
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-oneliner">ONE-LINER</div>
       <h2 data-i18n="lm-h2-pitch">The Pitch</h2>
-      <div class="highlight-box"><p><strong>«A MIVLA é o primeiro scanner de conteúdos gerados por IA em tempo real e detector de risco para redes sociais — analisa cada publicação enquanto navegas, inteiramente no teu dispositivo.»</strong></p></div>
-      <p>MIVLA runs silently on your Smartphone. As you scroll Instagram, TikTok, YouTube, Facebook or X, two independent signals appear on every post: a ⚪ badge if AI-generated content is detected, and a 🟢🟡🔴 risk semaphore indicating the probability of digital manipulation or deception.</p>
-      <p>No data leaves your device. No new habits required. One look. Total clarity.</p>
+      <div class="highlight-box">
+        <p class="lm-en"><strong>"MIVLA is the first real-time AI content scanner and risk detector for social media — analysing every post as you scroll, entirely on your device."</strong></p>
+        <p class="lm-pt"><strong>«A MIVLA é o primeiro scanner de conteúdos gerados por IA em tempo real e detector de risco para redes sociais — analisa cada publicação enquanto navegas, inteiramente no teu dispositivo.»</strong></p>
+      </div>
+      <p class="lm-en">MIVLA runs silently on your Smartphone. As you scroll Instagram, TikTok, YouTube, Facebook or X, two independent signals appear on every post: a ⚪ badge when AI-generated content is detected, and a 🟢🟡🔴 risk semaphore indicating the probability of digital manipulation.</p>
+      <p class="lm-pt">A MIVLA actua silenciosamente no teu Smartphone. Enquanto navegas no Instagram, TikTok, YouTube, Facebook ou X, dois sinais independentes surgem em cada publicação: um badge ⚪ quando é detectado conteúdo gerado por IA, e um semáforo de risco 🟢🟡🔴 que indica a probabilidade de manipulação digital.</p>
+      <p class="lm-en">No data leaves your device. No new habits required. One look. Total clarity.</p>
+      <p class="lm-pt">Nenhum dado sai do teu dispositivo. Sem novos hábitos necessários. Um olhar. Clareza total.</p>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-problem">THE PROBLEM</div>
       <h2 data-i18n="lm-h2-whyexists">Why MIVLA Exists</h2>
-      <p>In 2025, deepfake content increased by <strong>+900%</strong> year-on-year. At the same time:</p>
-      <ul>
-        <li>Existing AI detectors are desktop tools requiring manual upload — incompatible with how people actually consume social media</li>
-        <li>Platform-level labelling is inconsistent, voluntary, and often absent for the most dangerous content</li>
-        <li>The average person sees 300–500 posts per day and cannot manually verify even a fraction</li>
-        <li>High-stakes contexts — active conflicts, elections, the FIFA World Cup 2026 — create perfect conditions for mass manipulation</li>
-      </ul>
-      <p>MIVLA solves this at the point of consumption: silently, automatically, in real time, without changing how you use your phone.</p>
+      <p class="lm-en">In 2025, deepfake content increased by <strong>+900%</strong> year-on-year. Existing AI detectors require manual upload — incompatible with how people actually consume social media. The average person sees 300–500 posts per day and cannot manually verify even a fraction.</p>
+      <p class="lm-pt">Em 2025, o conteúdo deepfake aumentou <strong>+900%</strong> em relação ao ano anterior. Os detectores de IA existentes requerem upload manual — incompatível com a forma como as pessoas consomem redes sociais. A pessoa média vê 300–500 publicações por dia e não consegue verificar manualmente sequer uma fracção.</p>
+      <p class="lm-en">MIVLA solves this at the point of consumption: silently, automatically, in real time, without changing how you use your phone.</p>
+      <p class="lm-pt">A MIVLA resolve isto no ponto de consumo: silenciosamente, automaticamente, em tempo real, sem alterar a forma como usas o telemóvel.</p>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-howworks">HOW IT WORKS</div>
       <h2 data-i18n="lm-h2-techov">Technical Overview</h2>
-      <p>MIVLA uses an <strong>8-layer detection architecture</strong> running entirely on Apple's Neural Engine via CoreML:</p>
-      <ul>
+      <p class="lm-en">MIVLA uses an <strong>8-layer detection architecture</strong> running entirely on Apple's Neural Engine via CoreML:</p>
+      <p class="lm-pt">A MIVLA utiliza uma <strong>arquitectura de detecção em 8 camadas</strong> executada inteiramente no Neural Engine da Apple via CoreML:</p>
+      <ul class="lm-en">
         <li><strong>Layer 1 — Visual Forensics:</strong> GAN fingerprinting, compression artefacts, upscaling signatures</li>
         <li><strong>Layer 2 — FFT Spectral Analysis:</strong> Frequency domain analysis for AI-generated images</li>
-        <li><strong>Layer 3 — OCR Semantics:</strong> Text extraction and semantic risk scoring (phishing patterns, urgency language)</li>
+        <li><strong>Layer 3 — OCR Semantics:</strong> Text extraction and semantic risk scoring</li>
         <li><strong>Layer 4 — Source Intelligence:</strong> Domain reputation, verified account status, historical accuracy</li>
         <li><strong>Layer 5 — Metadata Analysis:</strong> EXIF data, creation timestamps, device signatures</li>
         <li><strong>Layer 6 — Physical Plausibility:</strong> Lighting consistency, shadow physics, anatomical coherence</li>
         <li><strong>Layer 7 — Situational Multipliers:</strong> Context-aware weighting (war zones, electoral periods, major sports events)</li>
-        <li><strong>Layer 8 — CoreML Ensemble:</strong> On-device neural network combining all layer outputs into a final probability score</li>
+        <li><strong>Layer 8 — CoreML Ensemble:</strong> On-device neural network combining all layer outputs</li>
       </ul>
-      <p>Crucially, MIVLA separates <strong>Nature</strong> (was this made by AI?) from <strong>Risk</strong> (how dangerous is it?). These are independent assessments — a clearly-labelled AI comedy video scores ⚪ + 🟢. A manipulated political video scores ⚪ + 🔴. A real photo used with a false caption scores 🔴 with no AI badge.</p>
-      <div class="highlight-box"><p>Detection accuracy: approximately <strong>78% on real-world content</strong>, consistent with the best commercial detectors available. MIVLA always communicates results as probabilities, never as verdicts.</p></div>
+      <ul class="lm-pt">
+        <li><strong>Camada 1 — Forense Visual:</strong> Impressão digital de GAN, artefactos de compressão, assinaturas de escalonamento</li>
+        <li><strong>Camada 2 — Análise Espectral FFT:</strong> Análise no domínio da frequência para imagens geradas por IA</li>
+        <li><strong>Camada 3 — Semântica OCR:</strong> Extracção de texto e pontuação semântica de risco</li>
+        <li><strong>Camada 4 — Inteligência de Fonte:</strong> Reputação do domínio, estado de conta verificada, precisão histórica</li>
+        <li><strong>Camada 5 — Análise de Metadados:</strong> Dados EXIF, timestamps de criação, assinaturas de dispositivo</li>
+        <li><strong>Camada 6 — Plausibilidade Física:</strong> Consistência de iluminação, física de sombras, coerência anatómica</li>
+        <li><strong>Camada 7 — Multiplicadores Situacionais:</strong> Ponderação contextual (zonas de guerra, períodos eleitorais, grandes eventos desportivos)</li>
+        <li><strong>Camada 8 — Conjunto CoreML:</strong> Rede neural no dispositivo combinando os outputs de todas as camadas</li>
+      </ul>
+      <div class="highlight-box">
+        <p class="lm-en">Detection accuracy: approximately <strong>78% on real-world content</strong>. MIVLA always communicates results as probabilities, never as verdicts.</p>
+        <p class="lm-pt">Precisão de detecção: aproximadamente <strong>78% em conteúdo real</strong>. A MIVLA comunica sempre os resultados como probabilidades, nunca como veredictos.</p>
+      </div>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-keyfacts">KEY FACTS</div>
       <h2 data-i18n="lm-h2-facts">Fast Facts for Coverage</h2>
       <ul>
-        <li><strong>Developer:</strong> XTREME PROJECTS (Portugal 🇵🇹)</li>
-        <li><strong>Trademark:</strong> MIVLA™ — INPI Portugal Reg. nº 20262007760334</li>
-        <li><strong>Platform:</strong> iOS (iPhone). Android planned for 2026.</li>
-        <li><strong>Supported platforms:</strong> Instagram, TikTok, YouTube, Facebook, X (Twitter)</li>
-        <li><strong>Privacy:</strong> 100% on-device. No social media content ever leaves the user's device.</li>
-        <li><strong>Subscription:</strong> Base €4.99/month · Premium €9.99/month · Annual discounts available</li>
-        <li><strong>Trial:</strong> 3 days free for all new users</li>
-        <li><strong>Detection layers:</strong> 8 independent algorithms</li>
-        <li><strong>AI badge:</strong> ⚪ — indicates AI-generated or AI-manipulated content</li>
-        <li><strong>Risk semaphore:</strong> 🟢 Low Risk · 🟡 Moderate Risk · 🔴 High Risk</li>
-        <li><strong>Languages:</strong> English, Portuguese (PT + BR), Spanish, French, Italian, German, Indonesian</li>
-        <li><strong>EU AI Act:</strong> Compliant</li>
+        <li><strong class="lm-en">Developer:</strong><strong class="lm-pt">Desenvolvedor:</strong> XTREME PROJECTS (Portugal 🇵🇹)</li>
+        <li><strong class="lm-en">Trademark:</strong><strong class="lm-pt">Marca:</strong> MIVLA™ — INPI Portugal Reg. nº 20262007760334</li>
+        <li><strong class="lm-en">Platform:</strong><strong class="lm-pt">Plataforma:</strong> iOS &amp; Android</li>
+        <li><strong class="lm-en">Supported networks:</strong><strong class="lm-pt">Redes suportadas:</strong> Instagram, TikTok, YouTube, Facebook, X</li>
+        <li><strong class="lm-en">Privacy:</strong><strong class="lm-pt">Privacidade:</strong> 100% <span class="lm-en">on-device. No social media content ever leaves the user's device.</span><span class="lm-pt">no dispositivo. Nenhum conteúdo de redes sociais sai do dispositivo do utilizador.</span></li>
+        <li><strong class="lm-en">Subscription:</strong><strong class="lm-pt">Subscrição:</strong> Base €4.99/mês · Premium €9.99/mês</li>
+        <li><strong class="lm-en">Trial:</strong><strong class="lm-pt">Teste:</strong> 3 <span class="lm-en">days free for all new users</span><span class="lm-pt">dias gratuitos para todos os novos utilizadores</span></li>
+        <li><strong class="lm-en">EU AI Act:</strong><strong class="lm-pt">EU AI Act:</strong> <span class="lm-en">Compliant</span><span class="lm-pt">Conforme</span></li>
       </ul>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-context">CONTEXT</div>
       <h2 data-i18n="lm-h2-whynow">Why Now</h2>
-      <p>Three converging events make 2026 the most critical year for AI content detection:</p>
-      <ul>
-        <li><strong>FIFA Mundial 2026</strong> (EUA/Canadá/México, Junho–Julho) — the single largest misinformation event on the calendar. MIVLA automatically raises detection sensitivity during the tournament, flagging player deepfakes, fake injury reports, betting scams and fabricated results.</li>
-        <li><strong>Active conflicts worldwide</strong> — Ukraine, Gaza and multiple ongoing conflicts generate deepfake weapons propaganda, fabricated atrocity footage and false casualty numbers at industrial scale.</li>
-        <li><strong>Election cycle 2026</strong> — multiple major elections across Europe, Latin America and Southeast Asia. MIVLA detects fake candidate videos, fabricated speeches and manipulated rally footage.</li>
+      <ul class="lm-en">
+        <li><strong>FIFA Mundial 2026</strong> (USA/Canada/Mexico, June–July) — the single largest misinformation event on the calendar. MIVLA automatically raises detection sensitivity during the tournament.</li>
+        <li><strong>Active conflicts worldwide</strong> — Ukraine, Gaza and multiple ongoing conflicts generate deepfake propaganda at industrial scale.</li>
+        <li><strong>Election cycle 2026</strong> — multiple major elections across Europe, Latin America and Southeast Asia.</li>
+      </ul>
+      <ul class="lm-pt">
+        <li><strong>FIFA Mundial 2026</strong> (EUA/Canadá/México, Junho–Julho) — o maior evento de desinformação do calendário desportivo. A MIVLA aumenta automaticamente a sensibilidade de detecção durante o torneio.</li>
+        <li><strong>Conflitos activos em todo o mundo</strong> — a Ucrânia, Gaza e múltiplos conflitos em curso geram propaganda deepfake à escala industrial.</li>
+        <li><strong>Ciclo eleitoral de 2026</strong> — múltiplas eleições importantes na Europa, América Latina e Sudeste Asiático.</li>
       </ul>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-assets">ASSETS</div>
       <h2 data-i18n="lm-h2-assets">Press Assets</h2>
-      <p>Press assets, including high-resolution logos, app screenshots, product videos and founder photos, are available on request.</p>
-      <div class="green-box"><p>📧 To request press assets or arrange an interview: <strong><a href="mailto:[email protected]">press@mivla.app</a></strong><br>We respond to press enquiries within 24 hours.</p></div>
-      <p><strong>Usage guidelines for press assets:</strong></p>
-      <ul>
-        <li>MIVLA logo and brand assets may be reproduced for editorial coverage only</li>
-        <li>Do not alter the logo, change its colours or combine it with other marks</li>
-        <li>Always refer to the product as <strong>MIVLA™</strong> (with trademark symbol on first use)</li>
-        <li>Always refer to detection results using probabilistic language: "high probability of manipulation" — not "MIVLA detected a fake"</li>
-      </ul>
+      <div class="green-box">
+        <p class="lm-en">📧 To request press assets or arrange an interview: <strong><a href="mailto:press@mivla.app">press@mivla.app</a></strong><br>We respond to press enquiries within 24 hours.</p>
+        <p class="lm-pt">📧 Para solicitar recursos de imprensa ou agendar uma entrevista: <strong><a href="mailto:press@mivla.app">press@mivla.app</a></strong><br>Respondemos a pedidos de imprensa no prazo de 24 horas.</p>
+      </div>
+      <p class="lm-en">Always refer to the product as <strong>MIVLA™</strong> and always use probabilistic language: "high probability of manipulation" — not "MIVLA detected a fake".</p>
+      <p class="lm-pt">Refere sempre o produto como <strong>MIVLA™</strong> e utiliza sempre linguagem probabilística: "alta probabilidade de manipulação" — nunca "a MIVLA detectou um fake".</p>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-quotes">QUOTES</div>
       <h2 data-i18n="lm-h2-quotes">Approved Quotes</h2>
-      <p>The following quotes are approved for use in press coverage without prior approval:</p>
-      <div class="highlight-box"><p>"<em>We built MIVLA because the problem of AI manipulation is not a desktop problem. It happens in your hand, on your sofa, at 11pm. The detection had to happen there too.</em>" — XTREME PROJECTS</p></div>
-      <div class="highlight-box"><p>"<em>MIVLA doesn't tell you what's true. It tells you what the proof suggests — and gives you the information to decide for yourself.</em>" — XTREME PROJECTS</p></div>
-      <div class="highlight-box"><p>"<em>The most dangerous deepfakes are the ones during wars and elections. We built specific multipliers for exactly those moments.</em>" — XTREME PROJECTS</p></div>
-      <p>For additional quotes, interviews or executive comment: <strong><a href="mailto:[email protected]">press@mivla.app</a></strong></p>
+      <div class="highlight-box"><p>«<em>Construímos a MIVLA porque o problema da manipulação por IA não é um problema de desktop. Acontece na tua mão, no teu sofá, às 23h. A detecção tinha de acontecer lá também.</em>» — XTREME PROJECTS</p></div>
+      <div class="highlight-box"><p>«<em>A MIVLA não te diz o que é verdade. Diz-te o que as provas sugerem — e dá-te a informação para decidires por ti próprio.</em>» — XTREME PROJECTS</p></div>
+      <div class="highlight-box"><p>«<em>Os deepfakes mais perigosos são os que ocorrem durante guerras e eleições. Construímos multiplicadores específicos exactamente para esses momentos.</em>» — XTREME PROJECTS</p></div>
+      <p class="lm-en">For additional quotes or interviews: <strong><a href="mailto:press@mivla.app">press@mivla.app</a></strong></p>
+      <p class="lm-pt">Para citações adicionais ou entrevistas: <strong><a href="mailto:press@mivla.app">press@mivla.app</a></strong></p>
     </div></div>
+
     <div class="lm-pane" id="lm-xp"><div class="doc-hero">
       <div class="doc-label" data-i18n="lm-xp-label">🏢 XTREME PROJECTS</div>
       <h1 class="doc-title" data-i18n="lm-xp-title">Built with integrity.<br>Designed for humans.<br>Protected by science.</h1>
       <div class="doc-meta">
         <span>🇵🇹 Made in Portugal</span>
         <span>🔗 xtremeprojects.org</span>
-        <span>📧 <a href="mailto:[email protected]">hello@xtremeprojects.org</a></span>
+        <span>📧 <a href="mailto:info@xtreme-projects.org">info@xtreme-projects.org</a></span>
       </div>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-whoweare">WHO WE ARE</div>
       <h2 data-i18n="lm-h2-aboutxp">About XTREME PROJECTS</h2>
-      <p>XTREME PROJECTS is a Portuguese technology studio focused on building products that solve real, urgent problems at the intersection of artificial intelligence, privacy and human decision-making.</p>
-      <p>We are a small, independent team. We do not have investors to satisfy, growth targets to meet, or an advertising model to protect. This gives us the freedom to build products the way we believe they should be built — with honesty about what they can and cannot do.</p>
-      <div class="green-box"><p>✅ <strong>We are bootstrapped, independent and Portuguese.</strong> Every decision about MIVLA is made by the people who built it, for the people who use it.</p></div>
+      <p class="lm-en">XTREME PROJECTS is a Portuguese technology studio focused on building products that solve real, urgent problems at the intersection of artificial intelligence, privacy and human decision-making.</p>
+      <p class="lm-pt">A XTREME PROJECTS é um estúdio de tecnologia português focado na criação de produtos que resolvem problemas reais e urgentes na intersecção da inteligência artificial, da privacidade e da tomada de decisão humana.</p>
+      <p class="lm-en">We are a small, independent team. We do not have investors to satisfy, growth targets to meet, or an advertising model to protect.</p>
+      <p class="lm-pt">Somos uma equipa pequena e independente. Não temos investidores a satisfazer, metas de crescimento a cumprir ou um modelo publicitário a proteger.</p>
+      <div class="green-box">
+        <p class="lm-en">✅ <strong>We are bootstrapped, independent and Portuguese.</strong> Every decision about MIVLA is made by the people who built it, for the people who use it.</p>
+        <p class="lm-pt">✅ <strong>Somos bootstrapped, independentes e portugueses.</strong> Cada decisão sobre a MIVLA é tomada pelas pessoas que a construíram, para as pessoas que a utilizam.</p>
+      </div>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-philosophy">OUR PHILOSOPHY</div>
       <h2 data-i18n="lm-h2-philosophy">How We Think About Products</h2>
-      <p>Three principles govern everything we build:</p>
-      <ul>
-        <li><strong>Privacy by architecture, not policy.</strong> We don't ask you to trust a policy document. We build systems where the data that should stay on your device technically cannot leave it. MIVLA's on-device processing is not a feature — it is a constraint we imposed on ourselves.</li>
-        <li><strong>Honesty about limitations.</strong> MIVLA detects with ~78% accuracy. We say that everywhere. We would rather tell you the truth about what our product cannot do than oversell it and erode your trust. Every MIVLA result uses probabilistic language because that is what the science supports.</li>
-        <li><strong>Technology in service of humans, not the other way around.</strong> MIVLA requires no new habits. It runs silently. It interrupts only when it matters. We believe the best technology is the kind you forget is there.</li>
+      <ul class="lm-en">
+        <li><strong>Privacy by architecture, not policy.</strong> We build systems where the data that should stay on your device technically cannot leave it.</li>
+        <li><strong>Honesty about limitations.</strong> MIVLA detects with ~78% accuracy. We say that everywhere. We would rather tell you the truth about what our product cannot do than oversell it.</li>
+        <li><strong>Technology in service of humans.</strong> MIVLA requires no new habits. It runs silently. It interrupts only when it matters.</li>
+      </ul>
+      <ul class="lm-pt">
+        <li><strong>Privacidade por arquitectura, não por política.</strong> Construímos sistemas onde os dados que devem ficar no teu dispositivo tecnicamente não o podem abandonar.</li>
+        <li><strong>Honestidade sobre as limitações.</strong> A MIVLA detecta com ~78% de precisão. Dizemos isso em todo o lado. Preferimos dizer-te a verdade sobre o que o nosso produto não consegue fazer do que exagerá-lo.</li>
+        <li><strong>Tecnologia ao serviço das pessoas.</strong> A MIVLA não requer novos hábitos. Actua silenciosamente. Interrompe apenas quando é importante.</li>
       </ul>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-mivla">MIVLA</div>
       <h2 data-i18n="lm-h2-whybuilt">Why We Built MIVLA</h2>
-      <p>MIVLA started from a simple observation: the tools that exist to detect AI manipulation require you to already know something is suspicious, copy it, open another app, load it and wait. That is not how people consume social media.</p>
-      <p>People scroll. Fast. In moments of emotion — outrage, fear, grief, joy. The manipulation is conceived to act exactly in those moments, before critical thinking activates.</p>
-      <p>We asked: what if the detection happened at the same speed as the consumption? What if it was as automatic as scrolling? What if it required nothing from the user except carrying their phone?</p>
-      <p>That is MIVLA. The semaphore appears because you opened your feed, not because you did anything extra.</p>
-      <div class="highlight-box"><p>The name MIVLA derives from the Portuguese verbs <em>mirar</em> (to look closely, to aim) and <em>vigilar</em> (to watch, to keep vigil). It represents the kind of attention that protects — steady, quiet, always present. MIVLA is also ALVIM, written backwards — and those who know Fish Alvim will understand... ;)</p></div>
+      <p class="lm-en">MIVLA started from a simple observation: the tools that exist to detect AI manipulation require you to already know something is suspicious, copy it, open another app, load it and wait. That is not how people consume social media.</p>
+      <p class="lm-pt">A MIVLA começou com uma observação simples: as ferramentas existentes para detectar manipulação por IA exigem que já suspeites de algo, que o copies, que abras outra app, que o carregues e que esperes. Não é assim que as pessoas consomem redes sociais.</p>
+      <p class="lm-en">People scroll fast. In moments of emotion — outrage, fear, grief, joy. The manipulation is conceived to act exactly in those moments, before critical thinking activates.</p>
+      <p class="lm-pt">As pessoas navegam depressa. Em momentos de emoção — indignação, medo, tristeza, alegria. A manipulação é concebida para actuar exactamente nesses momentos, antes que o pensamento crítico se active.</p>
+      <div class="highlight-box">
+        <p class="lm-en">The name MIVLA derives from the Portuguese verbs <em>mirar</em> (to look closely, to aim) and <em>vigilar</em> (to watch, to keep vigil). It represents the kind of attention that protects — steady, quiet, always present. MIVLA is also ALVIM, written backwards — and those who know Fish Alvim will understand... ;)</p>
+        <p class="lm-pt">O nome MIVLA deriva dos verbos portugueses <em>mirar</em> (olhar atentamente, visar) e <em>vigilar</em> (vigiar, manter vigília). Representa o tipo de atenção que protege — constante, silenciosa, sempre presente. MIVLA é também ALVIM, escrito ao contrário — e quem conhece o Fish Alvim vai entender... ;)</p>
+      </div>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-registration">REGISTRATION</div>
       <h2 data-i18n="lm-h2-legal">Legal Information</h2>
       <ul>
-        <li><strong>Company:</strong> XTREME PROJECTS</li>
-        <li><strong>Country:</strong> Portugal 🇵🇹 (European Union)</li>
-        <li><strong>Trademark:</strong> MIVLA™ — INPI Portugal Reg. nº 20262007760334</li>
-        <li><strong>Website:</strong> <a href="https://xtremeprojects.org" target="_blank">xtremeprojects.org</a></li>
-        <li><strong>General:</strong> <a href="mailto:[email protected]">hello@xtremeprojects.org</a></li>
-        <li><strong>Press:</strong> <a href="mailto:[email protected]">press@mivla.app</a></li>
-        <li><strong>Support:</strong> <a href="mailto:[email protected]">support@mivla.app</a></li>
-        <li><strong>Privacy:</strong> <a href="mailto:[email protected]">privacy@mivla.app</a></li>
+        <li><strong class="lm-en">Company:</strong><strong class="lm-pt">Empresa:</strong> XTREME PROJECTS</li>
+        <li><strong class="lm-en">Country:</strong><strong class="lm-pt">País:</strong> Portugal 🇵🇹 (European Union)</li>
+        <li><strong class="lm-en">Trademark:</strong><strong class="lm-pt">Marca:</strong> MIVLA™ — INPI Portugal Reg. nº 20262007760334</li>
+        <li><strong class="lm-en">Website:</strong><strong class="lm-pt">Website:</strong> <a href="https://xtremeprojects.org" target="_blank">xtremeprojects.org</a></li>
+        <li><strong class="lm-en">General:</strong><strong class="lm-pt">Geral:</strong> <a href="mailto:info@xtreme-projects.org">info@xtreme-projects.org</a></li>
+        <li><strong class="lm-en">Press:</strong><strong class="lm-pt">Imprensa:</strong> <a href="mailto:press@mivla.app">press@mivla.app</a></li>
+        <li><strong class="lm-en">Support:</strong><strong class="lm-pt">Suporte:</strong> <a href="mailto:support@mivla.app">support@mivla.app</a></li>
+        <li><strong class="lm-en">Privacy:</strong><strong class="lm-pt">Privacidade:</strong> <a href="mailto:privacy@mivla.app">privacy@mivla.app</a></li>
       </ul>
     </div>
 
     <div class="section">
       <div class="section-n" data-i18n="lm-sn-partnerships">PARTNERSHIPS</div>
       <h2 data-i18n="lm-h2-workwithus">Work With Us</h2>
-      <p>We are open to partnerships that align with our values. We are particularly interested in:</p>
-      <ul>
-        <li><strong>Media and journalism organisations</strong> — fact-checkers, newsrooms and investigative outlets that want to integrate MIVLA's detection capabilities into their verification workflows.</li>
-        <li><strong>Academic and research institutions</strong> — universities and research centres working on disinformation, AI detection, media literacy or digital forensics.</li>
-        <li><strong>Civil society and NGO</strong> — organisations working on electoral integrity, conflict monitoring, or media literacy education, particularly in high-risk regions.</li>
-        <li><strong>Platform and cybersecurity companies</strong> — technology partners who want to embed or extend MIVLA's detection engine within their own products or services.</li>
-        <li><strong>Government and public institutions</strong> — bodies working on EU AI Act compliance, digital public infrastructure, or citizen information protection.</li>
-      </ul>
-      <p>We do not accept partnerships that involve advertising, data monetisation, or any compromise to our privacy-centred architecture. If you share our values, we want to hear from you.</p>
-      <div class="green-box"><p>📧 To propose a partnership: <strong><a href="mailto:[email protected]" class="__cf_email__" data-cfemail="9ef6fbf2f2f1dee6eaecfbf3fbeeecf1f4fbfdeaedb0f1ecf9">[email&#160;protected]</a></strong></p></div>
+      <p class="lm-en">We are open to partnerships with media organisations, academic institutions, civil society and NGO, platform and cybersecurity companies, and government bodies — that align with our values.</p>
+      <p class="lm-pt">Estamos abertos a parcerias com organizações de comunicação social, instituições académicas, sociedade civil e ONG, empresas de plataformas e cibersegurança, e organismos governamentais — que se alinhem com os nossos valores.</p>
+      <p class="lm-en">We do not accept partnerships involving advertising, data monetisation, or any compromise to our privacy-centred architecture.</p>
+      <p class="lm-pt">Não aceitamos parcerias que envolvam publicidade, monetização de dados ou qualquer compromisso à nossa arquitectura centrada na privacidade.</p>
+      <div class="green-box">
+        <p class="lm-en">📧 To propose a partnership: <strong><a href="mailto:info@xtreme-projects.org">info@xtreme-projects.org</a></strong></p>
+        <p class="lm-pt">📧 Para propor uma parceria: <strong><a href="mailto:info@xtreme-projects.org">info@xtreme-projects.org</a></strong></p>
+      </div>
     </div></div>
+    </div>
     </div>
   </div>
 </div>
@@ -5627,56 +6826,7 @@ window.initDashboard=function(){
 .np-step-arrow{text-align:center;color:var(--muted);font-size:16px;padding:4px 0}
 </style>
 
-<script>
-// ── LEGAL MODAL FUNCTIONS ──
-function lmOpen(doc) {
-  var overlay = document.getElementById('legal-overlay');
-  if (!overlay) return;
-  overlay.style.display = 'block';
-  document.body.style.overflow = 'hidden';
-  document.querySelectorAll('.lm-pane').forEach(function(p){ p.classList.remove('on'); });
-  document.querySelectorAll('.lm-tab').forEach(function(t){ t.classList.remove('on'); });
-  var pane = document.getElementById('lm-' + doc);
-  if (pane) pane.classList.add('on');
-  var tab = document.querySelector('.lm-tab[data-doc="' + doc + '"]');
-  if (tab) tab.classList.add('on');
-  overlay.scrollTop = 0;
-}
 
-function lmShow(doc, btn) {
-  document.querySelectorAll('.lm-pane').forEach(function(p){ p.classList.remove('on'); });
-  document.querySelectorAll('.lm-tab').forEach(function(t){ t.classList.remove('on'); });
-  var pane = document.getElementById('lm-' + doc);
-  if (pane) pane.classList.add('on');
-  if (btn) btn.classList.add('on');
-  var body = document.getElementById('lm-body');
-  if (body) body.scrollTop = 0;
-}
-
-function lmClose() {
-  var overlay = document.getElementById('legal-overlay');
-  if (overlay) overlay.style.display = 'none';
-  document.body.style.overflow = '';
-}
-
-// Activate first pane on load + backdrop/ESC close
-document.addEventListener('DOMContentLoaded', function() {
-  var ppPane = document.getElementById('lm-pp');
-  var ppTab = document.querySelector('.lm-tab[data-doc="pp"]');
-  if (ppPane) ppPane.classList.add('on');
-  if (ppTab) ppTab.classList.add('on');
-
-  var overlay = document.getElementById('legal-overlay');
-  if (overlay) {
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) lmClose();
-    });
-  }
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') lmClose();
-  });
-});
-</script>
 
 </body>
 </html>
