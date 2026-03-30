@@ -67,6 +67,9 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MIVLA™ — Know What's Real</title>
 <meta name="description" content="The first app that tells you if social media content is AI-generated or real — as you scroll.">
@@ -415,6 +418,7 @@ nav{
 
 /* ════ ABOUT / MISSION ════ */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:stretch}
+.about-left{display:flex;flex-direction:column}
 .about-left .h2{margin-bottom:20px}
 .about-left .subline{margin-bottom:36px;max-width:480px}
 
@@ -422,6 +426,7 @@ nav{
 .tirex-card{
   background:var(--navy);border-radius:var(--r);padding:36px;
   position:relative;overflow:hidden;
+  height:100%;box-sizing:border-box;flex:1;
 }
 .tirex-card::before{
   content:'';position:absolute;inset:0;
@@ -629,12 +634,12 @@ nav{
   padding:28px 24px;
   flex:1;display:flex;flex-direction:column;justify-content:flex-end;
   opacity:0;transform:translateY(8px);
-  transition:opacity .8s ease 1.5s, transform .8s ease 1.5s;
+  transition:opacity .4s ease 0.05s, transform .4s ease 0.05s;
 }
 .wc.revealed .wc-content{opacity:1;transform:translateY(0)}
 .wc-overlay{
   position:absolute;inset:0;z-index:3;
-  background:linear-gradient(to top, rgba(5,8,18,0.82) 35%, rgba(5,8,18,0.15) 100%);
+  background:linear-gradient(to top, rgba(5,8,18,0.92) 45%, rgba(5,8,18,0.35) 100%);
 }
 .wc-content{z-index:4 !important}
 
@@ -711,256 +716,7 @@ to{background-position:0 100px}}
 .plan-name{font-size:24px;font-weight:800;color:var(--navy);margin-bottom:4px}
 .plan.ft .plan-name{color:var(--blue)}
 .plan-tag{font-size:13px;color:var(--muted);margin-bottom:24px}
-
-/* ══ NEW PRICING LAYOUT ══ */
-.amb-price-banner{
-  display:flex;align-items:center;gap:10px;justify-content:center;
-  background:rgba(200,164,90,0.1);border:1px solid rgba(200,164,90,0.3);
-  border-radius:12px;padding:12px 20px;margin:20px auto 0;max-width:600px;
-  font-size:14px;color:var(--navy);font-weight:500;
-}
-.amb-price-banner-crown{font-size:20px}
-/* New phone steps */
-.newphone-steps{display:flex;flex-direction:column;gap:0;margin:16px 0}
-.np-step{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:var(--bg);border-radius:12px}
-.np-step-num{width:32px;height:32px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
-.np-step-body{display:flex;flex-direction:column;gap:4px;font-size:14px}
-.np-step-body strong{color:var(--navy);font-weight:700}
-.np-step-body span{color:var(--muted);line-height:1.6}
-.np-step-arrow{text-align:center;font-size:18px;color:var(--border);padding:2px 0;line-height:1}
-.np-platform-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.np-platform-badge{font-size:12px;font-weight:800;padding:4px 14px;border-radius:100px;letter-spacing:.04em}
-.np-ios{background:rgba(59,91,219,0.1);color:var(--blue);border:1px solid rgba(59,91,219,0.2)}
-.np-android{background:rgba(34,197,94,0.1);color:#15803D;border:1px solid rgba(34,197,94,0.2)}
-.np-platform-note{font-size:11px;color:var(--muted);font-style:italic}
-
-
-..new-plans{
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-  margin-top:36px;
-  max-width:560px;
-  margin-left:auto;
-  margin-right:auto;
-}
-
-/* Pricing card base */
-.np-card{
-  background:#fff;
-  border-radius:20px;
-  padding:28px 24px;
-  border:1.5px solid var(--border);
-  box-shadow:0 2px 20px rgba(10,22,40,0.06);
-  transition:transform .25s,box-shadow .25s;
-  display:flex;
-  flex-direction:column;
-  gap:0;
-  text-align:center;
-  align-items:center;
-}
-.np-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(10,22,40,0.1)}
-
-/* Annual card spans full width */
-.np-annual{
-  grid-column:1/-1;
-  border:2px solid var(--blue);
-  box-shadow:0 6px 32px rgba(59,91,219,0.12);
-}
-
-/* Title */
-.np-card-title{
-  font-size:11px;font-weight:800;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--muted);margin-bottom:4px;
-}
-.np-card-name{
-  font-size:22px;font-weight:800;color:var(--navy);
-  letter-spacing:-.02em;margin-bottom:18px;
-}
-.np-card-name.gold{color:var(--gold)}
-
-/* Price block */
-.np-price-block{margin-bottom:20px;position:relative}
-
-/* Normal price */
-.np-price-normal{
-  font-size:36px;font-weight:800;color:var(--navy);
-  letter-spacing:-.03em;line-height:1;
-  display:none;
-}
-.np-price-normal.gold{color:var(--gold)}
-.np-price-normal sup{font-size:18px;font-weight:700;vertical-align:super}
-.np-price-normal sub{font-size:14px;font-weight:600;color:var(--muted)}
-
-/* Ambassador: strikethrough + new price */
-.np-price-orig{
-  font-size:22px;font-weight:700;color:var(--red,#e53e3e);
-  text-decoration:line-through;
-  text-decoration-thickness:3px;
-  text-decoration-color:#e53e3e;
-  opacity:.85;
-  line-height:1.2;
-}
-.np-price-orig sup{font-size:13px}
-.np-price-disc{
-  font-size:36px;font-weight:800;color:var(--navy);
-  letter-spacing:-.03em;line-height:1;
-}
-.np-price-disc.gold{color:var(--gold)}
-.np-price-disc sup{font-size:18px;font-weight:700;vertical-align:super}
-.np-price-disc sub{font-size:14px;font-weight:600;color:var(--muted)}
-.np-amb-tag{
-  font-size:10px;font-weight:800;
-  background:var(--gold);color:#1a1a1a;
-  padding:2px 8px;border-radius:100px;
-  letter-spacing:.05em;margin-top:4px;
-  width:fit-content;
-}
-
-/* Annual plans row */
-.np-annual-row{
-  display:flex;align-items:stretch;gap:0;
-  margin-bottom:20px;
-  border:1px solid var(--border);
-  border-radius:12px;overflow:hidden;
-}
-.np-annual-plan{flex:1;text-align:center;padding:16px 12px}
-.np-annual-plan+.np-annual-plan{border-left:1px solid var(--border)}
-.np-annual-plan-name{
-  font-size:10px;font-weight:800;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted);margin-bottom:8px;
-}
-
-/* Badge */
-.np-best-badge{
-  display:inline-flex;align-items:center;gap:4px;
-  background:var(--blue);color:#fff;
-  font-size:10px;font-weight:800;letter-spacing:.04em;
-  padding:3px 10px;border-radius:100px;
-  margin-bottom:14px;
-}
-.np-best-badge.gold{background:var(--gold);color:#1a1a1a}
-
-/* CTA */
-.np-card .np-cta{
-  margin-top:auto;
-  display:block;text-align:center;
-  width:100%;box-sizing:border-box;
-  background:var(--blue);color:#fff;
-  font-size:13px;font-weight:700;
-  padding:13px 20px;border-radius:12px;
-  text-decoration:none;transition:background .2s,transform .15s;
-  letter-spacing:.01em;
-}
-.np-card .np-cta:hover{background:#2d4fd6;transform:translateY(-1px)}
-.np-card .np-cta.secondary{background:transparent;color:var(--blue);border:1.5px solid var(--blue)}
-.np-card .np-cta.secondary:hover{background:rgba(59,91,219,0.06)}
-.np-card .np-cta.gold-btn{background:var(--gold);color:#1a1a1a}
-.np-card .np-cta.gold-btn:hover{background:#c9a832}
-.np-trial{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.5;width:100%}
-
-/* Ambassador active state */
-.amb-active .np-price-normal,.amb-active .np-price-disc-wrap .np-price-normal{display:none}
-.amb-active .np-price-orig,.amb-active .np-price-disc,.amb-active .np-amb-tag{display:block}
-.amb-active .np-price-disc{display:block}
-
-/* Annual card */
-/* np-card defined above */
-.np-plan-type{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
-.np-premium-annual{border-color:var(--gold);box-shadow:0 8px 32px rgba(215,170,70,0.15)}
-
-.np-badge-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.np-badge-best{background:var(--blue);color:#fff;font-size:11px;font-weight:800;padding:4px 12px;border-radius:100px;letter-spacing:.04em}
-.np-badge-save{background:rgba(34,197,94,0.12);color:#15803D;border:1px solid rgba(34,197,94,0.3);font-size:11px;font-weight:700;padding:4px 12px;border-radius:100px}
-.np-title{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
-.np-monthly .np-title,.np-shake .np-title{color:var(--muted)}
-.np-shake{
-  grid-column:1/-1;
-  max-width:500px;
-  margin:0 auto;
-  width:100%;
-  position:relative;
-  border:2px solid transparent;
-  background:
-    linear-gradient(#fff,#fff) padding-box,
-    linear-gradient(90deg,var(--blue),var(--gold),var(--blue)) border-box;
-  animation:shakePulse 2.5s ease-in-out infinite;
-}
-@keyframes shakePulse {
-  0%,100% {
-    box-shadow:0 0 0 0 rgba(59,91,219,0);
-    background:
-      linear-gradient(#fff,#fff) padding-box,
-      linear-gradient(90deg,var(--blue),var(--gold),var(--blue)) border-box;
-  }
-  50% {
-    box-shadow:0 0 22px 6px rgba(59,91,219,0.18);
-    background:
-      linear-gradient(#fff,#fff) padding-box,
-      linear-gradient(90deg,var(--gold),var(--blue),var(--gold)) border-box;
-  }
-}
-.np-annual-featured{border:2px solid var(--blue);box-shadow:0 8px 40px rgba(59,91,219,0.15)}
-.np-monthly-premium{border:1.5px solid rgba(215,170,70,0.4)}
-.np-price-gold{color:var(--gold)!important}
-.np-title-gold{color:var(--gold)!important}
-.np-cta-gold{background:var(--gold)!important;color:#1a1a1a!important}
-.np-cta-gold:hover{background:#c9a832!important}
-.np-plan-type{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
-
-.np-plans-row{display:flex;align-items:center;gap:0;margin-bottom:20px}
-.np-divider{width:1px;height:60px;background:var(--border);margin:0 16px;flex-shrink:0}
-.np-plan{flex:1;text-align:center}
-.np-plan-name{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.np-plan-price-wrap{position:relative}
-.np-orig{font-size:14px;color:var(--dim);text-decoration:line-through;text-decoration-color:var(--red);font-weight:500;line-height:1.2}
-.np-price{font-size:26px;font-weight:800;color:var(--navy);line-height:1}
-.np-annual .np-price{color:var(--blue)}
-.np-amb-badge{font-size:10px;font-weight:800;color:var(--gold);background:rgba(200,164,90,0.1);border:1px solid rgba(200,164,90,0.3);border-radius:100px;padding:2px 8px;margin-top:4px;display:inline-block}
-.np-per-yr{font-size:13px;font-weight:600;opacity:.7}
-.np-mo{font-size:11px;color:var(--muted);margin-top:3px}
-/* CTAs */
-.np-cta{display:block;text-align:center;padding:13px 20px;border-radius:100px;font-size:14px;font-weight:700;text-decoration:none;transition:transform .2s,box-shadow .2s}
-.np-cta-primary{background:var(--blue);color:#fff;box-shadow:0 4px 16px rgba(59,91,219,0.3)}
-.np-cta-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,91,219,0.4)}
-.np-cta-secondary{background:rgba(59,91,219,0.07);color:var(--blue);border:1px solid var(--border);margin-top:12px}
-.np-cta-secondary:hover{background:rgba(59,91,219,0.12)}
-.np-trial-note{font-size:11px;color:var(--muted);text-align:center;margin-top:8px}
-/* Shake card */
-.np-shake{text-align:center}
-.np-shake-icon{font-size:32px;animation:swShakeAnim 2.4s ease-in-out infinite;display:block;margin-bottom:8px}
-.np-shake-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px}
-.np-shake-slots{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:10px}
-.np-slot{width:40px;height:40px;border-radius:10px;background:rgba(59,91,219,0.08);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--blue);font-family:'JetBrains Mono',monospace}
-.np-slot-sep{font-size:16px;color:var(--border);font-weight:800}
-.np-shake-validity{font-size:11px;color:var(--blue);font-weight:600;margin-bottom:12px}
-/* Ambassador price active state */
-.np-annual.amb-active{border-color:var(--gold);box-shadow:0 8px 32px rgba(200,164,90,0.2)}
-.np-annual.amb-active .np-title{color:var(--gold)}
-.np-annual.amb-active .np-price{color:var(--gold)}
-.np-annual.amb-active .np-cta-primary{background:var(--gold);color:#0a0e1a;box-shadow:0 4px 16px rgba(200,164,90,0.35)}
-@media(max-width:900px){.new-plans{grid-template-columns:1fr}}
 .plan-price{margin-bottom:24px;padding-bottom:22px;border-bottom:1px solid var(--border)}
-/* Ambassador pricing */
-.amb-price-block{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:8px}
-.amb-orig-price{
-  font-size:15px;color:var(--dim);
-  text-decoration:line-through;text-decoration-color:var(--red);
-  font-weight:500;
-}
-.amb-orig-price span{font-size:11px}
-.amb-final-price{
-  font-size:32px;font-weight:800;color:var(--gold);line-height:1;
-}
-.amb-yr{font-size:14px;font-weight:600;color:var(--gold);opacity:.8}
-.amb-price-badge{
-  display:inline-flex;align-items:center;
-  background:rgba(200,164,90,0.1);border:1px solid rgba(200,164,90,0.35);
-  border-radius:100px;padding:3px 12px;
-  font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.06em;
-  margin-top:4px;
-}
-
 .price-n{font-size:50px;font-weight:800;color:var(--navy);line-height:1;display:flex;align-items:flex-start}
 .plan.ft .price-n{color:var(--blue)}
 .price-n sup{font-size:20px;margin-top:8px;font-weight:700}
@@ -1007,7 +763,7 @@ to{background-position:0 100px}}
 .fa{max-height:0;overflow:hidden;transition:max-height .4s var(--e),padding .3s;font-size:14px;color:var(--muted);line-height:1.8}
 .fi.open .fa{max-height:260px;padding-bottom:20px}
 
-/* CTA — blue gradient */
+/* CTA */
 .cta-sec{
   padding:120px 5vw;text-align:center;
   background:linear-gradient(135deg,#1A2B5E 0%,#3B5BDB 100%);
@@ -1022,7 +778,6 @@ to{background-position:0 100px}}
 .sb-badge{display:inline-flex;transition:transform .2s var(--e),opacity .2s;opacity:.95}
 .sb-badge:hover{transform:translateY(-2px);opacity:1}
 .sb-badge-soon{display:inline-flex;position:relative;opacity:.55;cursor:default}
-.sb-pill{position:absolute;top:-10px;right:-4px;background:rgba(200,164,90,0.2);color:var(--gold);font-size:10px;font-weight:700;padding:2px 9px;border-radius:100px;letter-spacing:.08em;white-space:nowrap}
 .sb{display:flex;align-items:center;gap:12px;background:rgba(200,164,90,0.1);border:1px solid rgba(200,164,90,0.3);border-radius:100px;padding:12px 24px;text-decoration:none;transition:background .2s,transform .2s var(--e)}
 .sb:hover{background:rgba(200,164,90,0.2);transform:translateY(-2px)}
 .sb-icon{font-size:22px}
@@ -1037,20 +792,18 @@ to{background-position:0 100px}}
 footer{background:#0A1628;padding:44px 5vw 32px;border-top:1px solid rgba(255,255,255,0.06)}
 .fi2{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:28px}
 .fl{font-size:18px;font-weight:800;color:var(--gold);display:block;margin-bottom:6px}
-.ft{font-size:13px;color:#fff;max-width:260px;line-height:1.6}
-.fleg{font-size:11px;color:rgba(255,255,255,0.80);margin-top:10px;line-height:1.6}
+.ft{font-size:13px;color:rgba(255,255,255,0.35);max-width:260px;line-height:1.6}
+.fleg{font-size:11px;color:rgba(255,255,255,0.18);margin-top:10px;line-height:1.6}
 .flinks{display:flex;flex-direction:column;gap:9px;align-items:flex-end}
-.flinks a{font-size:12px;color:var(--gold);text-decoration:none;font-weight:600;transition:color .2s}
+.flinks a{font-size:12px;color:var(--gold);text-decoration:none;font-weight:500;transition:color .2s}
 .flinks a:hover{color:#fff}
 .fbot{max-width:1100px;margin:22px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.fcopy{font-size:11px;color:rgba(255,255,255,0.72)}
+.fcopy{font-size:11px;color:rgba(255,255,255,0.15)}
 
-/* ANIM */
+/* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-.reveal{opacity:1;transform:none;transition:opacity .65s var(--e),transform .65s var(--e)}
-.reveal.hidden{opacity:0;transform:translateY(22px)}
-.js-reveal .reveal{opacity:0;transform:translateY(22px)}
-.js-reveal .reveal.visible{opacity:1;transform:none}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s var(--e),transform .65s var(--e)}
+.reveal.visible{opacity:1;transform:none}
 .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
 
 /* RESPONSIVE */
@@ -1059,70 +812,63 @@ footer{background:#0A1628;padding:44px 5vw 32px;border-top:1px solid rgba(255,25
 }
 @media(max-width:900px){
   .ai-showcase,.sem-cards,.how-grid,.act-grid,.who-grid,.tr-grid,.plans{grid-template-columns:1fr}
-  .premium-grid{grid-template-columns:1fr!important;direction:ltr!important;gap:24px}
-  .premium-grid.reverse{direction:ltr!important}
-  .premium-grid.reverse>*{direction:ltr!important}
   .num-grid{grid-template-columns:repeat(2,1fr)}
   .faq-grid{grid-template-columns:1fr}
 }
 @media(max-width:640px){
-  /* ── NAV ── */
   .nav-links{display:none}
   .nav-links.open{display:flex;flex-direction:column;position:fixed;top:62px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);padding:22px 5vw;gap:18px;z-index:99}
   .burger{display:flex}
-
-  /* ── HERO ── */
-  .hero{padding:90px 5vw 56px;min-height:auto}
-  .hero-sub{font-size:15px;line-height:1.65;margin-bottom:28px}
-  .hero-actions{gap:10px}
-  .btn-p,.btn-s{padding:13px 22px;font-size:14px}
-  .hero-stats{gap:20px;padding-top:28px}
-  .hero-proof{gap:14px;padding-top:20px}
-
-  /* ── SECTIONS ── */
-  .sec{padding:64px 0}
-  .ai-sec{padding:64px 0}
-  .premium-sec{padding:64px 0}
-  .premium-grid{grid-template-columns:1fr!important;direction:ltr!important;gap:32px}
-  .premium-grid.reverse{direction:ltr!important}
-  .premium-grid.reverse>*{direction:ltr!important}
-  .prem-phone{max-width:100%;width:100%}
-  .prem-text{padding:0}
-  .prem-feature-list li{font-size:14px;gap:10px}
-  .prem-feat-icon{width:32px;height:32px;font-size:14px}
-  .prem-feat-title{font-size:14px}
-  .prem-layers{overflow-x:auto}
-  .prem-layer-row{min-width:260px}
-  .subline{font-size:14px}
-
-  /* ── ABOUT ── */
-  .about-grid{gap:32px}
-
-  /* ── SEMAPHORE hero ── */
-  .sem-hero{padding:64px 5vw}
-
-  /* ── PRICING ── */
-  .plan{padding:28px 22px}
-  .plan-name{font-size:20px}
-
-  /* ── STORES / CTA ── */
   .stores{flex-direction:column;align-items:center}
   .cta-trust{flex-direction:column;gap:8px}
-
-  /* ── FOOTER ── */
   .fi2{flex-direction:column}
   .flinks{align-items:flex-start}
+}
 
-  /* ── ACTION CARDS ── */
-  .ac-body{font-size:13px}
+/* ══ NEW PRICING LAYOUT ══ */
+.amb-price-banner{
+  display:flex;align-items:center;gap:10px;justify-content:center;
+  background:rgba(200,164,90,0.1);border:1px solid rgba(200,164,90,0.3);
+  border-radius:12px;padding:12px 20px;margin:20px auto 0;max-width:600px;
+  font-size:14px;color:var(--navy);font-weight:500;
+}
+.amb-price-banner-crown{font-size:20px}
+/* Ambassador price block inside plan cards */
+.amb-price-block{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-top:6px}
+.amb-orig-price{font-size:13px;color:var(--muted);text-decoration:line-through;opacity:.7}
+.amb-final-price{font-size:36px;font-weight:900;color:var(--gold);line-height:1}
+.amb-final-price sup{font-size:18px;vertical-align:super}
+.amb-yr{font-size:13px;color:var(--muted);align-self:flex-end;padding-bottom:4px}
+.amb-price-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(200,164,90,0.12);border:1px solid rgba(200,164,90,0.3);color:var(--gold);font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.04em;margin-top:6px;width:fit-content}
+/* Ambassador warning block */
+.amb-warning{
+  display:none;max-width:600px;margin:12px auto 0;
+  background:rgba(200,164,90,0.08);border:1px solid rgba(200,164,90,0.4);
+  border-radius:10px;padding:14px 18px;
+  font-size:13px;line-height:1.65;color:rgba(10,22,40,0.75);
+}
+.amb-warning strong{color:var(--navy);font-weight:700}
+.amb-warning em{color:var(--gold);font-style:normal;font-weight:700}
+/* New phone steps */
+.newphone-steps{display:flex;flex-direction:column;gap:0;margin:16px 0}
+.np-step{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:var(--bg);border-radius:12px}
+.np-step-num{width:32px;height:32px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+.np-step-body{display:flex;flex-direction:column;gap:4px;font-size:14px}
+.np-step-body strong{color:var(--navy);font-weight:700}
+.np-step-body span{color:var(--muted);line-height:1.6}
+.np-step-arrow{text-align:center;font-size:18px;color:var(--border);padding:2px 0;line-height:1}
+.np-platform-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.np-platform-badge{font-size:12px;font-weight:800;padding:4px 14px;border-radius:100px;letter-spacing:.04em}
+.np-ios{background:rgba(59,91,219,0.1);color:var(--blue);border:1px solid rgba(59,91,219,0.2)}
+.np-android{background:rgba(34,197,94,0.1);color:#15803D;border:1px solid rgba(34,197,94,0.2)}
+.np-platform-note{font-size:11px;color:var(--muted);font-style:italic}
 
-  /* ── PLATFORMS ── */
-  .plat-row{gap:20px;margin-top:40px}
-  .pi-icon{width:44px;height:44px;border-radius:10px}
-  .pi-icon svg{width:44px;height:44px}
-  .pi-name{font-size:10px}
 
-  
+.np-shake-eyebrow{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.plan-platform-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(59,91,219,0.07);border:1px solid rgba(59,91,219,0.15);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:700;color:var(--blue);letter-spacing:.04em;margin-bottom:12px}
+.plan-mobile-note{text-align:center;font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5}
+.price-platform-note{text-align:center;font-size:12px;color:var(--muted);margin:10px auto 0;max-width:480px;line-height:1.6}
+
 /* ── NEW PRICING CARDS ── */
 .np-card{
   background:#fff;border-radius:20px;padding:28px 24px;
@@ -1174,23 +920,35 @@ footer{background:#0A1628;padding:44px 5vw 32px;border-top:1px solid rgba(255,25
 .np-duo-divider{width:1px;background:var(--border);flex-shrink:0}
 .np-duo-name{
   font-size:11px;font-weight:800;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted);margin-bottom:6px;
+  color:var(--muted);margin-bottom:6px;
 }
 .np-duo-name.gold{color:var(--gold)}
+/* Normal price (default — no ambassador) */
 .np-price-orig-val{
+  font-size:30px;font-weight:800;color:var(--navy);
+  text-decoration:none;
+  line-height:1.1;letter-spacing:-.02em;
+}
+.np-price-orig-val.gold{color:var(--gold)}
+.np-price-orig-val sub{font-size:13px;font-weight:600;color:var(--muted);text-decoration:none}
+/* Ambassador: orig becomes strikethrough */
+.amb-mode .np-price-orig-val{
   font-size:20px;font-weight:700;color:#e53e3e;
   text-decoration:line-through;text-decoration-thickness:3px;
-  line-height:1.2;
+  line-height:1.2;letter-spacing:0;
 }
-.np-price-orig-val sub{font-size:11px;font-weight:600;color:var(--muted);text-decoration:none}
+.amb-mode .np-price-orig-val sub{font-size:11px}
 .np-price-disc-val{
+  display:none;
   font-size:30px;font-weight:800;color:var(--navy);
   letter-spacing:-.02em;line-height:1.1;
 }
+.amb-mode .np-price-disc-val{display:block}
 .np-price-disc-val.gold{color:var(--gold)}
 .np-price-disc-val sub{font-size:13px;font-weight:600;color:var(--muted)}
 .np-amb-pill{
-  display:inline-flex;align-items:center;gap:3px;
+  display:none;
+  align-items:center;gap:3px;
   font-size:11px;font-weight:900;letter-spacing:.05em;
   background:var(--gold);color:#1a1a1a;
   padding:4px 12px;border-radius:100px;margin-top:6px;
@@ -1199,6 +957,7 @@ footer{background:#0A1628;padding:44px 5vw 32px;border-top:1px solid rgba(255,25
   border:1.5px solid rgba(255,255,255,0.6);
   text-shadow:0 1px 0 rgba(255,255,255,0.3);
 }
+.amb-mode .np-amb-pill{display:inline-flex}
 @keyframes goldShine{
   0%,100%{ box-shadow:0 0 0 0 rgba(215,170,70,0); }
   50%{ box-shadow:0 0 16px 5px rgba(215,170,70,0.9),0 0 32px 10px rgba(215,170,70,0.4); }
@@ -1214,12 +973,12 @@ footer{background:#0A1628;padding:44px 5vw 32px;border-top:1px solid rgba(255,25
 .np-cta-btn:hover{background:#2d4fd6;transform:translateY(-1px)}
 .np-cta-primary{background:var(--blue)}
 .np-trial-note{font-size:11px;color:var(--muted);text-align:center;line-height:1.5}
-.np-shake-emoji{font-size:96px;display:block;margin-bottom:12px;animation:swShakeAnim 2.4s ease-in-out infinite;line-height:1}
+.np-shake-emoji{font-size:128px;display:block;margin:0 auto 16px;animation:swShakeAnim 2.2s ease-in-out infinite;line-height:1;text-align:center;filter:drop-shadow(0 6px 20px rgba(59,91,219,0.3));transform-origin:bottom center}
 .np-shake-label{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
 .np-shake-title{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:10px;letter-spacing:-.01em}
 .np-shake-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px}
 .np-shake-slots{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px}
-.np-slot{width:52px;height:52px;border-radius:10px;background:rgba(59,91,219,0.08);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:var(--blue)}
+.np-slot{width:52px;height:52px;border-radius:10px;background:rgba(59,91,219,0.08);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:var(--blue)}
 .np-slot-sep{font-size:18px;color:var(--muted);font-weight:700}
 .np-shake-validity{font-size:11px;color:var(--muted);line-height:1.6}
 
@@ -1905,12 +1664,15 @@ body.legal-pt .lm-en { display: none !important; }
 .sw-shake-icon{font-size:44px;animation:swShakeAnim 2.4s ease-in-out infinite}
 .sw-shake-hint{color:rgba(255,255,255,0.55);font-size:12px;font-weight:600}
 @keyframes swShakeAnim{
-  0%,100%{transform:rotate(0deg) translateX(0)}
-  8%{transform:rotate(-8deg) translateX(-4px)}
-  16%{transform:rotate(8deg) translateX(4px)}
-  24%{transform:rotate(-6deg) translateX(-3px)}
-  32%{transform:rotate(6deg) translateX(3px)}
-  40%{transform:rotate(0deg) translateX(0)}
+  0%{transform:rotate(0deg) translateX(0) scale(1)}
+  5%{transform:rotate(-12deg) translateX(-6px) scale(1.05)}
+  10%{transform:rotate(12deg) translateX(6px) scale(1.05)}
+  15%{transform:rotate(-10deg) translateX(-5px) scale(1.04)}
+  20%{transform:rotate(10deg) translateX(5px) scale(1.04)}
+  25%{transform:rotate(-6deg) translateX(-3px) scale(1.02)}
+  30%{transform:rotate(6deg) translateX(3px) scale(1.02)}
+  35%{transform:rotate(0deg) translateX(0) scale(1)}
+  100%{transform:rotate(0deg) translateX(0) scale(1)}
 }
 
 /* Discount panel */
@@ -2378,7 +2140,7 @@ body.legal-pt .lm-en { display: none !important; }
   <div class="wrap">
     <span class="eyebrow reveal" data-i18n="prem-eyebrow">Premium — what you actually see</span>
     <h2 class="h2 reveal"><span data-i18n="prem-h2">Base shows the signal.<br><span class="hl">Premium explains why.</span></span></h2>
-    <p class="subline reveal" data-i18n="prem-sub">Same content. Same analysis. Premium opens the full report — layer by layer, signal by signal.</p>
+    <p class="subline reveal" data-i18n="prem-sub">Same content. Same analysis. Premium opens the full report — <span class="hl">tap the semaphore to explore each layer, signal by signal.</span></p>
 
     <!-- Row 1: Result + Conclusion -->
     <div class="premium-grid reveal">
@@ -2655,10 +2417,10 @@ body.legal-pt .lm-en { display: none !important; }
 .amb-cta-s:hover{background:rgba(255,255,255,0.12);box-shadow:none}
 
 /* TIREX hint */
-.amb-tirex-hint{font-size:12px;color:#fff;display:flex;align-items:center;gap:6px}
-.amb-tirex-dot{color:#fff;font-weight:800}
-.amb-tirex-link{color:#fff;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(200,164,90,0.3);transition:color .2s}
-.amb-tirex-link:hover{color:#fff;opacity:.8}
+.amb-tirex-hint{font-size:13px;color:var(--gold);display:flex;align-items:center;gap:6px;font-style:italic;font-weight:500}
+.amb-tirex-dot{color:var(--gold);font-weight:800}
+.amb-tirex-link{color:var(--gold);font-weight:800;text-decoration:none;border-bottom:1px solid rgba(200,164,90,0.5);transition:color .2s,opacity .2s}
+.amb-tirex-link:hover{color:#fff;opacity:1}
 
 /* Public card internals */
 .amb-public-desc{font-size:14px;color:#fff;line-height:1.75;margin:0}
@@ -2691,82 +2453,108 @@ body.legal-pt .lm-en { display: none !important; }
     <h2 class="h2 reveal" style="text-align:center"><span data-i18n="pricing-title">Less than two coffees a month.<br><span class="hl">No algorithm can fool you.</span></span></h2>
     <p class="subline reveal" style="max-width:420px;margin:12px auto 0;text-align:center"><span data-i18n="you-pay">You pay for protection. Not for your data.</span></p>
 
+    <!-- SHAKE & WIN — appears first to invite luck -->
+    <div class="np-card np-shake-card reveal" style="max-width:740px;margin:40px auto 0;text-align:center">
+      <div class="np-shake-glow"></div>
+      <div class="np-shake-eyebrow" data-i18n="sw-gesture-shake">Try your luck before choosing a plan</div>
+      <div class="np-shake-emoji">📱</div>
+      <h3 class="np-shake-title" data-i18n="sw-shake-title">Win a discount. Share it with someone you love.</h3>
+      <p class="np-shake-desc" data-i18n="np-shake-desc">Shake your smartphone and MIVLA draws a random discount — 10%, 30%, 50% or even a free Premium month. Send it to someone you want to protect.</p>
+      <div class="np-shake-slots">
+        <div class="np-slot" id="npSlot1">?</div>
+        <div class="np-slot-sep">·</div>
+        <div class="np-slot" id="npSlot2">?</div>
+        <div class="np-slot-sep">·</div>
+        <div class="np-slot" id="npSlot3">?</div>
+      </div>
+      <p class="np-shake-validity" data-i18n="np-shake-validity">✓ Random draw &nbsp;·&nbsp; ✓ Share via WhatsApp or iMessage &nbsp;·&nbsp; ✓ Valid 48h</p>
+    </div>
+
     <!-- Ambassador banner — shown with ?ref= -->
     <div class="amb-price-banner reveal" id="ambPriceBanner" style="display:none">
       <span class="amb-price-banner-crown">👑</span>
       <span data-i18n="amb-banner-text">Ambassador offer — <strong>50% OFF</strong> on annual plans. Applied below.</span>
     </div>
+    <div class="amb-warning" id="ambWarning" data-i18n="amb-warning-text">⚠️ <strong>Your 50% discount is lifetime — but you can only activate it once.</strong> If you apply it to a monthly plan and cancel, it's gone for good. You have <em>30 days from installation</em> to make this choice. To get the most out of your Ambassador status, apply it to the <em>annual</em> plan.</div>
 
-    <div class="new-plans reveal">
-
-      <!-- CARD 1: MENSAL — Base e Premium lado a lado -->
-      <div class="np-card np-monthly-card">
-        <div class="np-card-eyebrow" data-i18n="np-monthly-title">Mensal</div>
-        <div class="np-duo-row">
-          <div class="np-duo-plan">
-            <div class="np-duo-name" data-i18n="plan-base">Base</div>
-            <div class="np-price-orig-val"><span class="np-sym-mo">€</span>4,99<sub>/mês</sub></div>
-            <div class="np-price-disc-val"><span class="np-sym-mo">€</span>2,49<sub>/mês</sub></div>
-            <div class="np-amb-pill">👑 -50%</div>
-          </div>
-          <div class="np-duo-divider"></div>
-          <div class="np-duo-plan">
-            <div class="np-duo-name gold" data-i18n="plan-premium">Premium</div>
-            <div class="np-price-orig-val"><span class="np-sym-mo">€</span>9,99<sub>/mês</sub></div>
-            <div class="np-price-disc-val gold"><span class="np-sym-mo">€</span>4,99<sub>/mês</sub></div>
-            <div class="np-amb-pill">👑 -50%</div>
-          </div>
+    <!-- Toggle tabs -->
+    <div style="text-align:center;margin-top:48px">
+      <div class="tog-row reveal">
+        <div class="tog">
+          <button class="tb" id="bM" onclick="setP('m')" data-i18n="tog-monthly">Monthly</button>
+          <button class="tb on" id="bA" onclick="setP('a')" data-i18n="tog-annual">Annual</button>
         </div>
-        <a href="javascript:void(0)" onclick="document.getElementById('stores-cta').scrollIntoView({behavior:'smooth'})" class="np-cta-btn" data-i18n="trial-btn">Começar o Teste Gratuito de 3 Dias</a>
-        <p class="np-trial-note" data-i18n="np-trial-note">Grátis 3 dias · Cancela quando quiseres · via App Store</p>
+        <span class="save" data-i18n="save-tag">Save 17%</span>
       </div>
-
-      <!-- CARD 2: ANUAL — Base e Premium lado a lado, destacado -->
-      <div class="np-card np-annual-card">
-        <div class="np-best-pill">⭐ <span data-i18n="np-best-value">Melhor relação qualidade-preço</span></div>
-        <div class="np-card-eyebrow" data-i18n="np-annual-title">Anual</div>
-        <div class="np-duo-row">
-          <div class="np-duo-plan" id="npAnnualBase">
-            <div class="np-duo-name" data-i18n="plan-base">Base</div>
-            <div class="np-price-orig-val"><span class="np-sym" id="sym1">€</span><span id="npPriceBase">49,99</span><sub data-i18n="per-yr">/ano</sub></div>
-            <div class="np-price-disc-val"><span class="np-sym">€</span><span id="discValBaseAnnual">24,99</span><sub data-i18n="per-yr">/ano</sub></div>
-            <div class="np-amb-pill" id="npAmbBase">👑 -50%</div>
-          </div>
-          <div class="np-duo-divider"></div>
-          <div class="np-duo-plan" id="npAnnualPrem">
-            <div class="np-duo-name gold" data-i18n="plan-premium">Premium</div>
-            <div class="np-price-orig-val"><span class="np-sym" id="sym2">€</span><span id="npPricePrem">99,99</span><sub data-i18n="per-yr">/ano</sub></div>
-            <div class="np-price-disc-val gold"><span class="np-sym">€</span><span id="discValPremAnnual">49,99</span><sub data-i18n="per-yr">/ano</sub></div>
-            <div class="np-amb-pill" id="npAmbPrem">👑 -50%</div>
-          </div>
-        </div>
-        <div id="ambPriceBanner" style="display:none;background:rgba(215,170,70,0.1);border:1px solid rgba(215,170,70,0.3);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:13px;font-weight:700;color:var(--navy);text-align:center">
-          👑 <span data-i18n="amb-banner-text">Oferta embaixador — <strong>50% de desconto</strong> em todos os planos.</span>
-        </div>
-        <a href="javascript:void(0)" onclick="document.getElementById('stores-cta').scrollIntoView({behavior:'smooth'})" class="np-cta-btn np-cta-primary" data-i18n="trial-btn">Começar o Teste Gratuito de 3 Dias</a>
-        <p class="np-trial-note" data-i18n="np-trial-note">Grátis 3 dias · Cancela quando quiseres · via App Store</p>
-      </div>
-
-      <!-- CARD 3: GANHA UM DESCONTO -->
-      <div class="np-card np-shake-card">
-        <div class="np-shake-glow"></div>
-        <div class="np-shake-emoji">📱</div>
-        <div class="np-shake-label" data-i18n="sw-gesture-shake">Agita o teu Smartphone</div>
-        <h3 class="np-shake-title" data-i18n="sw-shake-title">Ganha um desconto. Oferece a quem amas.</h3>
-        <p class="np-shake-desc" data-i18n="np-shake-desc">Agita o teu smartphone e a MIVLA sorteia um desconto aleatório — 10%, 30%, 50% ou até um mês Premium gratuito. Envia a quem queres proteger.</p>
-        <div class="np-shake-slots">
-          <div class="np-slot" id="npSlot1">?</div>
-          <div class="np-slot-sep">·</div>
-          <div class="np-slot" id="npSlot2">?</div>
-          <div class="np-slot-sep">·</div>
-          <div class="np-slot" id="npSlot3">?</div>
-        </div>
-        <p class="np-shake-validity" data-i18n="np-shake-validity">✓ Sorteio aleatório &nbsp;·&nbsp; ✓ Envia via WhatsApp ou iMessage &nbsp;·&nbsp; ✓ Válido 48h</p>
-      </div>
-
     </div>
-  </div>
 
+    <!-- iOS/Android badge -->
+    <p class="price-platform-note reveal">📱 <span data-i18n="price-platform-note">Subscription managed via App Store (iOS) or Google Play (Android) — requires a smartphone</span></p>
+
+    <!-- Plan cards -->
+    <div class="plans reveal">
+
+      <!-- BASE -->
+      <div class="plan ft reveal">
+        <div class="plan-badge" data-i18n="most-popular">Most Popular</div>
+        <div class="plan-platform-badge">📱 iOS &amp; Android</div>
+        <div class="plan-name" data-i18n="plan-base">Base</div>
+        <p class="plan-tag" data-i18n="base-tag">Essential protection for everyday browsing</p>
+        <div class="plan-price">
+          <div class="price-n"><sup id="sym1">€</sup><span id="bp">49.99</span></div>
+          <p class="price-p" id="price-p-base">per year · via App Store</p>
+          <p class="price-a" id="ba" style="visibility:visible" data-i18n="ann-base">€49.99/year — 2 months free</p>
+          <div class="amb-price-block" id="ambBlockBase" style="display:none">
+            <span class="amb-orig-price"><sup>€</sup><span id="ambOrigBase">49.99</span>/year</span>
+            <div class="amb-final-price"><sup>€</sup><span id="ambFinalBase">24.99</span></div>
+            <span class="amb-yr">/year</span>
+            <span class="amb-price-badge">👑 -50% Ambassador</span>
+          </div>
+        </div>
+        <ul class="feats">
+          <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f1">Live semaphore on 5 platforms</span></li>
+          <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f2">AI-generated badge (⚪)</span></li>
+          <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f3">30 scans per month</span></li>
+          <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f4">Phishing &amp; scam detection</span></li>
+          <li class="off"><span class="ck n"><svg viewBox="0 0 10 10" fill="none"><path d="M3 3l4 4M7 3l-4 4" stroke="rgba(10,22,40,0.2)" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-i18n="f5">Detailed 8-layer report</span></li>
+          <li class="off"><span class="ck n"><svg viewBox="0 0 10 10" fill="none"><path d="M3 3l4 4M7 3l-4 4" stroke="rgba(10,22,40,0.2)" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-i18n="f6">Fact-check with source links</span></li>
+        </ul>
+        <a href="javascript:void(0)" onclick="document.getElementById('stores-cta').scrollIntoView({behavior:'smooth'})" class="pcta s" data-i18n="trial-btn">Start 3-Day Free Trial</a>
+        <p class="plan-mobile-note" data-i18n="plan-mobile-note">📲 Download on your smartphone to subscribe</p>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="plan reveal d1">
+        <div class="plan-platform-badge">📱 iOS &amp; Android</div>
+        <div class="plan-name" data-i18n="plan-premium">Premium</div>
+        <p class="plan-tag" data-i18n="prem-tag">Full protection with deep analysis</p>
+        <div class="plan-price">
+          <div class="price-n"><sup id="sym2">€</sup><span id="pp">99.99</span></div>
+          <p class="price-p" id="price-p-prem">per year · via App Store</p>
+          <p class="price-a" id="pa" style="visibility:visible" data-i18n="ann-prem">€99.99/year — 2 months free</p>
+          <div class="amb-price-block" id="ambBlockPrem" style="display:none">
+            <span class="amb-orig-price"><sup>€</sup><span id="ambOrigPrem">99.99</span>/year</span>
+            <div class="amb-final-price"><sup>€</sup><span id="ambFinalPrem">49.99</span></div>
+            <span class="amb-yr">/year</span>
+            <span class="amb-price-badge">👑 -50% Ambassador</span>
+          </div>
+        </div>
+        <ul class="feats">
+          <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f7">Everything in Base</span></li>
+          <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f8">Unlimited scans</span></li>
+          <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f9">Full 8-layer breakdown</span></li>
+          <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f6">Fact-check with source links</span></li>
+          <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f11">Screenshot analysis (any app)</span></li>
+          <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f12">Exportable PDF report</span></li>
+        </ul>
+        <a href="javascript:void(0)" onclick="document.getElementById('stores-cta').scrollIntoView({behavior:'smooth'})" class="pcta p" data-i18n="trial-btn">Start 3-Day Free Trial</a>
+        <p class="plan-mobile-note" data-i18n="plan-mobile-note">📲 Download on your smartphone to subscribe</p>
+      </div>
+    </div>
+
+    <p class="pnote reveal" data-i18n="pnote">3-day free trial · Cancel anytime · iOS App Store · Android 2026 · Statistical probabilities, not absolute certainties</p>
+
+  </div>
 </section>
 
 
@@ -2893,7 +2681,7 @@ body.legal-pt .lm-en { display: none !important; }
     <div>
       <span class="fl">MIVLA™</span>
       <p class="ft" data-i18n="footer-tag">The first real-time AI content scanner and risk detector for social media — Available Now.</p>
-      <p class="fleg">© 2026 XTREME PROJECTS · INPI Portugal Reg. nº 20262007760334<br><a href="mailto:[email protected]" style="color:var(--gold);font-weight:600">support@xtremeprojects.org</a> · Made in Portugal 🇵🇹</p>
+      <p class="fleg">© 2026 XTREME PROJECTS · INPI Portugal Reg. nº 20262007760334<br><a href="/cdn-cgi/l/email-protection#c9a0a7afa689b1bdbbaca4acb9bba6a3acaabdbae7a6bbae" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="1a73747c755a626e687f777f6a6875707f796e693475687d">[email&#160;protected]</span></a> · Made in Portugal 🇵🇹</p>
     </div>
     <div class="flinks">
       <a href="javascript:void(0)" onclick="lmOpen('pp')" data-i18n="fl-privacy">Privacy Policy</a>
@@ -2911,7 +2699,7 @@ body.legal-pt .lm-en { display: none !important; }
 
 
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 window.onerror = function(msg, src, line, col, err) {
   var d = document.createElement('div');
   d.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#c00;color:#fff;font:13px monospace;padding:12px;z-index:99999;white-space:pre-wrap;max-height:40vh;overflow:auto';
@@ -3062,22 +2850,36 @@ function updateSem(s){
 }
 
 // Pricing
-const prices={m:{b:'4.99',p:'9.99'},a:{b:'4.16',p:'8.33'}};
+const prices={m:{b:'4.99',p:'9.99'},a:{b:'49.99',p:'99.99'}};
 function setP(m){
   var bM=document.getElementById('bM'); if(bM) bM.classList.toggle('on',m==='m');
   var bA=document.getElementById('bA'); if(bA) bA.classList.toggle('on',m==='a');
-  const prices={m:{b:'4.99',p:'9.99'},a:{b:'4.16',p:'8.33'}};
-  var bp2=document.getElementById('bp'); if(bp2) bp2.textContent=prices[m].b;
-  var pp2=document.getElementById('pp'); if(pp2) pp2.textContent=prices[m].p;
+  const pr={m:{b:'4.99',p:'9.99'},a:{b:'49.99',p:'99.99'}};
+  var bp2=document.getElementById('bp'); if(bp2) bp2.textContent=pr[m].b;
+  var pp2=document.getElementById('pp'); if(pp2) pp2.textContent=pr[m].p;
   const a=m==='a';
+  // Period text
+  var ppB=document.getElementById('price-p-base');
+  var ppP=document.getElementById('price-p-prem');
+  var periodTxt=a?'per year · via App Store':'per month · via App Store';
+  if(ppB) ppB.textContent=periodTxt;
+  if(ppP) ppP.textContent=periodTxt;
+  // Annual savings note
   var ba=document.getElementById('ba'); if(ba) ba.style.visibility=a?'visible':'hidden';
   var pa=document.getElementById('pa'); if(pa) pa.style.visibility=a?'visible':'hidden';
-  // Ambassador price blocks — only visible on annual + ref detected
+  // Ambassador price blocks
   var hasRef = (new URLSearchParams(window.location.search)).get('ref');
-  var ambB = document.getElementById('ambPriceBase');
-  var ambP = document.getElementById('ambPricePrem');
-  if(ambB) ambB.style.display = (a && hasRef) ? 'flex' : 'none';
-  if(ambP) ambP.style.display = (a && hasRef) ? 'flex' : 'none';
+  var ambBb = document.getElementById('ambBlockBase');
+  var ambBp = document.getElementById('ambBlockPrem');
+  if(ambBb) ambBb.style.display = (a && hasRef) ? 'block' : 'none';
+  if(ambBp) ambBp.style.display = (a && hasRef) ? 'block' : 'none';
+  // Ambassador orig/final values
+  if(a && hasRef){
+    var ob=document.getElementById('ambOrigBase'); if(ob) ob.textContent='49.99';
+    var fb=document.getElementById('ambFinalBase'); if(fb) fb.textContent='24.99';
+    var op=document.getElementById('ambOrigPrem'); if(op) op.textContent='99.99';
+    var fp=document.getElementById('ambFinalPrem'); if(fp) fp.textContent='49.99';
+  }
   // Apply current symbol
   var sp1=document.getElementById('sym1'); if(sp1) sp1.textContent=currentSymbol||'€';
   var sp2=document.getElementById('sym2'); if(sp2) sp2.textContent=currentSymbol||'€';
@@ -3589,7 +3391,7 @@ const i18n = {
     de:`Base zeigt das Signal.<br><span class="hl">Premium erklärt warum.</span>`,
     id:`Base menampilkan sinyal.<br><span class="hl">Premium menjelaskan alasannya.</span>`
   },
-  "prem-sub":     {en:"Same content. Same analysis. Premium opens the full report — layer by layer, signal by signal.", pt:"O mesmo conteúdo. A mesma análise. O Premium abre o relatório completo — camada a camada, sinal a sinal.", "pt-br":"O mesmo conteúdo. A mesma análise. O Premium abre o relatório completo — camada a camada, sinal a sinal.", es:"El mismo contenido. El mismo análisis. Premium abre el informe completo — capa a capa, señal a señal.", fr:"Le même contenu. La même analyse. Premium ouvre le rapport complet — couche par couche, signal par signal.", it:"Lo stesso contenuto. La stessa analisi. Premium apre il rapporto completo — livello per livello, segnale per segnale.", de:"Derselbe Inhalt. Dieselbe Analyse. Premium öffnet den vollständigen Bericht — Schicht für Schicht, Signal für Signal.", id:"Konten yang sama. Analisis yang sama. Premium membuka laporan lengkap — lapisan demi lapisan, sinyal demi sinyal."},
+  "prem-sub":     {en:`Same content. Same analysis. Premium opens the full report — <span class="hl">tap the semaphore to explore each layer, signal by signal.</span>`, pt:`O mesmo conteúdo. A mesma análise. O Premium abre o relatório completo — <span class="hl">prima o semáforo para explorar cada camada, sinal a sinal.</span>`, "pt-br":`O mesmo conteúdo. A mesma análise. O Premium abre o relatório completo — <span class="hl">prima o semáforo para explorar cada camada, sinal a sinal.</span>`, es:`El mismo contenido. El mismo análisis. Premium abre el informe completo — <span class="hl">pulsa el semáforo para explorar cada capa, señal a señal.</span>`, fr:`Le même contenu. La même analyse. Premium ouvre le rapport complet — <span class="hl">appuyez sur le feu tricolore pour explorer chaque couche, signal par signal.</span>`, it:`Lo stesso contenuto. La stessa analisi. Premium apre il rapporto completo — <span class="hl">tocca il semaforo per esplorare ogni livello, segnale per segnale.</span>`, de:`Derselbe Inhalt. Dieselbe Analyse. Premium öffnet den vollständigen Bericht — <span class="hl">tippe auf die Ampel, um jede Schicht zu erkunden, Signal für Signal.</span>`, id:`Konten yang sama. Analisis yang sama. Premium membuka laporan lengkap — <span class="hl">ketuk semafor untuk menjelajahi setiap lapisan, sinyal demi sinyal.</span>`},
   "prem-verdict1":{en:"No risk signals detected", pt:"Sem sinais de risco detectados", "pt-br":"Sem sinais de risco detectados", es:"Sin señales de riesgo detectadas", fr:"Aucun signal de risque détecté", it:"Nessun segnale di rischio rilevato", de:"Keine Risikosignale erkannt", id:"Tidak ada sinyal risiko terdeteksi"},
   "prem-conc-desc1":{en:"AI-generated content with no deceptive intent detected. Likely creative or entertainment.", pt:"Conteúdo gerado por IA sem intenção enganosa detectada. Provavelmente de natureza criativa ou de entretenimento.", "pt-br":"Conteúdo gerado por IA sem intenção enganosa detectada. Provavelmente criativo ou de entretenimento.", es:"Contenido generado por IA sin intención engañosa detectada. Probablemente creativo o de entretenimiento.", fr:"Contenu généré par IA sans intention trompeuse détectée. Probablement créatif ou de divertissement.", it:"Contenuto generato da AI senza intento ingannevole rilevato. Probabilmente creativo o di intrattenimento.", de:"KI-generierter Inhalt ohne erkannte Täuschungsabsicht. Wahrscheinlich kreativ oder Unterhaltung.", id:"Konten buatan AI tanpa niat menipu terdeteksi. Kemungkinan kreatif atau hiburan."},
   "prem-checked-title":{en:"What we checked", pt:"O que verificámos", "pt-br":"O que verificamos", es:"Lo que comprobamos", fr:"Ce que nous avons vérifié", it:"Cosa abbiamo controllato", de:"Was wir geprüft haben", id:"Yang kami periksa"},
@@ -3625,6 +3427,8 @@ const i18n = {
   "pf7-desc":     {en:"Save and share the full analysis as a PDF — useful for reporting to authorities, sharing with family, or keeping as evidence.", pt:"Guarda e partilha a análise completa em PDF — útil para reportar às autoridades, partilhar com a família ou guardar como prova.", "pt-br":"Salve e compartilhe a análise completa em PDF — útil para reportar às autoridades, compartilhar com a família ou manter como evidência.", es:"Guarda y comparte el análisis completo en PDF — útil para reportar a las autoridades, compartir con la familia o conservar como evidencia.", fr:"Sauvegardez et partagez l'analyse complète en PDF — utile pour signaler aux autorités, partager avec la famille ou conserver comme preuve.", it:"Salva e condividi l'analisi completa come PDF — utile per segnalare alle autorità, condividere con la famiglia o conservare come prova.", de:"Speichern und teilen Sie die vollständige Analyse als PDF — nützlich für Meldungen an Behörden, das Teilen mit der Familie oder als Beweismittel.", id:"Simpan dan bagikan analisis lengkap sebagai PDF — berguna untuk melaporkan ke pihak berwenang, berbagi dengan keluarga, atau disimpan sebagai bukti."},
   "pf8-desc":     {en:"For content with verifiable claims, MIVLA cross-references against Google Fact Check, EUvsDisinfo and trusted news sources — with links to the original verification.", pt:"Para conteúdo com afirmações verificáveis, a MIVLA cruza com o Google Fact Check, a EUvsDisinfo e fontes noticiosas de confiança — com ligações para a verificação original.", "pt-br":"Para conteúdo com afirmações verificáveis, a MIVLA cruza com Google Fact Check, EUvsDisinfo e fontes de notícias confiáveis — com links para a verificação original.", es:"Para contenido con afirmaciones verificables, MIVLA cruza con Google Fact Check, EUvsDisinfo y fuentes de noticias de confianza — con links a la verificación original.", fr:"Pour le contenu avec des affirmations vérifiables, MIVLA fait des recoupements avec Google Fact Check, EUvsDisinfo et des sources d'information fiables — avec des liens vers la vérification originale.", it:"Per contenuti con affermazioni verificabili, MIVLA incrocia con Google Fact Check, EUvsDisinfo e fonti di notizie attendibili — con link alla verifica originale.", de:"Für Inhalte mit überprüfbaren Behauptungen kreuzt MIVLA mit Google Fact Check, EUvsDisinfo und vertrauenswürdigen Nachrichtenquellen — mit Links zur Original-Verifikation.", id:"Untuk konten dengan klaim yang dapat diverifikasi, MIVLA membandingkan dengan Google Fact Check, EUvsDisinfo dan sumber berita terpercaya — dengan tautan ke verifikasi aslinya."},
   "pnote":        {en:"3-day free trial · Cancel anytime · iOS App Store · Android 2026 · AT-certified invoicing · Statistical probabilities, not absolute certainties", pt:"Teste gratuito de 3 dias · Cancela quando quiseres · iOS App Store · Android 2026 · Facturação certificada · Probabilidades estatísticas, não certezas absolutas", "pt-br":"Teste gratuito de 3 dias · Cancele quando quiser · iOS App Store · Android 2026 · Probabilidades estatísticas, não certezas absolutas", es:"Prueba gratuita de 3 días · Cancela cuando quieras · iOS App Store · Android 2026 · Probabilidades estadísticas, no certezas absolutas", fr:"Essai gratuit de 3 jours · Annulez à tout moment · iOS App Store · Android 2026 · Probabilités statistiques, pas des certitudes absolues", it:"Prova gratuita di 3 giorni · Cancella quando vuoi · iOS App Store · Android 2026 · Probabilità statistiche, non certezze assolute", de:"3-Tage-Gratis-Test · Jederzeit kündigen · iOS App Store · Android 2026 · Statistische Wahrscheinlichkeiten, keine absoluten Gewissheiten", id:"Uji coba gratis 3 hari · Batalkan kapan saja · iOS App Store · Android 2026 · Probabilitas statistik, bukan kepastian mutlak"},
+  "price-platform-note": {en:"Subscription managed via App Store (iOS) or Google Play (Android) — requires a smartphone", pt:"Subscrição gerida pela App Store (iOS) ou Google Play (Android) — requer um smartphone", "pt-br":"Assinatura gerida pela App Store (iOS) ou Google Play (Android) — requer um smartphone", es:"Suscripción gestionada por App Store (iOS) o Google Play (Android) — requiere un smartphone", fr:"Abonnement géré via l'App Store (iOS) ou Google Play (Android) — nécessite un smartphone", it:"Abbonamento gestito tramite App Store (iOS) o Google Play (Android) — richiede uno smartphone", de:"Abo über den App Store (iOS) oder Google Play (Android) — erfordert ein Smartphone", id:"Langganan dikelola melalui App Store (iOS) atau Google Play (Android) — memerlukan smartphone"},
+  "plan-mobile-note": {en:"📲 Download on your smartphone to subscribe", pt:"📲 Descarrega no teu smartphone para subscrever", "pt-br":"📲 Baixe no seu smartphone para assinar", es:"📲 Descarga en tu smartphone para suscribirte", fr:"📲 Téléchargez sur votre smartphone pour vous abonner", it:"📲 Scarica sul tuo smartphone per abbonarti", de:"📲 Auf dem Smartphone herunterladen, um zu abonnieren", id:"📲 Unduh di smartphone Anda untuk berlangganan"},
   "footer-stat":  {en:"Statistical probabilities · ~78% accuracy on real-world content", pt:"Probabilidades estatísticas · ~78% de precisão em conteúdo real", "pt-br":"Probabilidades estatísticas · ~78% de precisão em conteúdo real", es:"Probabilidades estadísticas · ~78% de precisión en contenido real", fr:"Probabilités statistiques · ~78% de précision sur contenu réel", it:"Probabilità statistiche · ~78% di precisione su contenuto reale", de:"Statistische Wahrscheinlichkeiten · ~78% Genauigkeit bei realen Inhalten", id:"Probabilitas statistik · ~78% akurasi pada konten nyata"},
 
   "bio-role":   {en:"CEO & CTO · Xtreme Projects, Pioneering AI Agents For The Future", pt:"CEO & CTO · Xtreme Projects, Pioneering AI Agents For The Future", "pt-br":"CEO & CTO · Xtreme Projects, Pioneering AI Agents For The Future", es:"CEO & CTO · Xtreme Projects, Pioneering AI Agents For The Future", fr:"CEO & CTO · Xtreme Projects, Pioneering AI Agents For The Future", it:"CEO & CTO · Xtreme Projects, Pioneering AI Agents For The Future", de:"CEO & CTO · Xtreme Projects, Pioneering AI Agents For The Future", id:"CEO & CTO · Xtreme Projects, Pioneering AI Agents For The Future"},
@@ -3868,6 +3672,16 @@ const i18n = {
     de:`Botschafter-Angebot — <strong>50% RABATT</strong> auf Jahrespläne. Unten angewendet.`,
     id:`Penawaran duta — <strong>50% DISKON</strong> untuk paket tahunan. Diterapkan di bawah.`
   },
+  "amb-warning-text": {
+    en:`⚠️ <strong>Your 50% discount is lifetime — but you can only activate it once.</strong> If you apply it to a monthly plan and cancel, it's gone for good. You have <em>30 days from installation</em> to make this choice. To get the most out of your Ambassador status, apply it to the <em>annual</em> plan.`,
+    pt:`⚠️ <strong>O desconto de 50% é vitalício — mas só podes activá-lo uma vez.</strong> Se o aplicares numa assinatura mensal e a cancelares, vais perdê-lo para sempre. Tens <em>30 dias após a instalação</em> para tomar esta decisão. Para tirares o máximo partido do teu estatuto de Embaixador, aplica-o na subscrição <em>anual</em>.`,
+    "pt-br":`⚠️ <strong>O desconto de 50% é vitalício — mas só pode activá-lo uma vez.</strong> Se o aplicar num plano mensal e cancelar, vai perdê-lo para sempre. Tens <em>30 dias após a instalação</em> para tomar esta decisão. Para tirar o máximo partido do estatuto de Embaixador, aplique-o na subscrição <em>anual</em>.`,
+    es:`⚠️ <strong>Tu descuento del 50% es vitalicio — pero solo puedes activarlo una vez.</strong> Si lo aplicas a un plan mensual y lo cancelas, lo perderás para siempre. Tienes <em>30 días desde la instalación</em> para tomar esta decisión. Para aprovechar al máximo tu condición de Embajador, aplícalo al plan <em>anual</em>.`,
+    fr:`⚠️ <strong>Votre réduction de 50% est à vie — mais vous ne pouvez l'activer qu'une seule fois.</strong> Si vous l'appliquez à un plan mensuel et l'annulez, vous la perdez définitivement. Vous avez <em>30 jours après l'installation</em> pour prendre cette décision. Pour profiter au maximum de votre statut d'Ambassadeur, appliquez-la au plan <em>annuel</em>.`,
+    it:`⚠️ <strong>Il tuo sconto del 50% è a vita — ma puoi attivarlo una sola volta.</strong> Se lo applichi a un piano mensile e lo annulli, lo perdi per sempre. Hai <em>30 giorni dall'installazione</em> per prendere questa decisione. Per ottenere il massimo dal tuo status di Ambasciatore, applicalo al piano <em>annuale</em>.`,
+    de:`⚠️ <strong>Dein 50%-Rabatt gilt lebenslang — aber du kannst ihn nur einmal aktivieren.</strong> Wenn du ihn auf einen Monatsplan anwendest und kündigst, ist er für immer weg. Du hast <em>30 Tage nach der Installation</em> Zeit, diese Entscheidung zu treffen. Um das Beste aus deinem Botschafter-Status herauszuholen, wende ihn auf den <em>Jahres</em>plan an.`,
+    id:`⚠️ <strong>Diskon 50% Anda berlaku seumur hidup — tetapi hanya dapat diaktifkan sekali.</strong> Jika Anda menerapkannya ke paket bulanan lalu membatalkan, diskon hilang selamanya. Anda punya <em>30 hari sejak instalasi</em> untuk membuat keputusan ini. Untuk memaksimalkan status Duta Anda, terapkan ke paket <em>tahunan</em>.`
+  },
   "per-month-short":  {en:"/mo", pt:"/mês", "pt-br":"/mês", es:"/mes", fr:"/mois", it:"/mese", de:"/Mo.", id:"/bln"},
 
   "lm-sn-newphone":       {en:"NEW PHONE",                   pt:"NOVO TELEMÓVEL",           "pt-br":"NOVO CELULAR",           es:"NUEVO TELÉFONO",            fr:"NOUVEL IPHONE",            it:"NUOVO TELEFONO",           de:"NEUES PHONE",              id:"PONSEL BARU"},
@@ -3881,7 +3695,7 @@ const i18n = {
   "lm-nps3-desc":         {en:"The semaphore position resets to default on a new device. Long-press and drag it to wherever you prefer — MIVLA will remember it from that point on.", pt:"A posição do semáforo repõe para o padrão no novo dispositivo. Toca sem soltar e arrasta para onde preferires — a MIVLA memoriza a partir daí.", "pt-br":"A posição do semáforo redefine para o padrão no novo dispositivo. Toque e arraste para onde preferir — a MIVLA memoriza a partir daí.", es:"La posición del semáforo se restablece en el nuevo dispositivo. Mantén pulsado y arrástralo donde prefieras.", fr:"La position du sémaphore se réinitialise sur le nouvel appareil. Maintenez et faites glisser où vous préférez.", it:"La posizione del semaforo si azzera sul nuovo dispositivo. Tieni premuto e trascinalo dove preferisci.", de:"Die Semaphor-Position wird auf dem neuen Gerät zurückgesetzt. Gedrückt halten und dorthin ziehen, wo Sie es bevorzugen.", id:"Posisi semaforo diatur ulang di perangkat baru. Tekan lama dan seret ke mana Anda suka."},
   "lm-sp-newphone-note":  {en:"⚠️ <strong>Detection history is stored on-device by design.</strong> It does not transfer to your new Smartphone — this is intentional, not a bug. Your privacy is protected because no scan data ever reaches our servers.", pt:"⚠️ <strong>O histórico de detecções é guardado no dispositivo por design.</strong> Não transfere para o novo Smartphone — é intencional, não é um erro. A tua privacidade está protegida porque nenhum dado de scan chega aos nossos servidores.", "pt-br":"⚠️ <strong>O histórico de detecções é armazenado no dispositivo por design.</strong> Não transfere para o novo Smartphone — é intencional, não é um erro. Sua privacidade está protegida.", es:"⚠️ <strong>El historial de detección se almacena en el dispositivo por diseño.</strong> No se transfiere al nuevo Smartphone — es intencional, no es un error.", fr:"⚠️ <strong>L'historique de détection est stocké sur l'appareil par conception.</strong> Il ne se transfère pas sur votre nouvel Smartphone — c'est intentionnel, pas un bug.", it:"⚠️ <strong>La cronologia dei rilevamenti è archiviata sul dispositivo per design.</strong> Non si trasferisce al nuovo Smartphone — è intenzionale, non è un bug.", de:"⚠️ <strong>Der Erkennungsverlauf wird absichtlich auf dem Gerät gespeichert.</strong> Er überträgt sich nicht auf Ihr neues Smartphone — das ist gewollt, kein Fehler.", id:"⚠️ <strong>Riwayat deteksi disimpan di perangkat sesuai desain.</strong> Tidak ditransfer ke Smartphone baru — ini disengaja, bukan bug."},
   "lm-sp-newphone-founder":{en:"👑 <strong>Founder?</strong> Your 50% discount is linked to your Apple ID, not your device. It transfers automatically. Your Founder ID is in your original activation email.", pt:"👑 <strong>Fundador?</strong> O teu desconto de 50% está ligado ao teu Apple ID, não ao dispositivo. Transfere automaticamente. O teu Founder ID está no email de activação original.", "pt-br":"👑 <strong>Fundador?</strong> Seu desconto de 50% está vinculado ao seu Apple ID, não ao dispositivo. Transfere automaticamente. Seu Founder ID está no email de ativação original.", es:"👑 <strong>¿Fundador?</strong> Tu descuento del 50% está vinculado a tu Apple ID, no al dispositivo. Se transfiere automáticamente.", fr:"👑 <strong>Fondateur?</strong> Votre remise de 50% est liée à votre Apple ID, pas à votre appareil. Elle se transfère automatiquement.", it:"👑 <strong>Fondatore?</strong> Il tuo sconto del 50% è collegato al tuo Apple ID, non al dispositivo. Si trasferisce automaticamente.", de:"👑 <strong>Gründer?</strong> Ihr 50%-Rabatt ist mit Ihrer Apple ID verknüpft, nicht mit dem Gerät. Er überträgt sich automatisch.", id:"👑 <strong>Pendiri?</strong> Diskon 50% Anda terhubung ke Apple ID, bukan perangkat. Ditransfer otomatis."},
-  "lm-sp-newphone-help":  {en:"Problems restoring? Contact <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> with your Apple ID email (never your password).", pt:"Problemas a restaurar? Contacta <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> com o teu email do Apple ID (nunca a password).", "pt-br":"Problemas para restaurar? Contacte <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> com seu email do Apple ID (nunca a senha).", es:"¿Problemas al restaurar? Contacta <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> con tu email de Apple ID.", fr:"Problèmes de restauration? Contactez <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> avec votre email Apple ID.", it:"Problemi nel ripristino? Contatta <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> con la tua email Apple ID.", de:"Probleme beim Wiederherstellen? Kontaktieren Sie <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> mit Ihrer Apple ID E-Mail.", id:"Masalah memulihkan? Hubungi <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> dengan email Apple ID Anda."},
+  "lm-sp-newphone-help":  {en:"Problems restoring? Contact <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> with your Apple ID email (never your password).", pt:"Problemas a restaurar? Contacta <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> com o teu email do Apple ID (nunca a password).", "pt-br":"Problemas para restaurar? Contacte <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> com seu email do Apple ID (nunca a senha).", es:"¿Problemas al restaurar? Contacta <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> con tu email de Apple ID.", fr:"Problèmes de restauration? Contactez <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> avec votre email Apple ID.", it:"Problemi nel ripristino? Contatta <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> con la tua email Apple ID.", de:"Probleme beim Wiederherstellen? Kontaktieren Sie <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> mit Ihrer Apple ID E-Mail.", id:"Masalah memulihkan? Hubungi <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> dengan email Apple ID Anda."},
 
   "lm-sp-newphone-intro2":{en:"Available on iOS and Android. The restore process differs slightly between platforms.", pt:"Disponível em iOS e Android. O processo de restauro é ligeiramente diferente entre plataformas.", "pt-br":"Disponível em iOS e Android. O processo de restauração é ligeiramente diferente entre plataformas.", es:"Disponible en iOS y Android. El proceso de restauración difiere ligeramente entre plataformas.", fr:"Disponible sur iOS et Android. Le processus de restauration diffère légèrement selon la plateforme.", it:"Disponibile su iOS e Android. Il processo di ripristino è leggermente diverso tra le piattaforme.", de:"Verfügbar auf iOS und Android. Der Wiederherstellungsprozess unterscheidet sich leicht zwischen den Plattformen.", id:"Tersedia di iOS dan Android. Proses pemulihan sedikit berbeda antar platform."},
   "lm-npos-ios-note":     {en:"Subscription linked to your Apple ID",           pt:"Subscrição ligada ao teu Apple ID",         "pt-br":"Assinatura vinculada ao seu Apple ID",      es:"Suscripción vinculada a tu Apple ID",         fr:"Abonnement lié à votre Apple ID",             it:"Abbonamento collegato al tuo Apple ID",         de:"Abonnement mit Ihrer Apple ID verknüpft",       id:"Langganan terhubung ke Apple ID Anda"},
@@ -3890,7 +3704,7 @@ const i18n = {
   "lm-npa1-desc":         {en:"Open Google Play → search MIVLA → Install.",     pt:"Abre o Google Play → pesquisa MIVLA → Instala.", "pt-br":"Abra o Google Play → pesquise MIVLA → Instale.", es:"Abre Google Play → busca MIVLA → Instala.",  fr:"Ouvrez Google Play → recherchez MIVLA → Installez.", it:"Apri Google Play → cerca MIVLA → Installa.",  de:"Google Play öffnen → MIVLA suchen → Installieren.", id:"Buka Google Play → cari MIVLA → Install."},
   "lm-npa2-title":        {en:"Restore your purchase",                           pt:"Restaura a tua subscrição",                     "pt-br":"Restaure sua compra",                       es:"Restaura tu compra",                          fr:"Restaurez votre achat",                        it:"Ripristina il tuo acquisto",                    de:"Kauf wiederherstellen",                         id:"Pulihkan pembelian"},
   "lm-npa2-desc":         {en:"Inside MIVLA → Settings → Restore Purchases → enter the email you used to subscribe via Paddle. Your subscription is restored immediately.", pt:"Na MIVLA → Definições → Restaurar Subscrição → introduz o email com que subscreveste via Paddle. A tua subscrição é restaurada imediatamente.", "pt-br":"Na MIVLA → Configurações → Restaurar Compras → insira o email com que assinou via Paddle. Sua assinatura é restaurada imediatamente.", es:"En MIVLA → Ajustes → Restaurar compras → introduce el email con el que te suscribiste via Paddle. Tu suscripción se restaura inmediatamente.", fr:"Dans MIVLA → Réglages → Restaurer les achats → entrez l'email utilisé pour s'abonner via Paddle. Votre abonnement est restauré immédiatement.", it:"In MIVLA → Impostazioni → Ripristina acquisti → inserisci l'email con cui ti sei abbonato via Paddle. Il tuo abbonamento viene ripristinato immediatamente.", de:"In MIVLA → Einstellungen → Käufe wiederherstellen → geben Sie die E-Mail ein, mit der Sie über Paddle abonniert haben. Ihr Abonnement wird sofort wiederhergestellt.", id:"Di MIVLA → Pengaturan → Pulihkan Pembelian → masukkan email yang Anda gunakan untuk berlangganan via Paddle. Langganan dipulihkan segera."},
-  "lm-sp-newphone-help2": {en:"Problems restoring? Contact <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> — include your platform (iOS/Android) and your account email.", pt:"Problemas a restaurar? Contacta <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> — indica a tua plataforma (iOS/Android) e o teu email de conta.", "pt-br":"Problemas para restaurar? Contacte <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> — inclua sua plataforma (iOS/Android) e seu email de conta.", es:"¿Problemas al restaurar? Contacta <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> — indica tu plataforma (iOS/Android) y tu email.", fr:"Problèmes de restauration? Contactez <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> — indiquez votre plateforme (iOS/Android) et votre email.", it:"Problemi nel ripristino? Contatta <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> — indica la tua piattaforma (iOS/Android) e la tua email.", de:"Probleme beim Wiederherstellen? Kontaktieren Sie <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> — geben Sie Ihre Plattform (iOS/Android) und Ihre E-Mail an.", id:"Masalah memulihkan? Hubungi <a href=\"mailto:support@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">support@xtremeprojects.org</a> — sertakan platform (iOS/Android) dan email akun Anda."},
+  "lm-sp-newphone-help2": {en:"Problems restoring? Contact <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> — include your platform (iOS/Android) and your account email.", pt:"Problemas a restaurar? Contacta <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> — indica a tua plataforma (iOS/Android) e o teu email de conta.", "pt-br":"Problemas para restaurar? Contacte <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> — inclua sua plataforma (iOS/Android) e seu email de conta.", es:"¿Problemas al restaurar? Contacta <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> — indica tu plataforma (iOS/Android) y tu email.", fr:"Problèmes de restauration? Contactez <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> — indiquez votre plateforme (iOS/Android) et votre email.", it:"Problemi nel ripristino? Contatta <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> — indica la tua piattaforma (iOS/Android) e la tua email.", de:"Probleme beim Wiederherstellen? Kontaktieren Sie <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> — geben Sie Ihre Plattform (iOS/Android) und Ihre E-Mail an.", id:"Masalah memulihkan? Hubungi <a href=\"mailto:info@xtremeprojects.org\" style=\"color:var(--gold);font-weight:700\">info@xtremeprojects.org</a> — sertakan platform (iOS/Android) dan email akun Anda."},
 
 };
 
@@ -3917,11 +3731,22 @@ function toggleLang(e){
   document.getElementById('langSel').classList.toggle('open');
 }
 document.addEventListener('click', ()=> document.getElementById('langSel').classList.remove('open'));
+document.addEventListener('touchend', function(e){
+  var sel = document.getElementById('langSel');
+  if(sel && !sel.contains(e.target)) sel.classList.remove('open');
+}, {passive:true});
 
 function setLang(lang, flag, code, sym, currency, evt){
   if(evt) evt.stopPropagation();
   // Close lang dropdown
   document.getElementById('langSel').classList.remove('open');
+  // Close mobile nav if open
+  var navLinks = document.getElementById('navLinks');
+  var burger = document.getElementById('burger');
+  if(navLinks && navLinks.classList.contains('open')){
+    navLinks.classList.remove('open');
+    if(burger) burger.classList.remove('open');
+  }
   currentLang = lang; currentSymbol = sym; currentCurrency = currency;
   document.getElementById('langFlag').textContent = flag;
   document.getElementById('langCode').textContent = code;
@@ -4017,12 +3842,11 @@ window.addEventListener('DOMContentLoaded', ()=>{
   if(ref){
     // Show banner
     var banner = document.getElementById('ambPriceBanner');
-    if(banner) banner.style.display = 'block';
-    // Apply amb-active to ALL pricing cards
-    ['cardBaseMonthly','cardPremMonthly','cardAnnual'].forEach(function(id){
-      var card = document.getElementById(id);
-      if(card) card.classList.add('amb-active');
-    });
+    if(banner) banner.style.display = 'flex';
+    var warning = document.getElementById('ambWarning');
+    if(warning) warning.style.display = 'block';
+    // Activate ambassador pricing on all cards
+    document.body.classList.add('amb-mode');
   }
 })();
 
@@ -4154,17 +3978,28 @@ function startCanvasFallback(canvasEl, cfg){
 
 
 <!-- ═══ MIVLA MEDALLION DASHBOARD ═══ -->
-<div id="mivla-auth-screen" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(7,14,28,0.97);backdrop-filter:blur(24px);align-items:center;justify-content:center;flex-direction:column;gap:24px">
+<div id="mivla-auth-screen" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(7,14,28,0.97);backdrop-filter:blur(24px);align-items:center;justify-content:center;flex-direction:column;gap:20px">
   <div style="text-align:center">
     <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:800;letter-spacing:4px;color:#C9A84C;margin-bottom:8px">MIVLA™</div>
-    <div style="font-size:12px;color:#6B7D95;letter-spacing:2px;font-family:'JetBrains Mono',monospace">MEDALLION ACCESS</div>
+    <div id="auth-mode-label" style="font-size:12px;color:#6B7D95;letter-spacing:2px;font-family:'JetBrains Mono',monospace">MEDALLION ACCESS</div>
   </div>
-  <div id="auth-icon" style="width:80px;height:80px;border-radius:50%;background:rgba(201,168,76,.1);border:2px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:36px;cursor:pointer;transition:.3s" onclick="window.doAuth()">🔐</div>
-  <div id="auth-msg" style="font-size:13px;color:#6B7D95;font-family:'JetBrains Mono',monospace;text-align:center;max-width:260px;line-height:1.6">Toca para autenticar<br><span style="font-size:10px;opacity:.6">Touch ID · Face ID · PIN</span></div>
-  <div style="display:flex;gap:8px;margin-top:8px">
-    <button onclick="window.doAuth()" style="background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);border-radius:8px;padding:10px 28px;color:#C9A84C;font-family:'JetBrains Mono',monospace;font-size:12px;cursor:pointer">AUTENTICAR</button>
+  <div id="auth-icon" style="width:80px;height:80px;border-radius:50%;background:rgba(201,168,76,.1);border:2px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:36px;transition:.3s">🔐</div>
+  <div id="auth-msg" style="font-size:12px;color:#6B7D95;font-family:'JetBrains Mono',monospace;text-align:center;max-width:280px;line-height:1.7"></div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+    <input id="auth-input" type="password" maxlength="8" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+      style="background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:12px 20px;color:#EDE8DF;font-family:'JetBrains Mono',monospace;font-size:18px;letter-spacing:6px;text-align:center;width:200px;outline:none;transition:.2s"
+      oninput="this.value=this.value.replace(/[^a-zA-Z0-9]/g,'')"
+      onkeydown="if(event.key==='Enter')window.doAuth()"
+      onfocus="this.style.borderColor='rgba(201,168,76,.7)'"
+      onblur="this.style.borderColor='rgba(201,168,76,.3)'"
+      placeholder="········">
+    <div id="auth-dots" style="display:flex;gap:6px;margin-top:2px"></div>
+  </div>
+  <div style="display:flex;gap:8px">
+    <button onclick="window.doAuth()" id="auth-btn" style="background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);border-radius:8px;padding:10px 28px;color:#C9A84C;font-family:'JetBrains Mono',monospace;font-size:12px;cursor:pointer;transition:.2s" onmouseover="this.style.background='rgba(201,168,76,.28)'" onmouseout="this.style.background='rgba(201,168,76,.15)'">CONFIRMAR</button>
     <button onclick="window.closeAuth()" style="background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 20px;color:#6B7D95;font-family:'JetBrains Mono',monospace;font-size:12px;cursor:pointer">CANCELAR</button>
   </div>
+  <div id="auth-attempts" style="font-size:10px;color:#6B7D95;font-family:'JetBrains Mono',monospace;opacity:.6"></div>
 </div>
 <div id="mivla-dashboard" style="display:none;position:fixed;inset:0;z-index:9999;overflow:auto;background:#070E1C;color:#EDE8DF;font-family:'DM Sans',system-ui,sans-serif">
   <button onclick="window.closeDashboard()" style="position:fixed;top:58px;right:18px;z-index:10001;background:rgba(230,57,70,.15);border:1px solid rgba(230,57,70,.35);border-radius:8px;padding:5px 14px;color:#E63946;font-family:'JetBrains Mono',monospace;font-size:10px;cursor:pointer;letter-spacing:1px">✕ ESC</button>
@@ -4241,30 +4076,161 @@ function startCanvasFallback(canvasEl, cfg){
   let cc=0,ct=null;
   const logo=document.querySelector('.nav-brand');
   if(logo){
-    logo.addEventListener('click',function(){
-      cc++;clearTimeout(ct);ct=setTimeout(()=>{cc=0;},600);
+    function handleTap(){
+      cc++;clearTimeout(ct);ct=setTimeout(()=>{cc=0;},900);
       if(cc>=3){cc=0;window.openAuth();}
-    });
-    logo.title='3× clique → Medallion';
+    }
+    logo.addEventListener('click',handleTap);
+    logo.addEventListener('touchend',function(e){
+      handleTap();
+    },{passive:true});
+    logo.title='3× tap → Medallion Dashboard';
+  }
+  const photo=document.querySelector('.bio-photo-img');
+  if(photo){
+    let pc=0,pt=null;
+    function handlePhotoTap(){
+      pc++;clearTimeout(pt);pt=setTimeout(()=>{pc=0;},900);
+      if(pc>=3){pc=0;window.openAuth();}
+    }
+    photo.addEventListener('click',handlePhotoTap);
+    photo.addEventListener('touchend',function(e){
+      handlePhotoTap();
+    },{passive:true});
+    photo.title='3× tap → Medallion Dashboard';
+    photo.style.cursor='pointer';
   }
   document.addEventListener('keydown',function(e){
     if(e.ctrlKey&&e.shiftKey&&e.key==='M'){e.preventDefault();window.openAuth();}
     if(e.key==='Escape'){window.closeDashboard();window.closeAuth();}
   });
-  window.openAuth=function(){
-    const el=document.getElementById('mivla-auth-screen');
-    el.style.display='flex';
-    setTimeout(()=>{const i=document.getElementById('auth-icon');if(i)i.style.boxShadow='0 0 30px rgba(201,168,76,0.4)';},100);
+  // ── Auth system ──────────────────────────────────────────
+  const STORE_KEY = 'mivla_mdl_h';
+  const LOCK_KEY  = 'mivla_mdl_lk';
+  const MAX_TRIES = 5;
+  const LOCK_MS   = 30000; // 30s lockout
+
+  async function sha256(str){
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+
+  function getLockState(){
+    try{
+      const s = JSON.parse(localStorage.getItem(LOCK_KEY)||'{}');
+      return s;
+    }catch(e){return {};}
+  }
+  function setLockState(s){ localStorage.setItem(LOCK_KEY, JSON.stringify(s)); }
+
+  function authMsg(txt,col){ document.getElementById('auth-msg').innerHTML='<span style="color:'+(col||'#6B7D95')+'">'+txt+'</span>'; }
+  function authIcon(e,c1,c2){ const el=document.getElementById('auth-icon'); el.textContent=e; el.style.borderColor=c1; el.style.background=c2; }
+  function updateAttempts(tries){
+    const el=document.getElementById('auth-attempts');
+    if(tries>0) el.textContent=(MAX_TRIES-tries)+' tentativas restantes';
+    else el.textContent='';
+  }
+
+  window.openAuth = function(){
+    const el = document.getElementById('mivla-auth-screen');
+    el.style.display = 'flex';
+    const stored = localStorage.getItem(STORE_KEY);
+    const lk = getLockState();
+    const inp = document.getElementById('auth-input');
+    const lbl = document.getElementById('auth-mode-label');
+    authIcon('🔐','rgba(201,168,76,.3)','rgba(201,168,76,.1)');
+    inp.value = '';
+    inp.disabled = false;
+    document.getElementById('auth-btn').disabled = false;
+
+    // Check lockout
+    if(lk.until && Date.now() < lk.until){
+      const sec = Math.ceil((lk.until - Date.now())/1000);
+      authIcon('🔒','rgba(230,57,70,.5)','rgba(230,57,70,.1)');
+      authMsg('Acesso bloqueado.<br>Aguarda '+sec+'s.','#E63946');
+      inp.disabled = true;
+      document.getElementById('auth-btn').disabled = true;
+      document.getElementById('auth-attempts').textContent = 'Demasiadas tentativas';
+      return;
+    }
+
+    if(!stored){
+      lbl.textContent = 'DEFINIR CHAVE DE ACESSO';
+      authMsg('Chave nova: 8 caracteres alfanuméricos.<br><span style="font-size:10px;opacity:.7">Só precisas de fazer isto uma vez.</span>');
+    } else {
+      lbl.textContent = 'MEDALLION ACCESS';
+      authMsg('Insere a tua chave de 8 caracteres.');
+      updateAttempts(lk.tries||0);
+    }
+    setTimeout(()=>inp.focus(), 100);
   };
-  window.closeAuth=function(){document.getElementById('mivla-auth-screen').style.display='none';};
-  window.doAuth=function(){
-    const icon=document.getElementById('auth-icon'),msg=document.getElementById('auth-msg');
-    icon.textContent='⏳';msg.innerHTML='A verificar...';
-    setTimeout(()=>{
-      icon.textContent='✅';msg.innerHTML='Acesso autorizado';
-      icon.style.borderColor='rgba(46,196,134,.6)';icon.style.background='rgba(46,196,134,.1)';
-      setTimeout(()=>{window.closeAuth();window.openDashboard();},600);
-    },800);
+
+  window.doAuth = async function(){
+    const inp = document.getElementById('auth-input');
+    const val = inp.value.replace(/[^a-zA-Z0-9]/g,'');
+    if(val.length !== 8){
+      authMsg('A chave deve ter exactamente 8 caracteres.','#F4D35E');
+      inp.style.borderColor='rgba(244,211,94,.7)';
+      setTimeout(()=>inp.style.borderColor='rgba(201,168,76,.3)',1200);
+      return;
+    }
+
+    const lk = getLockState();
+    if(lk.until && Date.now() < lk.until){ return; }
+
+    authIcon('⏳','rgba(201,168,76,.3)','rgba(201,168,76,.08)');
+    authMsg('A verificar...');
+    inp.disabled = true;
+    document.getElementById('auth-btn').disabled = true;
+
+    // Artificial delay — slows brute force
+    await new Promise(r=>setTimeout(r,600));
+
+    const h = await sha256(val);
+    const stored = localStorage.getItem(STORE_KEY);
+
+    if(!stored){
+      // First time — set the key
+      localStorage.setItem(STORE_KEY, h);
+      setLockState({});
+      authIcon('✅','rgba(46,196,134,.6)','rgba(46,196,134,.1)');
+      authMsg('Chave definida com sucesso.','#2EC486');
+      setTimeout(()=>{ window.closeAuth(); window.openDashboard(); }, 700);
+    } else if(h === stored){
+      // Correct
+      setLockState({});
+      authIcon('✅','rgba(46,196,134,.6)','rgba(46,196,134,.1)');
+      authMsg('Acesso autorizado.','#2EC486');
+      setTimeout(()=>{ window.closeAuth(); window.openDashboard(); }, 600);
+    } else {
+      // Wrong
+      const tries = (lk.tries||0) + 1;
+      if(tries >= MAX_TRIES){
+        setLockState({tries:0, until: Date.now()+LOCK_MS});
+        authIcon('🔒','rgba(230,57,70,.5)','rgba(230,57,70,.1)');
+        authMsg('Acesso bloqueado 30 segundos.','#E63946');
+        document.getElementById('auth-attempts').textContent = 'Demasiadas tentativas';
+      } else {
+        setLockState({tries});
+        authIcon('❌','rgba(230,57,70,.4)','rgba(230,57,70,.08)');
+        authMsg('Chave incorrecta.','#E63946');
+        updateAttempts(tries);
+        setTimeout(()=>{
+          inp.value=''; inp.disabled=false;
+          document.getElementById('auth-btn').disabled=false;
+          authIcon('🔐','rgba(201,168,76,.3)','rgba(201,168,76,.1)');
+          authMsg('Tenta novamente.');
+          inp.focus();
+        }, 900);
+      }
+    }
+  };
+
+  // Reset key (for recovery — type "RESETKEY" in the input and press CONFIRMAR)
+  // This only works if you add 'RESETKEY' as the 8-char input — triggers key reset
+  // (included as emergency recovery mechanism)
+  window.closeAuth=function(){
+    document.getElementById('mivla-auth-screen').style.display='none';
   };
   window.openDashboard=function(){
     document.getElementById('mivla-dashboard').style.display='block';
@@ -5508,15 +5474,15 @@ window.initDashboard=function(){
       <h2 data-i18n="lm-h2-governing">Governing Law and Disputes</h2>
       <p class="lm-en">These Terms are governed by the laws of <strong>Portugal</strong> and the <strong>European Union</strong>. Any dispute shall first be submitted to good-faith negotiation. If unresolved within 30 days, disputes shall be submitted to the exclusive jurisdiction of the courts of <strong>Lisbon, Portugal</strong>. EU consumers may also use the <a href="https://ec.europa.eu/consumers/odr" target="_blank">EU ODR platform</a>.</p>
       <p class="lm-pt">Estes Termos são regidos pelas leis de <strong>Portugal</strong> e da <strong>União Europeia</strong>. Qualquer disputa será primeiramente submetida a negociação de boa-fé. Se não for resolvida em 30 dias, as disputas serão submetidas à jurisdição exclusiva dos tribunais de <strong>Lisboa, Portugal</strong>. Os consumidores da UE podem também utilizar a <a href="https://ec.europa.eu/consumers/odr" target="_blank">plataforma ODR da UE</a>.</p>
-      <p class="lm-en">For support: <strong><a href="mailto:support@xtremeprojects.org">support@xtremeprojects.org</a></strong></p>
-      <p class="lm-pt">Para suporte: <strong><a href="mailto:support@xtremeprojects.org">support@xtremeprojects.org</a></strong></p>
+      <p class="lm-en">For support: <strong><a href="/cdn-cgi/l/email-protection#4f262129200f373b3d2a222a3f3d20252a2c3b3c61203d28" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="2841464e4768505c5a4d454d585a47424d4b5c5b06475a4f">[email&#160;protected]</span></a></strong></p>
+      <p class="lm-pt">Para suporte: <strong><a href="/cdn-cgi/l/email-protection#e28b8c848da29a9690878f8792908d8887819691cc8d9085" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="6b02050d042b131f190e060e1b1904010e081f184504190c">[email&#160;protected]</span></a></strong></p>
     </div></div>
 
     <div class="lm-pane" id="lm-sp"><div class="doc-hero">
       <div class="doc-label" data-i18n="lm-sp-label">🛟 Support</div>
       <h1 class="doc-title" data-i18n="lm-sp-title">We're here.<br>Let's fix it.</h1>
       <div class="doc-meta">
-        <span>📧 <a href="mailto:support@xtremeprojects.org">support@xtremeprojects.org</a></span>
+        <span>📧 <a href="/cdn-cgi/l/email-protection#83eaede5ecc3fbf7f1e6eee6f3f1ece9e6e0f7f0adecf1e4" style="color:var(--blue);font-weight:600"><span class="__cf_email__" data-cfemail="f69f989099b68e8284939b938684999c93958285d8998491">[email&#160;protected]</span></a></span>
         <span class="lm-en">⏱ Response within 48h</span>
         <span class="lm-pt">⏱ Resposta no prazo de 48h</span>
         <span>🇵🇹 Based in Portugal</span>
@@ -5527,8 +5493,8 @@ window.initDashboard=function(){
       <div class="section-n" data-i18n="lm-sn-contact">CONTACT</div>
       <h2 data-i18n="lm-h2-touch">Get in Touch</h2>
       <div class="highlight-box">
-        <p class="lm-en">📧 For all support requests: <strong><a href="mailto:support@xtremeprojects.org">support@xtremeprojects.org</a></strong><br>We respond to every message within 48 hours on business days.</p>
-        <p class="lm-pt">📧 Para todos os pedidos de suporte: <strong><a href="mailto:support@xtremeprojects.org">support@xtremeprojects.org</a></strong><br>Respondemos a todas as mensagens no prazo de 48 horas em dias úteis.</p>
+        <p class="lm-en">📧 For all support requests: <strong><a href="/cdn-cgi/l/email-protection#2a43444c456a525e584f474f5a5845404f495e590445584d" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="a8c1c6cec7e8d0dcdacdc5cdd8dac7c2cdcbdcdb86c7dacf">[email&#160;protected]</span></a></strong><br>We respond to every message within 48 hours on business days.</p>
+        <p class="lm-pt">📧 Para todos os pedidos de suporte: <strong><a href="/cdn-cgi/l/email-protection#5e373038311e262a2c3b333b2e2c31343b3d2a2d70312c39" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="3d54535b527d45494f5850584d4f5257585e494e13524f5a">[email&#160;protected]</span></a></strong><br>Respondemos a todas as mensagens no prazo de 48 horas em dias úteis.</p>
       </div>
       <p class="lm-en">Before reaching out, check the FAQ on the main page — most questions about detection accuracy, subscription billing and platform compatibility are answered there.</p>
       <p class="lm-pt">Antes de entrar em contacto, consulta as FAQ na página principal — a maioria das questões sobre precisão de detecção, facturação de subscrições e compatibilidade de plataformas encontra resposta aí.</p>
@@ -5543,7 +5509,7 @@ window.initDashboard=function(){
         <li><strong>Cancel subscription (iOS)</strong> — Settings → Apple ID → Subscriptions → MIVLA → Cancel</li>
         <li><strong>Cancel subscription (Android)</strong> — paddle.com/account or via app settings</li>
         <li><strong>Request a refund (iOS)</strong> — <a href="https://reportaproblem.apple.com" target="_blank">reportaproblem.apple.com</a></li>
-        <li><strong>Request a refund (Android)</strong> — Contact support@xtremeprojects.org with your Paddle account email</li>
+        <li><strong>Request a refund (Android)</strong> — Contact <a href="/cdn-cgi/l/email-protection#e881868e87a8909c9a8d858d989a87828d8b9c9bc6879a8f" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="c0a9aea6af80b8b4b2a5ada5b0b2afaaa5a3b4b3eeafb2a7">[email&#160;protected]</span></a> with your Paddle account email</li>
         <li><strong>Restore purchases (iOS)</strong> — Settings → Restore Purchases inside the MIVLA app</li>
         <li><strong>Restore purchases (Android)</strong> — Settings → Restore Purchases → enter your Paddle account email</li>
         <li><strong>Upgrade from Base to Premium</strong> — Settings → Subscription inside the MIVLA app</li>
@@ -5552,7 +5518,7 @@ window.initDashboard=function(){
         <li><strong>Cancelar subscrição (iOS)</strong> — Definições → Apple ID → Subscrições → MIVLA → Cancelar</li>
         <li><strong>Cancelar subscrição (Android)</strong> — paddle.com/account ou através das definições da app</li>
         <li><strong>Pedir reembolso (iOS)</strong> — <a href="https://reportaproblem.apple.com" target="_blank">reportaproblem.apple.com</a></li>
-        <li><strong>Pedir reembolso (Android)</strong> — Contacta support@xtremeprojects.org com o email da tua conta Paddle</li>
+        <li><strong>Pedir reembolso (Android)</strong> — Contacta <a href="/cdn-cgi/l/email-protection#acc5c2cac3ecd4d8dec9c1c9dcdec3c6c9cfd8df82c3decb" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="c3aaada5ac83bbb7b1a6aea6b3b1aca9a6a0b7b0edacb1a4">[email&#160;protected]</span></a> com o email da tua conta Paddle</li>
         <li><strong>Restaurar subscrição (iOS)</strong> — Definições → Restaurar Subscrição dentro da app MIVLA</li>
         <li><strong>Restaurar subscrição (Android)</strong> — Definições → Restaurar Subscrição → introduz o email da tua conta Paddle</li>
         <li><strong>Actualizar de Base para Premium</strong> — Definições → Subscrição dentro da app MIVLA</li>
@@ -5566,8 +5532,8 @@ window.initDashboard=function(){
         <p class="lm-en">⚠️ If MIVLA gives a result you believe is incorrect, <strong>do not share the result as a definitive verdict</strong>. MIVLA shows probabilities, not certainties. Always verify independently.</p>
         <p class="lm-pt">⚠️ Se a MIVLA apresentar um resultado que consideras incorrecto, <strong>não partilhes o resultado como um veredicto definitivo</strong>. A MIVLA mostra probabilidades, não certezas. Verifica sempre de forma independente.</p>
       </div>
-      <p class="lm-en">To report a detection you believe is wrong, email <strong><a href="mailto:support@xtremeprojects.org">support@xtremeprojects.org</a></strong> with: the platform, a description of the content, the MIVLA result shown, and why you believe it is incorrect.</p>
-      <p class="lm-pt">Para reportar uma detecção que consideras errada, envia email para <strong><a href="mailto:support@xtremeprojects.org">support@xtremeprojects.org</a></strong> com: a plataforma, uma descrição do conteúdo, o resultado da MIVLA apresentado e o motivo pelo qual acreditas que está incorrecto.</p>
+      <p class="lm-en">To report a detection you believe is wrong, email <strong><a href="/cdn-cgi/l/email-protection#2a43444c456a525e584f474f5a5845404f495e590445584d" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="026b6c646d427a7670676f6772706d68676176712c6d7065">[email&#160;protected]</span></a></strong> with: the platform, a description of the content, the MIVLA result shown, and why you believe it is incorrect.</p>
+      <p class="lm-pt">Para reportar uma detecção que consideras errada, envia email para <strong><a href="/cdn-cgi/l/email-protection#4f262129200f373b3d2a222a3f3d20252a2c3b3c61203d28" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="abc2c5cdc4ebd3dfd9cec6cedbd9c4c1cec8dfd885c4d9cc">[email&#160;protected]</span></a></strong> com: a plataforma, uma descrição do conteúdo, o resultado da MIVLA apresentado e o motivo pelo qual acreditas que está incorrecto.</p>
     </div>
 
     <div class="section">
@@ -5585,8 +5551,8 @@ window.initDashboard=function(){
         <li><strong>Referrals não aparecem</strong> — a atribuição de referral pode demorar até 24 horas</li>
         <li><strong>Conta aparece como Inactiva</strong> — o teu teste de 30 dias terminou sem subscrição; contacta-nos para discutir a reactivação</li>
       </ul>
-      <p class="lm-en">For any Founder issue: <strong><a href="mailto:support@xtremeprojects.org">support@xtremeprojects.org</a></strong> — include your registered email and Founder ID.</p>
-      <p class="lm-pt">Para qualquer questão de Fundador: <strong><a href="mailto:support@xtremeprojects.org">support@xtremeprojects.org</a></strong> — inclui o teu email registado e o Founder ID.</p>
+      <p class="lm-en">For any Founder issue: <strong><a href="/cdn-cgi/l/email-protection#8de4e3ebe2cdf5f9ffe8e0e8fdffe2e7e8eef9fea3e2ffea" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="741d1a121b340c000611191104061b1e111700075a1b0613">[email&#160;protected]</span></a></strong> — include your registered email and Founder ID.</p>
+      <p class="lm-pt">Para qualquer questão de Fundador: <strong><a href="/cdn-cgi/l/email-protection#11787f777e51696563747c7461637e7b747265623f7e6376" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="ea83848c85aa929e988f878f9a9885808f899e99c485988d">[email&#160;protected]</span></a></strong> — inclui o teu email registado e o Founder ID.</p>
     </div>
 
     <div class="section">
@@ -5602,8 +5568,8 @@ window.initDashboard=function(){
         <li><strong>Semáforo não aparece em algum conteúdo</strong> — alguns tipos de conteúdo podem ter análise limitada dependendo de como a plataforma é renderizada no WKWebView</li>
         <li><strong>Funcionalidades Premium não aparecem após subscrição</strong> — Definições → Restaurar Subscrição dentro da MIVLA</li>
       </ul>
-      <p class="lm-en">For bugs: <strong><a href="mailto:support@xtremeprojects.org">support@xtremeprojects.org</a></strong> — include your device model, iOS/Android version, and MIVLA version.</p>
-      <p class="lm-pt">Para erros técnicos: <strong><a href="mailto:support@xtremeprojects.org">support@xtremeprojects.org</a></strong> — inclui o modelo do teu dispositivo, versão iOS/Android e versão da MIVLA.</p>
+      <p class="lm-en">For bugs: <strong><a href="/cdn-cgi/l/email-protection#3e575058517e464a4c5b535b4e4c51545b5d4a4d10514c59" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="0c65626a634c74787e6961697c7e6366696f787f22637e6b">[email&#160;protected]</span></a></strong> — include your device model, iOS/Android version, and MIVLA version.</p>
+      <p class="lm-pt">Para erros técnicos: <strong><a href="/cdn-cgi/l/email-protection#b0d9ded6dff0c8c4c2d5ddd5c0c2dfdad5d3c4c39edfc2d7" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="c5acaba3aa85bdb1b7a0a8a0b5b7aaafa0a6b1b6ebaab7a2">[email&#160;protected]</span></a></strong> — inclui o modelo do teu dispositivo, versão iOS/Android e versão da MIVLA.</p>
     </div>
 
     <div class="section">
@@ -5656,9 +5622,9 @@ window.initDashboard=function(){
       <div class="green-box">
         <p data-i18n="lm-sp-newphone-founder">👑 <strong>Fundador?</strong> O teu desconto de 50% transfere automaticamente — via Apple ID no iOS, via email Paddle no Android.</p>
       </div>
-      <p style="margin-top:12px" data-i18n="lm-sp-newphone-help2">Problemas a restaurar? Contacta <a href="mailto:support@xtremeprojects.org" style="color:var(--gold);font-weight:700">support@xtremeprojects.org</a> — indica a tua plataforma (iOS/Android) e o teu email de conta.</p>
+      <p style="margin-top:12px" data-i18n="lm-sp-newphone-help2">Problemas a restaurar? Contacta <a href="/cdn-cgi/l/email-protection#9cf5f2faf3dce4e8eef9f1f9eceef3f6f9ffe8efb2f3eefb" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="fb92959d94bb838f899e969e8b8994919e988f88d594899c">[email&#160;protected]</span></a> — indica a tua plataforma (iOS/Android) e o teu email de conta.</p>
     </div>
-    </div></div>
+    </div>
 
     <div class="lm-pane" id="lm-pk"><div class="doc-hero">
       <div class="doc-label" data-i18n="lm-pk-label">📰 Press Kit</div>
@@ -5779,8 +5745,8 @@ window.initDashboard=function(){
       <h1 class="doc-title" data-i18n="lm-xp-title">Built with integrity.<br>Designed for humans.<br>Protected by science.</h1>
       <div class="doc-meta">
         <span>🇵🇹 Made in Portugal</span>
-        <span>🔗 xtremeprojects.org</span>
-        <span>📧 <a href="mailto:info@xtremeprojects.org">info@xtremeprojects.org</a></span>
+        <span>🔗 <a href="https://xtremeprojects.org" target="_blank" style="color:var(--blue);font-weight:600">xtremeprojects.org</a></span>
+        <span>📧 <a href="/cdn-cgi/l/email-protection#e28b8c848da29a9690878f8792908d8887819691cc8d9085" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="d5bcbbb3ba95ada1a7b0b8b0a5a7babfb0b6a1a6fbbaa7b2">[email&#160;protected]</span></a></span>
       </div>
     </div>
 
@@ -5833,9 +5799,9 @@ window.initDashboard=function(){
         <li><strong class="lm-en">Country:</strong><strong class="lm-pt">País:</strong> Portugal 🇵🇹 (European Union)</li>
         <li><strong class="lm-en">Trademark:</strong><strong class="lm-pt">Marca:</strong> MIVLA™ — INPI Portugal Reg. nº 20262007760334</li>
         <li><strong class="lm-en">Website:</strong><strong class="lm-pt">Website:</strong> <a href="https://xtremeprojects.org" target="_blank">xtremeprojects.org</a></li>
-        <li><strong class="lm-en">General:</strong><strong class="lm-pt">Geral:</strong> <a href="mailto:info@xtremeprojects.org">info@xtremeprojects.org</a></li>
+        <li><strong class="lm-en">General:</strong><strong class="lm-pt">Geral:</strong> <a href="/cdn-cgi/l/email-protection#660f080009261e1214030b031614090c0305121548091401" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="fe97909891be868a8c9b939b8e8c91949b9d8a8dd0918c99">[email&#160;protected]</span></a></li>
         <li><strong class="lm-en">Press:</strong><strong class="lm-pt">Imprensa:</strong> </li>
-        <li><strong class="lm-en">Support:</strong><strong class="lm-pt">Suporte:</strong> <a href="mailto:support@xtremeprojects.org">support@xtremeprojects.org</a></li>
+        <li><strong class="lm-en">Support:</strong><strong class="lm-pt">Suporte:</strong> <a href="/cdn-cgi/l/email-protection#cda4a3aba28db5b9bfa8a0a8bdbfa2a7a8aeb9bee3a2bfaa" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="177e797178576f6365727a726765787d7274636439786570">[email&#160;protected]</span></a></li>
         <li><strong class="lm-en">Privacy:</strong><strong class="lm-pt">Privacidade:</strong> </li>
       </ul>
     </div>
@@ -5848,10 +5814,11 @@ window.initDashboard=function(){
       <p class="lm-en">We do not accept partnerships involving advertising, data monetisation, or any compromise to our privacy-centred architecture.</p>
       <p class="lm-pt">Não aceitamos parcerias que envolvam publicidade, monetização de dados ou qualquer compromisso à nossa arquitectura centrada na privacidade.</p>
       <div class="green-box">
-        <p class="lm-en">📧 To propose a partnership: <strong><a href="mailto:info@xtremeprojects.org">info@xtremeprojects.org</a></strong></p>
-        <p class="lm-pt">📧 Para propor uma parceria: <strong><a href="mailto:info@xtremeprojects.org">info@xtremeprojects.org</a></strong></p>
+        <p class="lm-en">📧 To propose a partnership: <strong><a href="/cdn-cgi/l/email-protection#e48d8a828ba49c909681898194968b8e81879097ca8b9683" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="7e171018113e060a0c1b131b0e0c11141b1d0a0d50110c19">[email&#160;protected]</span></a></strong></p>
+        <p class="lm-pt">📧 Para propor uma parceria: <strong><a href="/cdn-cgi/l/email-protection#fe97909891be868a8c9b939b8e8c91949b9d8a8dd0918c99" style="color:var(--blue)"><span class="__cf_email__" data-cfemail="b1d8dfd7def1c9c5c3d4dcd4c1c3dedbd4d2c5c29fdec3d6">[email&#160;protected]</span></a></strong></p>
       </div>
     </div></div>
+    </div>
     </div>
     </div>
   </div>
@@ -5863,48 +5830,26 @@ window.initDashboard=function(){
 .lm-pane{display:none}
 .lm-pane.on{display:block}
 .lm-pane>div:not(.doc-hero):not(.doc-toc){padding:0 36px 48px}
-.lm-pane .doc-hero{margin-bottom:40px;padding-bottom:28px;border-bottom:2px solid var(--bg)}
-.lm-pane .doc-label{display:inline-flex;align-items:center;gap:7px;background:rgba(59,91,219,0.07);border:1px solid rgba(59,91,219,0.18);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.06em;margin-bottom:16px}
-.lm-pane .doc-title{font-size:clamp(22px,3vw,34px);font-weight:800;letter-spacing:-.025em;line-height:1.15;color:var(--navy);margin-bottom:12px}
-.lm-pane .doc-meta{font-size:13px;color:var(--dim);display:flex;gap:16px;flex-wrap:wrap}
-.lm-pane .doc-toc{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:36px}
-.lm-pane .doc-toc-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
-.lm-pane .doc-toc ol{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:5px 28px}
-.lm-pane .doc-toc li{font-size:13px}
-.lm-pane .doc-toc a{color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:5px;transition:color .15s}
-.lm-pane .doc-toc a:hover{color:var(--blue)}
-.lm-pane .toc-n{font-size:10px;font-weight:700;color:var(--dim);width:16px;flex-shrink:0}
-.lm-pane .section{margin-bottom:40px;scroll-margin-top:80px}
-
-.lm-pane .section-n{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);opacity:.5;margin-bottom:6px}
-.lm-pane h2{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:12px;letter-spacing:-.015em}
-.lm-pane p{font-size:14px;line-height:1.65;color:var(--dim);margin-bottom:12px}
-.lm-pane ul,.lm-pane ol{font-size:14px;line-height:1.65;color:var(--dim);padding-left:20px;margin-bottom:12px}
-.lm-pane li{margin-bottom:6px}
-.lm-pane a{color:var(--blue);text-decoration:none}
-.lm-pane a:hover{text-decoration:underline}
+.lm-pane .doc-hero{margin-bottom:32px}
+.doc-hero{padding:32px 36px 24px;border-bottom:1px solid var(--border);margin-bottom:0}
+.doc-title{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.doc-meta{font-size:12px;color:var(--muted);margin-bottom:0}
+.doc-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:rgba(59,91,219,0.1);color:var(--blue);margin-bottom:10px}
+.doc-toc{padding:20px 36px;background:rgba(59,91,219,0.04);border-bottom:1px solid var(--border)}
+.doc-toc-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
+.doc-toc a{display:block;font-size:13px;color:var(--blue);text-decoration:none;padding:3px 0;line-height:1.5}
+.doc-toc a:hover{text-decoration:underline}
+.lm-pane h2{font-size:17px;font-weight:800;color:var(--navy);margin:28px 0 10px}
+.lm-pane h3{font-size:14px;font-weight:700;color:var(--navy);margin:20px 0 8px}
+.lm-pane p{font-size:13px;line-height:1.75;color:rgba(10,22,40,0.75);margin-bottom:12px}
+.lm-pane ul,.lm-pane ol{font-size:13px;line-height:1.75;color:rgba(10,22,40,0.75);margin:0 0 12px;padding-left:20px}
+.lm-pane li{margin-bottom:4px}
+.lm-pane a{color:var(--blue)}
 .lm-pane strong{color:var(--navy);font-weight:700}
-.lm-pane code{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:1px 5px;font-size:12px;font-family:monospace}
-.highlight-box{background:rgba(59,91,219,0.06);border:1px solid rgba(59,91,219,0.15);border-radius:12px;padding:16px 18px;margin:16px 0}
-.highlight-box p{margin:0;font-size:13px}
-.green-box{background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.25);border-radius:12px;padding:16px 18px;margin:16px 0}
-.green-box p{margin:0;font-size:13px}
-.warn-box{background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.28);border-radius:12px;padding:16px 18px;margin:16px 0}
-.warn-box p{margin:0;font-size:13px}
-.np-platform-header{display:flex;align-items:center;gap:10px;margin:16px 0 8px}
-.np-platform-badge{font-size:12px;font-weight:700;padding:4px 12px;border-radius:100px;letter-spacing:.04em}
-.np-ios{background:rgba(0,122,255,0.1);color:#0077ff}
-.np-android{background:rgba(61,220,132,0.12);color:#1a8a4a}
-.np-platform-note{font-size:12px;color:var(--muted)}
-.newphone-steps{display:flex;flex-direction:column;gap:0}
-.np-step{display:flex;align-items:flex-start;gap:12px;background:var(--bg);border-radius:12px;padding:14px 16px}
-.np-step-num{width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.np-step-body{font-size:13px;line-height:1.5;color:var(--dim)}
-.np-step-body strong{color:var(--navy);display:block;margin-bottom:2px}
-.np-step-arrow{text-align:center;color:var(--muted);font-size:16px;padding:4px 0}
+.lm-pane code{font-family:'JetBrains Mono',monospace;font-size:11px;background:rgba(59,91,219,0.08);padding:1px 5px;border-radius:3px}
+.green-box{background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:14px 18px;margin:16px 0}
+.section{border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:8px}
+.section-n{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:24px 36px 8px}
 </style>
-
-
-
 </body>
 </html>
