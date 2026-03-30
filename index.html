@@ -736,6 +736,12 @@ to{background-position:0 100px}}
 .pcta.s{border:1.5px solid rgba(10,22,40,0.12);color:var(--navy)}
 .pcta.s:hover{border-color:var(--blue);color:var(--blue)}
 .pnote{text-align:center;margin-top:18px;font-size:12px;color:var(--dim)}
+/* EUR reference below converted price */
+.price-eur-ref{display:none;font-size:12px;color:var(--muted);margin-top:2px;font-weight:500}
+.price-eur-ref.visible{display:block}
+/* EUR reference in ambassador block */
+.amb-eur-ref{display:none;font-size:11px;color:rgba(200,164,90,0.6);margin-top:3px;font-style:italic}
+.amb-eur-ref.visible{display:block}
 
 /* TRUST */
 .tr-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:52px}
@@ -2502,12 +2508,14 @@ body.legal-pt .lm-en { display: none !important; }
         <p class="plan-tag" data-i18n="base-tag">Essential protection for everyday browsing</p>
         <div class="plan-price">
           <div class="price-n"><sup id="sym1">€</sup><span id="bp">49.99</span></div>
+          <span class="price-eur-ref" id="eurRefBase"></span>
           <p class="price-p" id="price-p-base">per year · via App Store</p>
           <p class="price-a" id="ba" style="visibility:visible" data-i18n="ann-base">€49.99/year — 2 months free</p>
           <div class="amb-price-block" id="ambBlockBase" style="display:none">
             <span class="amb-orig-price"><sup>€</sup><span id="ambOrigBase">49.99</span>/year</span>
             <div class="amb-final-price"><sup>€</sup><span id="ambFinalBase">24.99</span></div>
             <span class="amb-yr">/year</span>
+            <span class="amb-eur-ref" id="ambEurRefBase"></span>
             <span class="amb-price-badge">👑 -50% Ambassador</span>
           </div>
         </div>
@@ -2530,12 +2538,14 @@ body.legal-pt .lm-en { display: none !important; }
         <p class="plan-tag" data-i18n="prem-tag">Full protection with deep analysis</p>
         <div class="plan-price">
           <div class="price-n"><sup id="sym2">€</sup><span id="pp">99.99</span></div>
+          <span class="price-eur-ref" id="eurRefPrem"></span>
           <p class="price-p" id="price-p-prem">per year · via App Store</p>
           <p class="price-a" id="pa" style="visibility:visible" data-i18n="ann-prem">€99.99/year — 2 months free</p>
           <div class="amb-price-block" id="ambBlockPrem" style="display:none">
             <span class="amb-orig-price"><sup>€</sup><span id="ambOrigPrem">99.99</span>/year</span>
             <div class="amb-final-price"><sup>€</sup><span id="ambFinalPrem">49.99</span></div>
             <span class="amb-yr">/year</span>
+            <span class="amb-eur-ref" id="ambEurRefPrem"></span>
             <span class="amb-price-badge">👑 -50% Ambassador</span>
           </div>
         </div>
@@ -2854,35 +2864,63 @@ const prices={m:{b:'4.99',p:'9.99'},a:{b:'49.99',p:'99.99'}};
 function setP(m){
   var bM=document.getElementById('bM'); if(bM) bM.classList.toggle('on',m==='m');
   var bA=document.getElementById('bA'); if(bA) bA.classList.toggle('on',m==='a');
-  const pr={m:{b:'4.99',p:'9.99'},a:{b:'49.99',p:'99.99'}};
-  var bp2=document.getElementById('bp'); if(bp2) bp2.textContent=pr[m].b;
-  var pp2=document.getElementById('pp'); if(pp2) pp2.textContent=pr[m].p;
-  const a=m==='a';
+  // Prices per currency
+  var _allPrices = {
+    'EUR': {m:{b:'4.99', p:'9.99'}, a:{b:'49.99', p:'99.99'}},
+    'GBP': {m:{b:'4.49', p:'8.99'}, a:{b:'44.99', p:'89.99'}},
+    'USD': {m:{b:'5.49', p:'10.99'},a:{b:'54.99', p:'109.99'}},
+    'BRL': {m:{b:'24.90',p:'49.90'},a:{b:'249',   p:'499'}},
+    'IDR': {m:{b:'89.000',p:'179.000'},a:{b:'899.000',p:'1.799.000'}}
+  };
+  var cur = (typeof currentCurrency !== 'undefined' && currentCurrency) ? currentCurrency : 'EUR';
+  var sym = (typeof currentSymbol !== 'undefined' && currentSymbol) ? currentSymbol : '€';
+  var pr = (_allPrices[cur] || _allPrices['EUR'])[m];
+  var eurPr = _allPrices['EUR'][m];
+  var isEur = cur === 'EUR';
+  var hasRef = (new URLSearchParams(window.location.search)).get('ref');
+  var a = m === 'a';
+
+  // Main price display
+  var bp2=document.getElementById('bp'); if(bp2) bp2.textContent=pr.b;
+  var pp2=document.getElementById('pp'); if(pp2) pp2.textContent=pr.p;
+  var sp1=document.getElementById('sym1'); if(sp1) sp1.textContent=sym;
+  var sp2=document.getElementById('sym2'); if(sp2) sp2.textContent=sym;
+
   // Period text
   var ppB=document.getElementById('price-p-base');
   var ppP=document.getElementById('price-p-prem');
   var periodTxt=a?'per year · via App Store':'per month · via App Store';
   if(ppB) ppB.textContent=periodTxt;
   if(ppP) ppP.textContent=periodTxt;
+
   // Annual savings note
   var ba=document.getElementById('ba'); if(ba) ba.style.visibility=a?'visible':'hidden';
   var pa=document.getElementById('pa'); if(pa) pa.style.visibility=a?'visible':'hidden';
+
   // Ambassador price blocks
-  var hasRef = (new URLSearchParams(window.location.search)).get('ref');
-  var ambBb = document.getElementById('ambBlockBase');
-  var ambBp = document.getElementById('ambBlockPrem');
-  if(ambBb) ambBb.style.display = (a && hasRef) ? 'block' : 'none';
-  if(ambBp) ambBp.style.display = (a && hasRef) ? 'block' : 'none';
-  // Ambassador orig/final values
+  if(document.getElementById('ambBlockBase')) document.getElementById('ambBlockBase').style.display = (a && hasRef) ? 'block' : 'none';
+  if(document.getElementById('ambBlockPrem')) document.getElementById('ambBlockPrem').style.display = (a && hasRef) ? 'block' : 'none';
+
+  // Ambassador orig/final values (in local currency)
   if(a && hasRef){
-    var ob=document.getElementById('ambOrigBase'); if(ob) ob.textContent='49.99';
-    var fb=document.getElementById('ambFinalBase'); if(fb) fb.textContent='24.99';
-    var op=document.getElementById('ambOrigPrem'); if(op) op.textContent='99.99';
-    var fp=document.getElementById('ambFinalPrem'); if(fp) fp.textContent='49.99';
+    var _ambPr = (_allPrices[cur] || _allPrices['EUR']).a;
+    var _ambFb = parseFloat(_ambPr.b.replace('.','').replace(',','.'));
+    var _ambFp = parseFloat(_ambPr.p.replace('.','').replace(',','.'));
+    var ob=document.getElementById('ambOrigBase'); if(ob) ob.textContent=_ambPr.b;
+    var fb=document.getElementById('ambFinalBase'); if(fb) fb.textContent=(_ambFb/2).toFixed(2);
+    var op=document.getElementById('ambOrigPrem'); if(op) op.textContent=_ambPr.p;
+    var fp=document.getElementById('ambFinalPrem'); if(fp) fp.textContent=(_ambFp/2).toFixed(2);
   }
-  // Apply current symbol
-  var sp1=document.getElementById('sym1'); if(sp1) sp1.textContent=currentSymbol||'€';
-  var sp2=document.getElementById('sym2'); if(sp2) sp2.textContent=currentSymbol||'€';
+
+  // EUR reference (shown only when currency != EUR)
+  var refBase = document.getElementById('eurRefBase');
+  var refPrem = document.getElementById('eurRefPrem');
+  var refAmbBase = document.getElementById('ambEurRefBase');
+  var refAmbPrem = document.getElementById('ambEurRefPrem');
+  if(refBase){ refBase.classList.toggle('visible',!isEur); if(!isEur) refBase.textContent='(€'+eurPr.b+')'; }
+  if(refPrem){ refPrem.classList.toggle('visible',!isEur); if(!isEur) refPrem.textContent='(€'+eurPr.p+')'; }
+  if(refAmbBase){ refAmbBase.classList.toggle('visible',!isEur&&a&&!!hasRef); if(!isEur&&a&&hasRef) refAmbBase.textContent='(€24.99)'; }
+  if(refAmbPrem){ refAmbPrem.classList.toggle('visible',!isEur&&a&&!!hasRef); if(!isEur&&a&&hasRef) refAmbPrem.textContent='(€49.99)'; }
 }
 
 // FAQ — multilingual
@@ -3794,14 +3832,17 @@ function setLang(lang, flag, code, sym, currency, evt){
     } catch(e){ console.warn('i18n error on key:', el.getAttribute('data-i18n'), e); }
   });
   // Currency — always EUR (guard against null if old pricing elements removed)
-  var s1=document.getElementById('sym1'); if(s1) s1.textContent='€';
-  var s2=document.getElementById('sym2'); if(s2) s2.textContent='€';
+  var s1=document.getElementById('sym1'); if(s1) s1.textContent=sym;
+  var s2=document.getElementById('sym2'); if(s2) s2.textContent=sym;
   // Close dropdown
   document.getElementById('langSel').classList.remove('open');
   try { buildFaq(lang); } catch(e){ console.warn('buildFaq error:', e); }
   try { buildMarquee(lang); } catch(e){ console.warn('buildMarquee error:', e); }
   // Refresh semaphore hero text in new language
   try { updateSem(semStates[si]); } catch(e){ console.warn('updateSem error:', e); }
+  // Refresh prices with EUR reference for current tab (monthly or annual)
+  var curMode = document.getElementById('bA') && document.getElementById('bA').classList.contains('on') ? 'a' : 'm';
+  try { setP(curMode); } catch(e){ console.warn('setP error:', e); }
 }
 
 // Currency patch — merged into setP above via wrapper
