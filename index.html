@@ -2512,8 +2512,8 @@ body.legal-pt .lm-en { display: none !important; }
           <p class="price-p" id="price-p-base">per year · via App Store</p>
           <p class="price-a" id="ba" style="visibility:visible" data-i18n="ann-base">€49.99/year — 2 months free</p>
           <div class="amb-price-block" id="ambBlockBase" style="display:none">
-            <span class="amb-orig-price"><sup>€</sup><span id="ambOrigBase">49.99</span>/year</span>
-            <div class="amb-final-price"><sup>€</sup><span id="ambFinalBase">24.99</span></div>
+            <span class="amb-orig-price"><sup id="ambSymOrigBase">€</sup><span id="ambOrigBase">49.99</span>/year</span>
+            <div class="amb-final-price"><sup id="ambSymFinalBase">€</sup><span id="ambFinalBase">24.99</span></div>
             <span class="amb-yr">/year</span>
             <span class="amb-eur-ref" id="ambEurRefBase"></span>
             <span class="amb-price-badge">👑 -50% Ambassador</span>
@@ -2522,10 +2522,7 @@ body.legal-pt .lm-en { display: none !important; }
         <ul class="feats">
           <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f1">Live semaphore on 5 platforms</span></li>
           <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f2">AI-generated badge (⚪)</span></li>
-          <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f3">30 scans per month</span></li>
           <li><span class="ck y"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#22C55E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-i18n="f4">Phishing &amp; scam detection</span></li>
-          <li class="off"><span class="ck n"><svg viewBox="0 0 10 10" fill="none"><path d="M3 3l4 4M7 3l-4 4" stroke="rgba(10,22,40,0.2)" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-i18n="f5">Detailed 8-layer report</span></li>
-          <li class="off"><span class="ck n"><svg viewBox="0 0 10 10" fill="none"><path d="M3 3l4 4M7 3l-4 4" stroke="rgba(10,22,40,0.2)" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-i18n="f6">Fact-check with source links</span></li>
         </ul>
         <a href="javascript:void(0)" onclick="document.getElementById('stores-cta').scrollIntoView({behavior:'smooth'})" class="pcta s" data-i18n="trial-btn">Start 3-Day Free Trial</a>
         <p class="plan-mobile-note" data-i18n="plan-mobile-note">📲 Download on your smartphone to subscribe</p>
@@ -2542,8 +2539,8 @@ body.legal-pt .lm-en { display: none !important; }
           <p class="price-p" id="price-p-prem">per year · via App Store</p>
           <p class="price-a" id="pa" style="visibility:visible" data-i18n="ann-prem">€99.99/year — 2 months free</p>
           <div class="amb-price-block" id="ambBlockPrem" style="display:none">
-            <span class="amb-orig-price"><sup>€</sup><span id="ambOrigPrem">99.99</span>/year</span>
-            <div class="amb-final-price"><sup>€</sup><span id="ambFinalPrem">49.99</span></div>
+            <span class="amb-orig-price"><sup id="ambSymOrigPrem">€</sup><span id="ambOrigPrem">99.99</span>/year</span>
+            <div class="amb-final-price"><sup id="ambSymFinalPrem">€</sup><span id="ambFinalPrem">49.99</span></div>
             <span class="amb-yr">/year</span>
             <span class="amb-eur-ref" id="ambEurRefPrem"></span>
             <span class="amb-price-badge">👑 -50% Ambassador</span>
@@ -2893,23 +2890,37 @@ function setP(m){
   if(ppB) ppB.textContent=periodTxt;
   if(ppP) ppP.textContent=periodTxt;
 
-  // Annual savings note
-  var ba=document.getElementById('ba'); if(ba) ba.style.visibility=a?'visible':'hidden';
-  var pa=document.getElementById('pa'); if(pa) pa.style.visibility=a?'visible':'hidden';
+  // Annual savings note — hidden for ambassadors (they see amb-price-block instead)
+  var _annSuffix={en:'/year — 2 months free',pt:'/ano — 2 meses grátis','pt-br':'/ano — 2 meses grátis',es:'/año — 2 meses gratis',fr:'/an — 2 mois offerts',it:'/anno — 2 mesi gratis',de:'/Jahr — 2 Monate gratis',id:'/tahun — 2 bulan gratis','en-us':'/year — 2 months free'};
+  var _curLang = (typeof currentLang !== 'undefined') ? currentLang : 'en';
+  var _suf = _annSuffix[_curLang] || _annSuffix['en'];
+  var ba=document.getElementById('ba');
+  var pa=document.getElementById('pa');
+  if(hasRef){
+    if(ba) ba.style.visibility='hidden';
+    if(pa) pa.style.visibility='hidden';
+  } else {
+    if(ba){ ba.style.visibility=a?'visible':'hidden'; if(a) ba.textContent=sym+pr.b+_suf; }
+    if(pa){ pa.style.visibility=a?'visible':'hidden'; if(a) pa.textContent=sym+pr.p+_suf; }
+  }
 
   // Ambassador price blocks
   if(document.getElementById('ambBlockBase')) document.getElementById('ambBlockBase').style.display = (a && hasRef) ? 'block' : 'none';
   if(document.getElementById('ambBlockPrem')) document.getElementById('ambBlockPrem').style.display = (a && hasRef) ? 'block' : 'none';
 
-  // Ambassador orig/final values (in local currency)
+  // Ambassador orig/final values (in local currency) + update currency symbols
   if(a && hasRef){
     var _ambPr = (_allPrices[cur] || _allPrices['EUR']).a;
-    var _ambFb = parseFloat(_ambPr.b.replace('.','').replace(',','.'));
-    var _ambFp = parseFloat(_ambPr.p.replace('.','').replace(',','.'));
+    var _ambFb = parseFloat(_ambPr.b.replace(/\./g,'').replace(',','.'));
+    var _ambFp = parseFloat(_ambPr.p.replace(/\./g,'').replace(',','.'));
     var ob=document.getElementById('ambOrigBase'); if(ob) ob.textContent=_ambPr.b;
     var fb=document.getElementById('ambFinalBase'); if(fb) fb.textContent=(_ambFb/2).toFixed(2);
     var op=document.getElementById('ambOrigPrem'); if(op) op.textContent=_ambPr.p;
     var fp=document.getElementById('ambFinalPrem'); if(fp) fp.textContent=(_ambFp/2).toFixed(2);
+    var asob=document.getElementById('ambSymOrigBase'); if(asob) asob.textContent=sym;
+    var asfb=document.getElementById('ambSymFinalBase'); if(asfb) asfb.textContent=sym;
+    var asop=document.getElementById('ambSymOrigPrem'); if(asop) asop.textContent=sym;
+    var asfp=document.getElementById('ambSymFinalPrem'); if(asfp) asfp.textContent=sym;
   }
 
   // EUR reference (shown only when currency != EUR)
