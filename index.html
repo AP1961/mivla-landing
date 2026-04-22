@@ -798,8 +798,8 @@ to{background-position:0 100px}}
 footer{background:#0A1628;padding:44px 5vw 32px;border-top:1px solid rgba(255,255,255,0.06)}
 .fi2{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:28px}
 .fl{font-size:18px;font-weight:800;color:var(--gold);display:block;margin-bottom:6px}
-.ft{font-size:13px;color:rgba(255,255,255,0.35);max-width:260px;line-height:1.6}
-.fleg{font-size:11px;color:rgba(255,255,255,0.18);margin-top:10px;line-height:1.6}
+.ft{font-size:13px;color:var(--gold);max-width:260px;line-height:1.6}
+.fleg{font-size:11px;color:rgba(200,164,90,0.6);margin-top:10px;line-height:1.6}
 .flinks{display:flex;flex-direction:column;gap:9px;align-items:flex-end}
 .flinks a{font-size:12px;color:var(--gold);text-decoration:none;font-weight:500;transition:color .2s}
 .flinks a:hover{color:#fff}
@@ -867,13 +867,22 @@ footer{background:#0A1628;padding:44px 5vw 32px;border-top:1px solid rgba(255,25
 .np-platform-badge{font-size:12px;font-weight:800;padding:4px 14px;border-radius:100px;letter-spacing:.04em}
 .np-ios{background:rgba(59,91,219,0.1);color:var(--blue);border:1px solid rgba(59,91,219,0.2)}
 .np-android{background:rgba(34,197,94,0.1);color:#15803D;border:1px solid rgba(34,197,94,0.2)}
-.np-platform-note{font-size:11px;color:var(--muted);font-style:italic}
+.annual-nudge{
+  font-size:12px;font-weight:700;color:var(--blue);
+  text-align:center;margin-top:8px;
+  cursor:pointer;letter-spacing:.01em;
+  transition:opacity .3s;
+}
+.annual-nudge.hidden{opacity:0;pointer-events:none}
 
 
-.np-shake-eyebrow{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+
 .plan-platform-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(59,91,219,0.07);border:1px solid rgba(59,91,219,0.15);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:700;color:var(--blue);letter-spacing:.04em;margin-bottom:12px}
 .plan-mobile-note{text-align:center;font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5}
-.price-platform-note{text-align:center;font-size:12px;color:var(--muted);margin:10px auto 0;max-width:480px;line-height:1.6}
+.price-platform-note{text-align:center;font-size:12px;color:#22c55e;margin:10px auto 0;max-width:none;line-height:1.6;white-space:nowrap;animation:platformBlink 2.4s ease-in-out infinite}
+@keyframes platformBlink{0%,100%{opacity:1}50%{opacity:.35}}
+.price-platform-note .blink-cursor{display:inline-block;width:7px;height:11px;background:#22c55e;margin-left:3px;vertical-align:middle;animation:cursorBlink 1s step-end infinite}
+@keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
 
 /* ── NEW PRICING CARDS ── */
 .np-card{
@@ -889,21 +898,7 @@ footer{background:#0A1628;padding:44px 5vw 32px;border-top:1px solid rgba(255,25
   border:2px solid var(--blue);
   box-shadow:0 6px 32px rgba(59,91,219,0.14);
 }
-.np-shake-card{
-  border:2px solid transparent;
-  background:linear-gradient(#fff,#fff) padding-box,
-    linear-gradient(135deg,var(--blue),var(--gold),var(--blue)) border-box;
-  animation:shakeBorder 2.5s ease-in-out infinite;
-}
-@keyframes shakeBorder{
-  0%,100%{box-shadow:0 0 0 0 rgba(59,91,219,0)}
-  50%{box-shadow:0 0 28px 6px rgba(59,91,219,0.2)}
-}
-.np-shake-glow{
-  position:absolute;inset:0;border-radius:18px;
-  background:radial-gradient(ellipse at 50% 0%,rgba(59,91,219,0.06) 0%,transparent 60%);
-  pointer-events:none;
-}
+
 .np-card-eyebrow{
   font-size:11px;font-weight:800;letter-spacing:.1em;
   text-transform:uppercase;color:var(--muted);margin-bottom:16px;
@@ -979,14 +974,7 @@ footer{background:#0A1628;padding:44px 5vw 32px;border-top:1px solid rgba(255,25
 .np-cta-btn:hover{background:#2d4fd6;transform:translateY(-1px)}
 .np-cta-primary{background:var(--blue)}
 .np-trial-note{font-size:11px;color:var(--muted);text-align:center;line-height:1.5}
-.np-shake-emoji{font-size:128px;display:block;margin:0 auto 16px;animation:swShakeAnim 2.2s ease-in-out infinite;line-height:1;text-align:center;filter:drop-shadow(0 6px 20px rgba(59,91,219,0.3));transform-origin:bottom center}
-.np-shake-label{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
-.np-shake-title{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:10px;letter-spacing:-.01em}
-.np-shake-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px}
-.np-shake-slots{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px}
-.np-slot{width:52px;height:52px;border-radius:10px;background:rgba(59,91,219,0.08);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:var(--blue)}
-.np-slot-sep{font-size:18px;color:var(--muted);font-weight:700}
-.np-shake-validity{font-size:11px;color:var(--muted);line-height:1.6}
+
 
 /* ── NEW PRICING ── */
   .new-plans{gap:12px}
@@ -1492,7 +1480,7 @@ body.legal-pt .lm-en { display: none !important; }
 <!-- SHARE & WIN -->
 <section class="sec" id="share">
   <div class="wrap">
-    <div class="eyebrow reveal" style="justify-content:center" data-i18n="sw-eyebrow">Viral features</div>
+
     <h2 class="h2 reveal" style="text-align:center"><span data-i18n="sw-title">Protect a friend.<br><span class="hl">Win something doing it.</span></span></h2>
     <p class="subline reveal" style="max-width:480px;margin:12px auto 0;text-align:center" data-i18n="sw-sub">Two gestures built into the app. No extra steps. No account needed.</p>
 
@@ -1573,38 +1561,7 @@ body.legal-pt .lm-en { display: none !important; }
         </div>
       </div>
 
-      <!-- SHAKE TO WIN -->
-      <div class="sw-card reveal d1">
-        <div class="sw-phone-wrap">
-          <div class="sw-phone sw-phone-dark" id="swPhoneShake">
-            <!-- Shake state: idle -->
-            <div class="sw-shake-idle" id="swShakeIdle">
-              <div class="sw-shake-icon" id="swShakeIcon">📱</div>
-              <p class="sw-shake-hint" data-i18n="sw-shake-prompt">Agita o teu Smartphone</p>
-            </div>
-            <!-- Shake state: result -->
-            <div class="sw-discount-panel" id="swDiscountPanel">
-              <div class="sw-confetti" id="swConfetti"></div>
-              <div class="sw-discount-badge">
-                <div class="sw-discount-pct" id="swDiscountPct">30%</div>
-                <div class="sw-discount-off" data-i18n="sw-off">OFF</div>
-              </div>
-              <p class="sw-discount-sub" data-i18n="sw-discount-sub">Send to a friend · Expires in 48h</p>
-              <div class="sw-send-row">
-                <div class="sw-send-btn">💬</div>
-                <div class="sw-send-btn">✉️</div>
-                <div class="sw-send-btn" style="font-size:11px;font-weight:800">AirDrop</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="sw-text">
-          <div class="sw-gesture-badge">📳 <span data-i18n="sw-gesture-shake">Shake your Smartphone</span></div>
-          <h3 class="sw-h3" data-i18n="sw-shake-title">Win a discount. Give it away.</h3>
-          <p class="sw-desc" data-i18n="sw-shake-desc">Shake your Smartphone and MIVLA draws a random discount — 10%, 30%, 50% or even a free Premium month. Send it to whoever you want to protect. They get MIVLA cheaper. You get the satisfaction of having protected someone.</p>
-          <div class="sw-detail" data-i18n="sw-shake-detail">✓ Random draw &nbsp;·&nbsp; ✓ Send via WhatsApp or iMessage &nbsp;·&nbsp; ✓ Expires in 48h</div>
-        </div>
-      </div>
+
 
     </div>
   </div>
@@ -1612,7 +1569,7 @@ body.legal-pt .lm-en { display: none !important; }
 
 <style>
 /* ══ SHARE & WIN ══ */
-.sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:56px;align-items:start}
+.sw-grid{display:grid;grid-template-columns:minmax(0,560px);gap:32px;margin-top:56px;align-items:start;justify-content:center}
 .sw-card{background:#fff;border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:0 4px 24px rgba(10,22,40,0.07);padding:32px 28px 28px;display:flex;flex-direction:column;gap:28px}
 .sw-phone-wrap{display:flex;justify-content:center}
 .sw-phone{
@@ -1720,10 +1677,10 @@ body.legal-pt .lm-en { display: none !important; }
 }
 .sw-h3{font-size:20px;font-weight:800;color:var(--navy);line-height:1.25;margin-bottom:10px}
 .sw-desc{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px}
-.sw-detail{font-size:12px;color:var(--blue);font-weight:600;letter-spacing:.01em}
+.sw-detail{font-size:12px;color:var(--blue);font-weight:600;letter-spacing:.01em;white-space:nowrap}
 
 @media(max-width:768px){
-  .sw-grid{grid-template-columns:1fr;gap:24px}
+  .sw-grid{max-width:100%}
   .sw-card{padding:24px 20px}
   .sw-phone{width:180px;height:160px}
 }
@@ -1911,16 +1868,6 @@ body.legal-pt .lm-en { display: none !important; }
 
   if(hasRef) activateAmbassador();
 
-  // ── 4. Public shake slot machine ──────────────────────────────────────
-  var pctVals = ['10%','20%','30%','50%','FREE'];
-  var pctIdx  = 0;
-  var pctEl   = document.getElementById('pubShakePct');
-  if(pctEl){
-    setInterval(function(){
-      pctIdx = (pctIdx + 1) % pctVals.length;
-      pctEl.textContent = pctVals[pctIdx];
-    }, 1400);
-  }
 
   // ── 5. Hook setLang to update ambassador CTA if activated ─────────────
   var _origSetLang = window.setLang;
@@ -1959,53 +1906,7 @@ body.legal-pt .lm-en { display: none !important; }
     }, 2500);
   }
 
-  // Shake animation
-  var discounts = ['10%','20%','30%','50%','FREE'];
-  var shakeIdx = 0;
-  function runShake(){
-    var idle = document.getElementById('swShakeIdle');
-    var panel = document.getElementById('swDiscountPanel');
-    var pct = document.getElementById('swDiscountPct');
-    if(!idle || !panel) return;
-    idle.style.opacity = '1';
-    idle.style.transform = 'scale(1)';
-    panel.classList.remove('popped');
-    panel.style.opacity = '0';
-    panel.style.transform = 'scale(0.8)';
-    // After 2.2s shake reveals discount
-    setTimeout(function(){
-      idle.style.opacity = '0';
-      idle.style.transform = 'scale(0.8)';
-      if(pct) pct.textContent = discounts[shakeIdx % discounts.length];
-      shakeIdx++;
-      spawnConfetti();
-      setTimeout(function(){
-        panel.classList.add('popped');
-        // Reset after 3.5s
-        setTimeout(runShake, 3500);
-      }, 200);
-    }, 2200);
-  }
-
-  function spawnConfetti(){
-    var c = document.getElementById('swConfetti');
-    if(!c) return;
-    c.innerHTML = '';
-    var cols = ['#3B5BDB','#22C55E','#F59E0B','#EF4444','#A78BFA','#fff'];
-    for(var i=0; i<18; i++){
-      var d = document.createElement('div');
-      var size = 4 + Math.random()*5;
-      d.style.cssText = 'position:absolute;border-radius:2px;'+
-        'width:'+size+'px;height:'+size+'px;'+
-        'left:'+(10+Math.random()*80)+'%;'+
-        'top:-10px;'+
-        'background:'+cols[Math.floor(Math.random()*cols.length)]+';'+
-        'animation:swFetti '+(1.2+Math.random()*.8)+'s '+(Math.random()*.4)+'s ease-out forwards;';
-      c.appendChild(d);
-    }
-  }
-
-  // Start when elements are in view
+  // Start when QR card is in view
   function startSW(){
     var card = document.querySelector('.sw-card');
     if(!card){ setTimeout(startSW, 200); return; }
@@ -2013,7 +1914,6 @@ body.legal-pt .lm-en { display: none !important; }
       entries.forEach(function(e){
         if(e.isIntersecting){
           runQR();
-          runShake();
           obs.disconnect();
         }
       });
@@ -2226,230 +2126,7 @@ body.legal-pt .lm-en { display: none !important; }
       </div>
 
 </section>
-<section class="amb-sec" id="ambassador">
-  <div class="wrap">
 
-    <!-- Header -->
-    <div class="amb-header reveal">
-      <div class="amb-date-badge">
-        <span class="amb-date-dot"></span>
-        <span data-i18n="amb-live">Live — 1 April 2026</span>
-      </div>
-      <h2 class="amb-title" data-i18n="amb-title">Today the world lies.<br><span class="amb-hl">We don't.</span></h2>
-      <p class="amb-sub" data-i18n="amb-sub">MIVLA launched today — because no other day makes more sense. If you're reading this, you were chosen. An ambassador. Your opinion is worth more than any market study.</p>
-    </div>
-
-    <!-- Two columns: ambassador offer + public -->
-    <div class="amb-grid">
-
-      <!-- LEFT: Ambassador offer -->
-      <div class="amb-card amb-card-gold reveal" id="ambCard">
-        <div class="amb-card-inner">
-          <div class="amb-crown">👑</div>
-          <div class="amb-card-title" data-i18n="amb-card-title">Ambassador Offer</div>
-
-          <!-- Discount display — shown when ref detected -->
-          <div class="amb-discount-wrap" id="ambDiscountWrap" style="display:none">
-            <div class="amb-discount-ring">
-              <div class="amb-discount-pct">50%</div>
-              <div class="amb-discount-off" data-i18n="amb-off">OFF</div>
-            </div>
-            <p class="amb-discount-label" data-i18n="amb-discount-label">Annual subscription · Base or Premium</p>
-            <div class="amb-ref-id" id="ambRefId"></div>
-          </div>
-
-          <!-- Generic teaser — shown without ref -->
-          <div class="amb-teaser" id="ambTeaser">
-            <div class="amb-teaser-pct">50%</div>
-            <p class="amb-teaser-label" data-i18n="amb-teaser-label">Reserved for ambassadors.<br>Check your email for your personal link.</p>
-          </div>
-
-          <!-- Countdown -->
-          <div class="amb-countdown" id="ambCountdown">
-            <div class="amb-cd-label" data-i18n="amb-expires">Offer expires in</div>
-            <div class="amb-cd-boxes">
-              <div class="amb-cd-box"><span id="cdD">72</span><small data-i18n="amb-hours">h</small></div>
-              <div class="amb-cd-sep">:</div>
-              <div class="amb-cd-box"><span id="cdM">00</span><small data-i18n="amb-min">m</small></div>
-              <div class="amb-cd-sep">:</div>
-              <div class="amb-cd-box"><span id="cdS">00</span><small data-i18n="amb-sec">s</small></div>
-            </div>
-          </div>
-
-          <!-- CTA -->
-          <a href="#pricing" class="amb-cta" id="ambCta" data-i18n="amb-cta-generic">Install now · Explore · Break it</a>
-
-          <!-- TIREX teaser -->
-          <div class="amb-tirex-hint">
-            <span class="amb-tirex-dot">→</span>
-            <span data-i18n="amb-tirex-hint">And there's another reason this exists. <a href="#about" class="amb-tirex-link">Find it here.</a></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT: Public / everyone else -->
-      <div class="amb-card amb-card-public reveal d1">
-        <div class="amb-card-inner">
-          <div class="amb-crown">🎲</div>
-          <div class="amb-card-title" data-i18n="amb-public-title">Everyone else</div>
-          <p class="amb-public-desc" data-i18n="amb-public-desc">No ambassador link? No problem. The MIVLA discount isn't given — it's won. Shake your Smartphone after installing and let luck decide. 10%, 30%, 50% or a free Premium month.</p>
-          <div class="amb-shake-demo">
-            <div class="amb-shake-phone">📱</div>
-            <div class="amb-shake-arrow">→</div>
-            <div class="amb-shake-result">
-              <div class="amb-shake-pct" id="pubShakePct">?</div>
-            </div>
-          </div>
-          <p class="amb-shake-note" data-i18n="amb-shake-note">Discounts expire in 48h. Share them with whoever you want to protect.</p>
-          <a href="#pricing" class="amb-cta amb-cta-s" data-i18n="amb-try">Try free for 3 days</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<style>
-/* ══ AMBASSADOR SECTION ══ */
-.amb-sec{
-  padding:100px 0;
-  background:var(--navy);
-  position:relative;overflow:hidden;
-}
-.amb-sec::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 30% 50%,rgba(200,164,90,0.08) 0%,transparent 60%),
-             radial-gradient(ellipse at 70% 50%,rgba(59,91,219,0.08) 0%,transparent 60%);
-  pointer-events:none;
-}
-.amb-header{text-align:center;margin-bottom:56px;position:relative}
-.amb-date-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(200,164,90,0.12);border:1px solid rgba(200,164,90,0.3);
-  border-radius:100px;padding:6px 18px;
-  font-size:12px;font-weight:700;color:#fff;letter-spacing:.06em;
-  margin-bottom:24px;
-}
-.amb-date-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold);animation:blink 2s ease-in-out infinite}
-.amb-title{font-size:clamp(32px,4.5vw,54px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.025em;margin-bottom:16px}
-.amb-hl{color:var(--gold)}
-.amb-sub{font-size:17px;color:#fff;line-height:1.75;max-width:600px;margin:0 auto}
-
-/* Grid */
-.amb-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px;margin:0 auto}
-
-/* Cards */
-.amb-card{border-radius:20px;position:relative;overflow:hidden}
-.amb-card-inner{padding:36px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;height:100%}
-
-/* Gold card */
-.amb-card-gold{
-  background:linear-gradient(135deg,#1a2442 0%,#0f1728 100%);
-  border:1px solid rgba(200,164,90,0.35);
-  box-shadow:0 0 0 1px rgba(200,164,90,0.1),0 24px 64px rgba(0,0,0,0.4),inset 0 1px 0 rgba(200,164,90,0.15);
-}
-.amb-card-gold::before{
-  content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
-  width:200px;height:200px;border-radius:50%;
-  background:radial-gradient(circle,rgba(200,164,90,0.12) 0%,transparent 70%);
-  pointer-events:none;
-}
-/* Public card */
-.amb-card-public{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
-}
-.amb-crown{font-size:32px}
-.amb-card-title{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#fff}
-.amb-card-public .amb-card-title{color:#fff}
-
-/* Discount ring */
-.amb-discount-wrap{display:flex;flex-direction:column;align-items:center;gap:10px}
-.amb-discount-ring{
-  width:120px;height:120px;border-radius:50%;
-  background:linear-gradient(135deg,rgba(200,164,90,0.2) 0%,rgba(200,164,90,0.05) 100%);
-  border:2px solid rgba(200,164,90,0.5);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  box-shadow:0 0 0 8px rgba(200,164,90,0.06),0 0 40px rgba(200,164,90,0.2);
-  animation:ambPulse 3s ease-in-out infinite;
-}
-@keyframes ambPulse{0%,100%{box-shadow:0 0 0 8px rgba(200,164,90,0.06),0 0 40px rgba(200,164,90,0.2)}50%{box-shadow:0 0 0 16px rgba(200,164,90,0.03),0 0 60px rgba(200,164,90,0.35)}}
-.amb-discount-pct{font-size:36px;font-weight:900;color:var(--gold);line-height:1}
-.amb-discount-off{font-size:12px;font-weight:800;color:#fff;letter-spacing:.12em}
-.amb-discount-label{font-size:13px;color:#fff;line-height:1.5}
-.amb-ref-id{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(200,164,90,0.1);border:1px solid rgba(200,164,90,0.2);
-  border-radius:8px;padding:4px 12px;
-  font-size:11px;font-weight:700;color:#fff;letter-spacing:.08em;
-  font-family:'JetBrains Mono',monospace;
-}
-
-/* Teaser (no ref) */
-.amb-teaser{display:flex;flex-direction:column;align-items:center;gap:10px}
-.amb-teaser-pct{
-  font-size:56px;font-weight:900;
-  background:linear-gradient(135deg,var(--gold) 0%,rgba(200,164,90,0.4) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  line-height:1;filter:blur(2px);user-select:none;
-}
-.amb-teaser-label{font-size:13px;color:#fff;line-height:1.6}
-
-/* Countdown */
-.amb-countdown{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
-.amb-cd-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff}
-.amb-cd-boxes{display:flex;align-items:center;gap:6px}
-.amb-cd-box{
-  background:rgba(200,164,90,0.08);border:1px solid rgba(200,164,90,0.2);
-  border-radius:8px;padding:8px 14px;min-width:52px;text-align:center;
-}
-.amb-cd-box span{font-size:22px;font-weight:800;color:var(--gold);font-family:'JetBrains Mono',monospace;display:block;line-height:1}
-.amb-cd-box small{font-size:9px;font-weight:700;letter-spacing:.1em;color:#fff;text-transform:uppercase}
-.amb-cd-sep{font-size:18px;font-weight:800;color:#fff}
-
-/* CTA buttons */
-.amb-cta{
-  display:inline-flex;align-items:center;justify-content:center;
-  background:var(--gold);color:#0a0e1a;
-  padding:13px 28px;border-radius:100px;
-  font-size:14px;font-weight:800;text-decoration:none;
-  letter-spacing:.02em;
-  box-shadow:0 4px 20px rgba(200,164,90,0.35);
-  transition:transform .2s,box-shadow .2s;
-  width:100%;max-width:280px;
-}
-.amb-cta:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(200,164,90,0.5)}
-.amb-cta-s{background:rgba(255,255,255,0.08);color:#fff;box-shadow:none;border:1px solid rgba(255,255,255,0.12)}
-.amb-cta-s:hover{background:rgba(255,255,255,0.12);box-shadow:none}
-
-/* TIREX hint */
-.amb-tirex-hint{font-size:13px;color:var(--gold);display:flex;align-items:center;gap:6px;font-style:italic;font-weight:500}
-.amb-tirex-dot{color:var(--gold);font-weight:800}
-.amb-tirex-link{color:var(--gold);font-weight:800;text-decoration:none;border-bottom:1px solid rgba(200,164,90,0.5);transition:color .2s,opacity .2s}
-.amb-tirex-link:hover{color:#fff;opacity:1}
-
-/* Public card internals */
-.amb-public-desc{font-size:14px;color:#fff;line-height:1.75;margin:0}
-.amb-shake-demo{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 0}
-.amb-shake-phone{font-size:36px;animation:swShakeAnim 2.4s ease-in-out infinite}
-.amb-shake-arrow{font-size:18px;color:#fff}
-.amb-shake-result{
-  width:56px;height:56px;border-radius:50%;
-  background:rgba(59,91,219,0.15);border:2px solid rgba(59,91,219,0.3);
-  display:flex;align-items:center;justify-content:center;
-}
-.amb-shake-pct{font-size:14px;font-weight:900;color:#fff;font-family:'JetBrains Mono',monospace}
-.amb-shake-note{font-size:12px;color:#fff;line-height:1.6}
-
-
-.amb-card-gold.amb-activated{
-  border-color:#fff;
-  box-shadow:0 0 0 1px rgba(200,164,90,0.2),0 24px 64px rgba(0,0,0,0.4),0 0 80px rgba(200,164,90,0.12);
-}
-@media(max-width:768px){
-  .amb-grid{grid-template-columns:1fr}
-  .amb-card-inner{padding:28px 22px}
-}
 </style>
 
 <!-- PRICING -->
@@ -2459,22 +2136,6 @@ body.legal-pt .lm-en { display: none !important; }
     <h2 class="h2 reveal" style="text-align:center"><span data-i18n="pricing-title">Less than two coffees a month.<br><span class="hl">No algorithm can fool you.</span></span></h2>
     <p class="subline reveal" style="max-width:420px;margin:12px auto 0;text-align:center"><span data-i18n="you-pay">You pay for protection. Not for your data.</span></p>
 
-    <!-- SHAKE & WIN — appears first to invite luck -->
-    <div class="np-card np-shake-card reveal" style="max-width:740px;margin:40px auto 0;text-align:center">
-      <div class="np-shake-glow"></div>
-      <div class="np-shake-eyebrow" data-i18n="sw-gesture-shake">Try your luck before choosing a plan</div>
-      <div class="np-shake-emoji">📱</div>
-      <h3 class="np-shake-title" data-i18n="sw-shake-title">Win a discount. Share it with someone you love.</h3>
-      <p class="np-shake-desc" data-i18n="np-shake-desc">Shake your smartphone and MIVLA draws a random discount — 10%, 30%, 50% or even a free Premium month. Send it to someone you want to protect.</p>
-      <div class="np-shake-slots">
-        <div class="np-slot" id="npSlot1">?</div>
-        <div class="np-slot-sep">·</div>
-        <div class="np-slot" id="npSlot2">?</div>
-        <div class="np-slot-sep">·</div>
-        <div class="np-slot" id="npSlot3">?</div>
-      </div>
-      <p class="np-shake-validity" data-i18n="np-shake-validity">✓ Random draw &nbsp;·&nbsp; ✓ Share via WhatsApp or iMessage &nbsp;·&nbsp; ✓ Valid 48h</p>
-    </div>
 
     <!-- Ambassador banner — shown with ?ref= -->
     <div class="amb-price-banner reveal" id="ambPriceBanner" style="display:none">
@@ -2487,15 +2148,16 @@ body.legal-pt .lm-en { display: none !important; }
     <div style="text-align:center;margin-top:48px">
       <div class="tog-row reveal">
         <div class="tog">
-          <button class="tb" id="bM" onclick="setP('m')" data-i18n="tog-monthly">Monthly</button>
-          <button class="tb on" id="bA" onclick="setP('a')" data-i18n="tog-annual">Annual</button>
+          <button class="tb on" id="bM" onclick="setP('m')" data-i18n="tog-monthly">Monthly</button>
+          <button class="tb" id="bA" onclick="setP('a')" data-i18n="tog-annual">Annual</button>
         </div>
         <span class="save" data-i18n="save-tag">Save 17%</span>
       </div>
+      <p class="annual-nudge" id="annualNudge" onclick="setP('a')" data-i18n="annual-nudge">Switch to Annual — get 2 months free ↑</p>
     </div>
 
     <!-- iOS/Android badge -->
-    <p class="price-platform-note reveal">📱 <span data-i18n="price-platform-note">Subscription managed via App Store (iOS) or Google Play (Android) — requires a smartphone</span></p>
+    <p class="price-platform-note reveal"><span data-i18n="price-platform-note">per month · via App Store or Google Play (Android)</span><span class="blink-cursor"></span></p>
 
     <!-- Plan cards -->
     <div class="plans reveal">
@@ -2509,7 +2171,7 @@ body.legal-pt .lm-en { display: none !important; }
         <div class="plan-price">
           <div class="price-n"><sup id="sym1">€</sup><span id="bp">49.99</span></div>
           <span class="price-eur-ref" id="eurRefBase"></span>
-          <p class="price-p" id="price-p-base">per year · via App Store</p>
+          <p class="price-p" id="price-p-base">per month · via App Store or Google Play (Android)</p>
           <p class="price-a" id="ba" style="visibility:visible" data-i18n="ann-base">€49.99/year — 2 months free</p>
           <div class="amb-price-block" id="ambBlockBase" style="display:none">
             <span class="amb-orig-price"><sup id="ambSymOrigBase">€</sup><span id="ambOrigBase">49.99</span>/year</span>
@@ -2536,7 +2198,7 @@ body.legal-pt .lm-en { display: none !important; }
         <div class="plan-price">
           <div class="price-n"><sup id="sym2">€</sup><span id="pp">99.99</span></div>
           <span class="price-eur-ref" id="eurRefPrem"></span>
-          <p class="price-p" id="price-p-prem">per year · via App Store</p>
+          <p class="price-p" id="price-p-prem">per month · via App Store or Google Play (Android)</p>
           <p class="price-a" id="pa" style="visibility:visible" data-i18n="ann-prem">€99.99/year — 2 months free</p>
           <div class="amb-price-block" id="ambBlockPrem" style="display:none">
             <span class="amb-orig-price"><sup id="ambSymOrigPrem">€</sup><span id="ambOrigPrem">99.99</span>/year</span>
@@ -2681,6 +2343,33 @@ body.legal-pt .lm-en { display: none !important; }
     </div>
   </div>
 </section>
+
+<!-- ANDROID WAITLIST -->
+<section style="background:#0A1628;padding:64px 5vw;text-align:center;border-top:1px solid rgba(255,255,255,0.06)">
+  <div style="max-width:480px;margin:0 auto">
+    <div style="font-size:48px;margin-bottom:16px">🤖</div>
+    <h3 style="font-size:22px;font-weight:800;color:#fff;margin-bottom:10px" data-i18n="android-wl-title">MIVLA for Android</h3>
+    <p style="font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;margin-bottom:28px" data-i18n="android-wl-sub">Coming soon. Join the waitlist and be the first to know when MIVLA launches on Android.</p>
+    <form onsubmit="handleWaitlist(event)" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <input type="email" id="wlEmail" placeholder="your@email.com" required
+        style="flex:1;min-width:200px;max-width:280px;padding:12px 16px;border-radius:100px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.07);color:#fff;font-size:14px;outline:none"/>
+      <button type="submit"
+        style="padding:12px 24px;border-radius:100px;background:#C8A45A;color:#0a0e1a;font-size:14px;font-weight:800;border:none;cursor:pointer;white-space:nowrap" data-i18n="android-wl-btn">Join Waitlist</button>
+    </form>
+    <p style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:12px" data-i18n="android-wl-note">Expected: Q2 2026. No spam, ever.</p>
+  </div>
+</section>
+
+<script>
+function handleWaitlist(e){
+  e.preventDefault();
+  var em = document.getElementById('wlEmail');
+  if(!em) return;
+  var btn = e.target.querySelector('button');
+  if(btn){ btn.textContent = '✓ You\'re on the list'; btn.style.background='#22c55e'; btn.disabled=true; }
+  em.value=''; em.disabled=true;
+}
+</script>
 
 <!-- FOOTER -->
 <footer>
@@ -2861,6 +2550,9 @@ const prices={m:{b:'4.99',p:'9.99'},a:{b:'49.99',p:'99.99'}};
 function setP(m){
   var bM=document.getElementById('bM'); if(bM) bM.classList.toggle('on',m==='m');
   var bA=document.getElementById('bA'); if(bA) bA.classList.toggle('on',m==='a');
+  // Show/hide annual nudge
+  var nudge=document.getElementById('annualNudge');
+  if(nudge) nudge.classList.toggle('hidden', m==='a');
   // Prices per currency
   var _allPrices = {
     'EUR': {m:{b:'4.99', p:'9.99'}, a:{b:'49.99', p:'99.99'}},
@@ -2886,7 +2578,7 @@ function setP(m){
   // Period text
   var ppB=document.getElementById('price-p-base');
   var ppP=document.getElementById('price-p-prem');
-  var periodTxt=a?'per year · via App Store':'per month · via App Store';
+  var periodTxt=a?'per year · via App Store or Google Play (Android)':'per month · via App Store or Google Play (Android)';
   if(ppB) ppB.textContent=periodTxt;
   if(ppP) ppP.textContent=periodTxt;
 
@@ -3292,11 +2984,12 @@ const i18n = {
   "tog-monthly":{en:"Monthly",           pt:"Mensal",           es:"Mensual",         fr:"Mensuel",         it:"Mensile",         de:"Monatlich",       id:"Bulanan"},
   "tog-annual": {en:"Annual",            pt:"Anual",            es:"Anual",           fr:"Annuel",          it:"Annuale",         de:"Jährlich",        id:"Tahunan"},
   "save-tag":   {en:"Save 17%",          pt:"Poupa 17%",        es:"Ahorra 17%",      fr:"Économisez 17%",  it:"Risparmia 17%",   de:"Spare 17%",       id:"Hemat 17%"},
+  "annual-nudge":{en:"Switch to Annual — get 2 months free ↑", pt:"Muda para Anual — 2 meses grátis ↑", "pt-br":"Mude para Anual — ganhe 2 meses grátis ↑", es:"Cambia a Anual — 2 meses gratis ↑", fr:"Passer à l'Annuel — 2 mois offerts ↑", it:"Passa ad Annuale — 2 mesi gratis ↑", de:"Zu Jährlich wechseln — 2 Monate gratis ↑", id:"Pilih Tahunan — hemat 2 bulan ↑"},
   "plan-base":  {en:"Base",              pt:"Base",             es:"Base",            fr:"Base",            it:"Base",            de:"Basis",           id:"Dasar"},
   "plan-premium":{en:"Premium",          pt:"Premium",          es:"Premium",         fr:"Premium",         it:"Premium",         de:"Premium",         id:"Premium"},
   "base-tag":   {en:"Essential protection for everyday use", pt:"Protecção essencial para uso quotidiano", es:"Protección esencial para la navegación diaria", fr:"Protection essentielle pour la navigation quotidienne", it:"Protezione essenziale per la navigazione quotidiana", de:"Wesentlicher Schutz für die tägliche Nutzung", id:"Perlindungan dasar untuk browsing sehari-hari"},
   "prem-tag":   {en:"Full protection with deep analysis",         pt:"Protecção total com análise aprofundada",         es:"Protección total con análisis profundo",         fr:"Protection totale avec analyse approfondie",            it:"Protezione totale con analisi approfondita",            de:"Vollständiger Schutz mit Tiefenanalyse",               id:"Perlindungan penuh dengan analisis mendalam"},
-  "per-month":  {en:"per month · via App Store", pt:"por mês · via App Store", es:"al mes · vía App Store", fr:"par mois · via App Store", it:"al mese · App Store", de:"pro Monat · App Store", id:"per bulan · App Store"},
+  "per-month":  {en:"per month · via App Store or Google Play (Android)", pt:"por mês · via App Store ou Google Play (Android)", "pt-br":"por mês · via App Store ou Google Play (Android)", es:"al mes · vía App Store o Google Play (Android)", fr:"par mois · via App Store ou Google Play (Android)", it:"al mese · App Store o Google Play (Android)", de:"pro Monat · App Store oder Google Play (Android)", id:"per bulan · App Store atau Google Play (Android)"},
   "trial-btn":  {en:"Start 3-Day Free Trial", pt:"Começar o Teste Gratuito de 3 Dias", es:"Iniciar Prueba Gratuita de 3 Días", fr:"Démarrer l'Essai Gratuit de 3 Jours", it:"Inizia la Prova Gratuita di 3 Giorni", de:"3-Tage-Gratis-Testversion starten", id:"Mulai Uji Coba Gratis 3 Hari",
     "pt-br":"Começar Teste Grátis de 3 Dias"
   ,
@@ -3374,6 +3067,10 @@ const i18n = {
   "cta-t3":     {en:"100% on-device privacy",          pt:"100% privacidade no dispositivo",     es:"100% privacidad local",     fr:"100% confidentialité locale",it:"100% privacy locale",        de:"100% Geräteprivatsphäre",     id:"100% privasi perangkat"},
   "cta-t4":     {en:"EU AI Act compliant",             pt:"Conforme EU AI Act",          es:"Conforme EU AI Act",        fr:"Conforme EU AI Act",         it:"Conforme EU AI Act",         de:"EU AI Act konform",           id:"Sesuai EU AI Act"},
   "cta-t5": {en:"iOS & Android", pt:"iOS & Android", "pt-br":"iOS & Android", es:"iOS & Android", fr:"iOS & Android", it:"iOS & Android", de:"iOS & Android", id:"iOS & Android", "en-us":"iOS & Android"},
+  "android-wl-title":{en:"MIVLA for Android", pt:"MIVLA para Android", "pt-br":"MIVLA para Android", es:"MIVLA para Android", fr:"MIVLA pour Android", it:"MIVLA per Android", de:"MIVLA für Android", id:"MIVLA untuk Android"},
+  "android-wl-sub":  {en:"Coming soon. Join the waitlist and be the first to know when MIVLA launches on Android.", pt:"Brevemente. Junta-te à lista de espera e sê o primeiro a saber quando a MIVLA chega ao Android.", "pt-br":"Em breve. Junte-se à lista de espera e seja o primeiro a saber quando a MIVLA chegar ao Android.", es:"Próximamente. Únete a la lista de espera y sé el primero en saber cuándo MIVLA llega a Android.", fr:"Bientôt disponible. Rejoignez la liste d'attente et soyez le premier à savoir quand MIVLA arrive sur Android.", it:"Prossimamente. Unisciti alla lista d'attesa e scopri per primo quando MIVLA arriva su Android.", de:"Demnächst. Tragen Sie sich in die Warteliste ein und erfahren Sie als Erster, wenn MIVLA für Android startet.", id:"Segera hadir. Bergabunglah dengan daftar tunggu dan jadilah yang pertama tahu saat MIVLA hadir di Android."},
+  "android-wl-btn":  {en:"Join Waitlist", pt:"Entrar na Lista", "pt-br":"Entrar na Lista", es:"Unirse a la Lista", fr:"Rejoindre la Liste", it:"Unirsi alla Lista", de:"Zur Warteliste", id:"Daftar Sekarang"},
+  "android-wl-note": {en:"Expected: Q2 2026. No spam, ever.", pt:"Previsto: Q2 2026. Sem spam, nunca.", "pt-br":"Previsão: Q2 2026. Sem spam, nunca.", es:"Previsto: Q2 2026. Sin spam, nunca.", fr:"Prévu: Q2 2026. Pas de spam, jamais.", it:"Previsto: Q2 2026. Niente spam, mai.", de:"Erwartet: Q2 2026. Kein Spam, nie.", id:"Perkiraan: Q2 2026. Tidak ada spam, selamanya."},
   "footer-tag": {en:"The first real-time AI content scanner and risk detector for social media — Available Now.", pt:"O primeiro detector de conteúdo gerado por IA em tempo real para redes sociais — Disponível Agora.", es:"El primer escáner de IA en tiempo real para redes sociales — Disponible Ahora.", fr:"Le premier scanner IA en temps réel pour les réseaux sociaux — Disponible Maintenant.", it:"Il primo scanner AI in tempo reale per i social media — Disponibile Ora.", de:"Der erste Echtzeit-KI-Scanner für soziale Medien — Jetzt Verfügbar.", id:"Scanner AI real-time pertama untuk media sosial — Tersedia Sekarang.",
     "pt-br":"O primeiro detector de IA em tempo real para redes sociais — Disponível Agora."
   ,
@@ -3476,7 +3173,7 @@ const i18n = {
   "pf7-desc":     {en:"Save and share the full analysis as a PDF — useful for reporting to authorities, sharing with family, or keeping as evidence.", pt:"Guarda e partilha a análise completa em PDF — útil para reportar às autoridades, partilhar com a família ou guardar como prova.", "pt-br":"Salve e compartilhe a análise completa em PDF — útil para reportar às autoridades, compartilhar com a família ou manter como evidência.", es:"Guarda y comparte el análisis completo en PDF — útil para reportar a las autoridades, compartir con la familia o conservar como evidencia.", fr:"Sauvegardez et partagez l'analyse complète en PDF — utile pour signaler aux autorités, partager avec la famille ou conserver comme preuve.", it:"Salva e condividi l'analisi completa come PDF — utile per segnalare alle autorità, condividere con la famiglia o conservare come prova.", de:"Speichern und teilen Sie die vollständige Analyse als PDF — nützlich für Meldungen an Behörden, das Teilen mit der Familie oder als Beweismittel.", id:"Simpan dan bagikan analisis lengkap sebagai PDF — berguna untuk melaporkan ke pihak berwenang, berbagi dengan keluarga, atau disimpan sebagai bukti."},
   "pf8-desc":     {en:"For content with verifiable claims, MIVLA cross-references against Google Fact Check, EUvsDisinfo and trusted news sources — with links to the original verification.", pt:"Para conteúdo com afirmações verificáveis, a MIVLA cruza com o Google Fact Check, a EUvsDisinfo e fontes noticiosas de confiança — com ligações para a verificação original.", "pt-br":"Para conteúdo com afirmações verificáveis, a MIVLA cruza com Google Fact Check, EUvsDisinfo e fontes de notícias confiáveis — com links para a verificação original.", es:"Para contenido con afirmaciones verificables, MIVLA cruza con Google Fact Check, EUvsDisinfo y fuentes de noticias de confianza — con links a la verificación original.", fr:"Pour le contenu avec des affirmations vérifiables, MIVLA fait des recoupements avec Google Fact Check, EUvsDisinfo et des sources d'information fiables — avec des liens vers la vérification originale.", it:"Per contenuti con affermazioni verificabili, MIVLA incrocia con Google Fact Check, EUvsDisinfo e fonti di notizie attendibili — con link alla verifica originale.", de:"Für Inhalte mit überprüfbaren Behauptungen kreuzt MIVLA mit Google Fact Check, EUvsDisinfo und vertrauenswürdigen Nachrichtenquellen — mit Links zur Original-Verifikation.", id:"Untuk konten dengan klaim yang dapat diverifikasi, MIVLA membandingkan dengan Google Fact Check, EUvsDisinfo dan sumber berita terpercaya — dengan tautan ke verifikasi aslinya."},
   "pnote":        {en:"3-day free trial · Cancel anytime · iOS App Store · Android 2026 · AT-certified invoicing · Statistical probabilities, not absolute certainties", pt:"Teste gratuito de 3 dias · Cancela quando quiseres · iOS App Store · Android 2026 · Facturação certificada · Probabilidades estatísticas, não certezas absolutas", "pt-br":"Teste gratuito de 3 dias · Cancele quando quiser · iOS App Store · Android 2026 · Probabilidades estatísticas, não certezas absolutas", es:"Prueba gratuita de 3 días · Cancela cuando quieras · iOS App Store · Android 2026 · Probabilidades estadísticas, no certezas absolutas", fr:"Essai gratuit de 3 jours · Annulez à tout moment · iOS App Store · Android 2026 · Probabilités statistiques, pas des certitudes absolues", it:"Prova gratuita di 3 giorni · Cancella quando vuoi · iOS App Store · Android 2026 · Probabilità statistiche, non certezze assolute", de:"3-Tage-Gratis-Test · Jederzeit kündigen · iOS App Store · Android 2026 · Statistische Wahrscheinlichkeiten, keine absoluten Gewissheiten", id:"Uji coba gratis 3 hari · Batalkan kapan saja · iOS App Store · Android 2026 · Probabilitas statistik, bukan kepastian mutlak"},
-  "price-platform-note": {en:"Subscription managed via App Store (iOS) or Google Play (Android) — requires a smartphone", pt:"Subscrição gerida pela App Store (iOS) ou Google Play (Android) — requer um smartphone", "pt-br":"Assinatura gerida pela App Store (iOS) ou Google Play (Android) — requer um smartphone", es:"Suscripción gestionada por App Store (iOS) o Google Play (Android) — requiere un smartphone", fr:"Abonnement géré via l'App Store (iOS) ou Google Play (Android) — nécessite un smartphone", it:"Abbonamento gestito tramite App Store (iOS) o Google Play (Android) — richiede uno smartphone", de:"Abo über den App Store (iOS) oder Google Play (Android) — erfordert ein Smartphone", id:"Langganan dikelola melalui App Store (iOS) atau Google Play (Android) — memerlukan smartphone"},
+  "price-platform-note": {en:"per month · via App Store or Google Play (Android)", pt:"por mês · via App Store ou Google Play (Android)", "pt-br":"por mês · via App Store ou Google Play (Android)", es:"al mes · vía App Store o Google Play (Android)", fr:"par mois · via App Store ou Google Play (Android)", it:"al mese · App Store o Google Play (Android)", de:"pro Monat · App Store oder Google Play (Android)", id:"per bulan · App Store atau Google Play (Android)"},
   "plan-mobile-note": {en:"📲 Download on your smartphone to subscribe", pt:"📲 Descarrega no teu smartphone para subscrever", "pt-br":"📲 Baixe no seu smartphone para assinar", es:"📲 Descarga en tu smartphone para suscribirte", fr:"📲 Téléchargez sur votre smartphone pour vous abonner", it:"📲 Scarica sul tuo smartphone per abbonarti", de:"📲 Auf dem Smartphone herunterladen, um zu abonnieren", id:"📲 Unduh di smartphone Anda untuk berlangganan"},
   "footer-stat":  {en:"Statistical probabilities · ~78% accuracy on real-world content", pt:"Probabilidades estatísticas · ~78% de precisão em conteúdo real", "pt-br":"Probabilidades estatísticas · ~78% de precisão em conteúdo real", es:"Probabilidades estadísticas · ~78% de precisión en contenido real", fr:"Probabilités statistiques · ~78% de précision sur contenu réel", it:"Probabilità statistiche · ~78% di precisione su contenuto reale", de:"Statistische Wahrscheinlichkeiten · ~78% Genauigkeit bei realen Inhalten", id:"Probabilitas statistik · ~78% akurasi pada konten nyata"},
 
@@ -3515,11 +3212,6 @@ const i18n = {
   "sw-qr-title":     {en:"Share protection instantly",       pt:"Partilha protecção de forma instantânea",     "pt-br":"Compartilhe proteção instantaneamente", es:"Comparte la protección al instante",   fr:"Partagez la protection instantanément", it:"Condividi la protezione all'istante",  de:"Schutz sofort teilen",                id:"Bagikan perlindungan seketika"},
   "sw-qr-desc":      {en:"See something suspicious? Show a friend in real time. One swipe on the semaphore reveals your personal QR code — they scan it, install MIVLA, and they're protected. No account, no link, no friction.", pt:"Vês algo suspeito? Mostra a um amigo em tempo real. Um deslize rápido no semáforo para a esquerda, revela o teu QR code pessoal — ele digitaliza-o, instala a MIVLA e fica protegido. Sem conta, sem ligação, sem fricção.", "pt-br":"Viu algo suspeito? Mostre a um amigo em tempo real. Um swipe no semáforo revela seu QR code pessoal — ele escaneia, instala a MIVLA e fica protegido. Sem conta, sem link, sem fricção.", es:"¿Ves algo sospechoso? Muéstraselo a un amigo en tiempo real. Un swipe en el semáforo revela tu QR code personal — lo escanea, instala MIVLA y queda protegido. Sin cuenta, sin enlace, sin fricción.", fr:"Vous voyez quelque chose de suspect? Montrez-le à un ami en temps réel. Un swipe sur le sémaphore révèle votre QR code personnel — il le scanne, installe MIVLA et est protégé. Sans compte, sans lien, sans friction.", it:"Vedi qualcosa di sospetto? Mostralo a un amico in tempo reale. Uno swipe sul semaforo rivela il tuo QR code personale — lo scansiona, installa MIVLA ed è protetto. Senza account, senza link, senza attrito.", de:"Sehen Sie etwas Verdächtiges? Zeigen Sie es einem Freund in Echtzeit. Ein Wischen auf dem Semaphor zeigt Ihren persönlichen QR-Code — er scannt ihn, installiert MIVLA und ist geschützt. Kein Konto, kein Link, keine Hürde.", id:"Melihat sesuatu yang mencurigakan? Tunjukkan ke teman secara real time. Satu swipe pada semaforo mengungkap QR code pribadi Anda — mereka scan, pasang MIVLA, dan terlindungi. Tanpa akun, tanpa link, tanpa hambatan."},
   "sw-qr-detail":    {en:"✓ Works offline &nbsp;·&nbsp; ✓ No account needed &nbsp;·&nbsp; ✓ Instant", pt:"✓ Funciona sem ligação à internet &nbsp;·&nbsp; ✓ Sem conta necessária &nbsp;·&nbsp; ✓ Instantâneo", "pt-br":"✓ Funciona offline &nbsp;·&nbsp; ✓ Sem conta necessária &nbsp;·&nbsp; ✓ Instantâneo", es:"✓ Funciona sin conexión &nbsp;·&nbsp; ✓ Sin cuenta &nbsp;·&nbsp; ✓ Instantáneo", fr:"✓ Fonctionne hors ligne &nbsp;·&nbsp; ✓ Sans compte &nbsp;·&nbsp; ✓ Instantané", it:"✓ Funziona offline &nbsp;·&nbsp; ✓ Senza account &nbsp;·&nbsp; ✓ Istantaneo", de:"✓ Funktioniert offline &nbsp;·&nbsp; ✓ Kein Konto &nbsp;·&nbsp; ✓ Sofort", id:"✓ Bekerja offline &nbsp;·&nbsp; ✓ Tanpa akun &nbsp;·&nbsp; ✓ Instan"},
-  "sw-gesture-shake":{en:"Shake your Smartphone",                pt:"Agita o teu Smartphone",                      "pt-br":"Agite o seu Smartphone",                    es:"Agita tu Smartphone",                     fr:"Secouez votre Smartphone",                 it:"Agita il tuo Smartphone",                  de:"Schütteln Sie Ihr Smartphone",             id:"Kocok Smartphone Anda"},
-  "sw-shake-prompt": {en:"Shake your Smartphone",                pt:"Agita o teu Smartphone",                      "pt-br":"Agite o seu Smartphone",                    es:"Agita tu Smartphone",                     fr:"Secouez votre Smartphone",                 it:"Agita il tuo Smartphone",                  de:"Schütteln Sie Ihr Smartphone",             id:"Kocok Smartphone Anda"},
-  "sw-shake-title":  {en:"Win a discount. Give it away.",    pt:"Ganha um desconto. Oferece-o a quem proteges.",           "pt-br":"Ganhe um desconto. Ofereça-o.",          es:"Gana un descuento. Regálalo.",         fr:"Gagnez une réduction. Offrez-la.",     it:"Vinci uno sconto. Regalalo.",           de:"Gewinnen Sie einen Rabatt. Verschenken Sie ihn.", id:"Menangkan diskon. Berikan kepada orang lain."},
-  "sw-shake-desc":   {en:"Shake your Smartphone and MIVLA draws a random discount — 10%, 30%, 50% or even a free Premium month. Send it to whoever you want to protect. They get MIVLA cheaper. You get the satisfaction of having protected someone.", pt:"Agita o teu Smartphone e a MIVLA sorteia um desconto aleatório — 10%, 20%, 30%, 50% ou até um mês Premium grátis. Envia a quem quiseres proteger. Eles instalam a MIVLA por um menor custo. Tu ficas com a satisfação de ter protegido alguém.", "pt-br":"Agite o seu Smartphone e a MIVLA sorteia um desconto aleatório — 10%, 30%, 50% ou até um mês Premium grátis. Envie para quem quiser proteger. Eles recebem a MIVLA mais barata. Você tem a satisfação de ter protegido alguém.", es:"Agita tu Smartphone y MIVLA sortea un descuento aleatorio — 10%, 30%, 50% o incluso un mes Premium gratis. Envíalo a quien quieras proteger. Ellos consiguen MIVLA más barato. Tú te quedas con la satisfacción de haber protegido a alguien.", fr:"Secouez votre Smartphone et MIVLA tire un rabais aléatoire — 10%, 30%, 50% ou même un mois Premium gratuit. Envoyez-le à qui vous voulez protéger. Ils obtiennent MIVLA moins cher. Vous avez la satisfaction d'avoir protégé quelqu'un.", it:"Agita il tuo Smartphone e MIVLA estrae uno sconto casuale — 10%, 30%, 50% o persino un mese Premium gratis. Invialo a chi vuoi proteggere. Ottengono MIVLA più economico. Tu hai la soddisfazione di aver protetto qualcuno.", de:"Schütteln Sie Ihr Smartphone und MIVLA zieht einen zufälligen Rabatt — 10%, 30%, 50% oder sogar einen kostenlosen Premium-Monat. Senden Sie ihn an wen Sie schützen möchten. Sie bekommen MIVLA günstiger. Sie haben die Befriedigung, jemanden geschützt zu haben.", id:"Kocok Smartphone Anda dan MIVLA mengundi diskon acak — 10%, 30%, 50% atau bahkan satu bulan Premium gratis. Kirim ke siapa pun yang ingin Anda lindungi. Mereka mendapatkan MIVLA lebih murah. Anda mendapat kepuasan telah melindungi seseorang."},
-  "sw-shake-detail": {en:"✓ Random draw &nbsp;·&nbsp; ✓ Send via WhatsApp or iMessage &nbsp;·&nbsp; ✓ Expires in 48h", pt:"✓ Sorteio aleatório &nbsp;·&nbsp; ✓ Envia por WhatsApp ou iMessage &nbsp;·&nbsp; ✓ Expira em 48h", "pt-br":"✓ Sorteio aleatório &nbsp;·&nbsp; ✓ Envie via WhatsApp ou iMessage &nbsp;·&nbsp; ✓ Expira em 48h", es:"✓ Sorteo aleatorio &nbsp;·&nbsp; ✓ Envía por WhatsApp o iMessage &nbsp;·&nbsp; ✓ Caduca en 48h", fr:"✓ Tirage aléatoire &nbsp;·&nbsp; ✓ Envoyer via WhatsApp ou iMessage &nbsp;·&nbsp; ✓ Expire dans 48h", it:"✓ Estrazione casuale &nbsp;·&nbsp; ✓ Invia via WhatsApp o iMessage &nbsp;·&nbsp; ✓ Scade in 48h", de:"✓ Zufällige Auslosung &nbsp;·&nbsp; ✓ Per WhatsApp oder iMessage senden &nbsp;·&nbsp; ✓ Läuft in 48h ab", id:"✓ Undian acak &nbsp;·&nbsp; ✓ Kirim via WhatsApp atau iMessage &nbsp;·&nbsp; ✓ Berlaku 48 jam"},
   "sw-off":          {en:"OFF",                              pt:"DESC.",                                    "pt-br":"DESC.",                                 es:"DTO.",                                fr:"RÉDUC.",                               it:"SCONTO",                                de:"RABATT",                               id:"DISKON"},
   "sw-discount-sub": {en:"Send to a friend · Expires in 48h", pt:"Envia a um amigo · Expira em 48h",      "pt-br":"Envie a um amigo · Expira em 48h",       es:"Envía a un amigo · Caduca en 48h",    fr:"Envoyer à un ami · Expire dans 48h",   it:"Invia a un amico · Scade in 48h",       de:"An Freund senden · Läuft in 48h ab",   id:"Kirim ke teman · Berlaku 48 jam"},
 
@@ -3570,8 +3262,7 @@ const i18n = {
     id:`Dan ada alasan lain mengapa ini ada. <a href="#about" class="amb-tirex-link">Temukan di sini.</a>`
   },
   "amb-public-title":   {en:"Everyone else",                  pt:"Para todos os outros",                    "pt-br":"Todo mundo",                  es:"Todo el mundo",                   fr:"Tout le monde",                   it:"Tutti gli altri",                  de:"Alle anderen",                    id:"Semua orang"},
-  "amb-public-desc":    {en:"No ambassador link? No problem. The MIVLA discount isn't given — it's won. Shake your Smartphone after installing and let luck decide. 10%, 30%, 50% or a free Premium month.", pt:"Sem ligação de embaixador? Sem problema. O desconto da MIVLA não se oferece — conquista-se. Agita o Smartphone depois de instalar e deixa o acaso decidir. 10%, 20%, 30%, 50% ou um mês Premium grátis.", "pt-br":"Sem link de embaixador? Sem problema. O desconto da MIVLA não se dá — ganha-se. Agite o Smartphone depois de instalar e deixe o acaso decidir. 10%, 30%, 50% ou um mês Premium grátis.", es:"¿Sin enlace de embajador? Sin problema. El descuento de MIVLA no se da — se gana. Agita tu Smartphone después de instalar y deja que el azar decida. 10%, 30%, 50% o un mes Premium gratis.", fr:"Pas de lien ambassadeur ? Pas de problème. La réduction MIVLA ne se donne pas — elle se gagne. Secouez votre Smartphone après l'installation et laissez le hasard décider. 10%, 30%, 50% ou un mois Premium gratuit.", it:"Nessun link ambasciatore? Nessun problema. Lo sconto MIVLA non si dà — si vince. Agita il tuo Smartphone dopo l'installazione e lascia che il caso decida. 10%, 30%, 50% o un mese Premium gratis.", de:"Kein Botschafter-Link? Kein Problem. Der MIVLA-Rabatt wird nicht gegeben — er wird gewonnen. Schütteln Sie Ihr Smartphone nach der Installation und lassen Sie den Zufall entscheiden.", id:"Tidak punya link duta? Tidak masalah. Diskon MIVLA tidak diberikan — dimenangkan. Kocok Smartphone setelah memasang dan biarkan keberuntungan memutuskan."},
-  "amb-shake-note":     {en:"Discounts expire in 48h. Share them with whoever you want to protect.", pt:"Os descontos expiram em 48h. Partilha com quem quiseres proteger.", "pt-br":"Os descontos expiram em 48h. Compartilhe com quem quiser proteger.", es:"Los descuentos caducan en 48h. Compártelos con quien quieras proteger.", fr:"Les réductions expirent dans 48h. Partagez-les avec qui vous voulez protéger.", it:"Gli sconti scadono in 48h. Condividili con chi vuoi proteggere.", de:"Rabatte laufen in 48h ab. Teilen Sie sie mit wem Sie schützen möchten.", id:"Diskon berlaku 48 jam. Bagikan ke siapa pun yang ingin Anda lindungi."},
+  "amb-public-desc":    {en:"No ambassador link? No problem. Install MIVLA and try it free for 3 days. No commitment.", pt:"Sem ligação de embaixador? Sem problema. Instala o MIVLA e experimenta grátis durante 3 dias. Sem compromisso.", "pt-br":"Sem link de embaixador? Sem problema. Instale o MIVLA e experimente grátis por 3 dias. Sem compromisso.", es:"¿Sin enlace de embajador? Sin problema. Instala MIVLA y pruébalo gratis 3 días. Sin compromiso.", fr:"Pas de lien ambassadeur ? Pas de problème. Installez MIVLA et essayez-le gratuitement 3 jours. Sans engagement.", it:"Nessun link ambasciatore? Nessun problema. Installa MIVLA e provalo gratis per 3 giorni. Senza impegno.", de:"Kein Botschafter-Link? Kein Problem. Installieren Sie MIVLA und testen Sie es 3 Tage kostenlos. Ohne Verpflichtung.", id:"Tidak punya link duta? Tidak masalah. Pasang MIVLA dan coba gratis 3 hari. Tanpa komitmen."},
   "amb-try":            {en:"Try free for 3 days",            pt:"Experimenta durante 3 dias, grátis",       "pt-br":"Experimente grátis 3 dias",   es:"Prueba gratis 3 días",            fr:"Essai gratuit 3 jours",           it:"Prova gratis 3 giorni",            de:"3 Tage kostenlos testen",         id:"Coba gratis 3 hari"},
 
   "per-yr":       {en:"/yr", pt:"/ano", "pt-br":"/ano", es:"/año", fr:"/an", it:"/anno", de:"/Jahr", id:"/thn"},
@@ -3707,9 +3398,6 @@ const i18n = {
   "np-save":          {en:"Save 2 months",              pt:"Poupa 2 meses",            "pt-br":"Economize 2 meses",       es:"Ahorra 2 meses",             fr:"Économisez 2 mois",          it:"Risparmia 2 mesi",           de:"2 Monate sparen",            id:"Hemat 2 bulan"},
   "np-annual-title":  {en:"Annual subscription",        pt:"Subscrição anual",         "pt-br":"Assinatura anual",        es:"Suscripción anual",          fr:"Abonnement annuel",          it:"Abbonamento annuale",        de:"Jahresabo",                  id:"Langganan tahunan"},
   "np-monthly-title": {en:"Monthly",                    pt:"Mensal",                   "pt-br":"Mensal",                  es:"Mensual",                    fr:"Mensuel",                    it:"Mensile",                    de:"Monatlich",                  id:"Bulanan"},
-  "np-shake-title":   {en:"Try your luck",              pt:"Tenta a sorte",            "pt-br":"Tente a sorte",           es:"Prueba tu suerte",           fr:"Tentez votre chance",        it:"Tenta la fortuna",           de:"Glück versuchen",            id:"Coba keberuntunganmu"},
-  "np-shake-desc":    {en:"Shake your Smartphone after installing. MIVLA draws a random discount — 10%, 30%, 50% or a free Premium month.", pt:"Agita o Smartphone depois de instalar. A MIVLA sorteia um desconto aleatório — 10%, 30%, 50% ou um mês Premium grátis.", "pt-br":"Agite o Smartphone depois de instalar. A MIVLA sorteia um desconto aleatório — 10%, 30%, 50% ou um mês Premium grátis.", es:"Agita tu Smartphone después de instalar. MIVLA sortea un descuento aleatorio — 10%, 30%, 50% o un mes Premium gratis.", fr:"Secouez votre Smartphone après l'installation. MIVLA tire un rabais aléatoire — 10%, 30%, 50% ou un mois Premium gratuit.", it:"Agita il tuo Smartphone dopo l'installazione. MIVLA estrae uno sconto casuale — 10%, 30%, 50% o un mese Premium gratis.", de:"Schütteln Sie Ihr Smartphone nach der Installation. MIVLA zieht einen zufälligen Rabatt — 10%, 30%, 50% oder einen kostenlosen Premium-Monat.", id:"Kocok Smartphone setelah memasang. MIVLA mengundi diskon acak — 10%, 30%, 50% atau satu bulan Premium gratis."},
-  "np-shake-validity":{en:"✓ Valid 24h &nbsp;·&nbsp; ✓ Shareable &nbsp;·&nbsp; ✓ Base or Premium", pt:"✓ Válido 24h &nbsp;·&nbsp; ✓ Partilhável &nbsp;·&nbsp; ✓ Base ou Premium", "pt-br":"✓ Válido 24h &nbsp;·&nbsp; ✓ Compartilhável &nbsp;·&nbsp; ✓ Base ou Premium", es:"✓ Válido 24h &nbsp;·&nbsp; ✓ Compartible &nbsp;·&nbsp; ✓ Base o Premium", fr:"✓ Valable 24h &nbsp;·&nbsp; ✓ Partageable &nbsp;·&nbsp; ✓ Base ou Premium", it:"✓ Valido 24h &nbsp;·&nbsp; ✓ Condivisibile &nbsp;·&nbsp; ✓ Base o Premium", de:"✓ Gültig 24h &nbsp;·&nbsp; ✓ Teilbar &nbsp;·&nbsp; ✓ Base oder Premium", id:"✓ Berlaku 24 jam &nbsp;·&nbsp; ✓ Dapat dibagikan &nbsp;·&nbsp; ✓ Base atau Premium"},
   "np-trial-note":    {en:"Free for 3 days · Cancel anytime · via App Store", pt:"Grátis 3 dias · Cancela quando quiseres · via App Store", "pt-br":"Grátis 3 dias · Cancele quando quiser · via App Store", es:"Gratis 3 días · Cancela cuando quieras · vía App Store", fr:"Gratuit 3 jours · Annulez à tout moment · via App Store", it:"Gratis 3 giorni · Cancella quando vuoi · App Store", de:"3 Tage kostenlos · Jederzeit kündigen · App Store", id:"Gratis 3 hari · Batalkan kapan saja · App Store"},
   "amb-banner-text":  {
     en:`Ambassador offer — <strong>50% OFF</strong> on annual plans. Applied below.`,
@@ -3874,7 +3562,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
   if(d.l !== 'en') setLang(d.l, d.f, d.c, d.sym, d.cur);
   else { buildFaq('en'); buildMarquee('en'); }
 
-  setP('a');  // Default to annual view
+  setP('m');  // Default to monthly view
 });
 
 
