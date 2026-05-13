@@ -1,0 +1,192 @@
+================================================================
+GOOGLE PLAY CONSOLE — ACCESSIBILITY SERVICE PERMITTED USE
+DECLARATION (Português, Portugal) v2
+MIVLA™ v1.0 "Lite"
+Última actualização: 13 Maio 2026
+================================================================
+
+Local no Console:
+  Policy → App content → Permissions declarations
+  → Use of accessibility services
+
+────────────────────────────────────────────────────────────────
+CAMPO 1: Does your app use AccessibilityService API?
+────────────────────────────────────────────────────────────────
+Resposta: Yes
+
+────────────────────────────────────────────────────────────────
+CAMPO 2: Is your app designed primarily for users with disabilities?
+────────────────────────────────────────────────────────────────
+Resposta: No
+
+────────────────────────────────────────────────────────────────
+CAMPO 3: Justification (texto livre) ⭐ CAMPO CRÍTICO
+────────────────────────────────────────────────────────────────
+Comprimento abaixo: ~2300 chars (limite ~4000)
+
+──────── COPIAR DAQUI PARA O CONSOLE ────────
+
+O MIVLA é uma ferramenta de literacia mediática que ajuda utilizadores
+a identificar, em tempo real, conteúdo gerado por inteligência artificial
+e conteúdo potencialmente enganador apresentado em redes sociais. Não é
+primariamente uma ferramenta de acessibilidade para pessoas com
+deficiência, mas serve interesse público claro em combate à desinformação,
+com benefício particular para utilizadores vulneráveis (familiares menos
+digitais, adolescentes, eleitores em períodos de alta circulação de
+conteúdo manipulado).
+
+ESCOPO DO ACCESSIBILITY SERVICE: o MIVLA aplica o princípio do privilégio
+mínimo. O AccessibilityService da app (AppDetectionService) reage
+exclusivamente a eventos do tipo TYPE_WINDOW_STATE_CHANGED, ou seja,
+mudanças da aplicação em primeiro plano. NÃO lê o conteúdo da árvore de
+acessibilidade. NÃO intercepta gestos nem input. NÃO regista, grava,
+transmite ou retém qualquer informação observada. A sua única saída é um
+sinal interno binário que indica se a app actualmente em primeiro plano
+é uma das cinco plataformas suportadas (Instagram, TikTok, YouTube,
+Facebook, X).
+
+CAPTURA EFECTIVA DO ECRÃ: a análise visual propriamente dita é feita
+por um mecanismo separado, a API MediaProjection do Android, que tem o
+seu próprio diálogo de consentimento do sistema accionado pelo
+utilizador no início de cada sessão. Esta separação arquitectural
+significa que mesmo se a permissão de Accessibility fosse comprometida,
+nenhum conteúdo de ecrã poderia ser capturado sem que o utilizador
+visse e aceitasse o diálogo nativo do Android.
+
+ANÁLISE A PEDIDO FORA DAS 5 PLATAFORMAS: quando o utilizador faz uma
+pressão longa sobre conteúdo noutra aplicação, o MIVLA reutiliza a
+sessão MediaProjection já consentida para captura pontual. Não há um
+novo uso passivo do AccessibilityService neste fluxo. O gesto é
+deliberado e iniciado pelo utilizador.
+
+PRIVACIDADE: a análise corre inteiramente no dispositivo, com modelos de
+IA empacotados na aplicação (ficheiro local de cerca de 330MB). Os dados
+capturados são processados em memória volátil e descartados imediatamente
+após o resultado ser apresentado. Nenhum conteúdo é registado,
+transmitido, ou partilhado com terceiros. Não existe servidor backend
+MIVLA. Não há analytics, ad networks, telemetria ou identificadores de
+utilizador. A arquitectura está documentada na Política de Privacidade
+pública (Secções 5.1 sobre Accessibility e 5.3 sobre MediaProjection),
+disponível em https://www.mivla.app/privacy/
+
+ALTERNATIVAS CONSIDERADAS E DESCARTADAS: o uso isolado do
+AccessibilityService para leitura da árvore foi rejeitado por
+inadequação técnica (vídeos e imagens não estão acessíveis na árvore) e
+por exceder o privilégio necessário. O uso isolado de MediaProjection
+sem AccessibilityService foi rejeitado por exigir interacção do
+utilizador a cada peça de conteúdo durante o scroll, tornando o caso de
+uso primário (avaliação contínua em redes sociais) impraticável. A
+combinação detector-de-foreground-app (Accessibility narrow) + captura
+consentida (MediaProjection) é a única arquitectura que entrega a
+funcionalidade prometida com o mínimo de privilégio em cada camada.
+
+──────── FIM DA SECÇÃO COPIÁVEL ────────
+
+────────────────────────────────────────────────────────────────
+CAMPO 4: How will users know they need to enable AccessibilityService?
+────────────────────────────────────────────────────────────────
+
+──────── COPIAR DAQUI PARA O CONSOLE ────────
+
+No primeiro arranque da aplicação, o utilizador é apresentado a um ecrã
+que descreve a funcionalidade MIVLA e contém três botões sequenciais
+para activar as permissões necessárias na ordem correcta:
+
+1. Conceder permissão de overlay (Display over other apps), que é uma
+   permissão de apresentação sem acesso a conteúdo;
+2. Activar o serviço de detecção de aplicação em primeiro plano
+   (AccessibilityService), que abre as Definições do Android no local
+   correcto;
+3. Iniciar a sessão MIVLA, que activa o diálogo de consentimento nativo
+   do Android para captura de ecrã (MediaProjection).
+
+Cada botão tem texto descritivo do que faz. Antes da activação do
+AccessibilityService no passo 2, o utilizador vê informação textual
+sobre o que o serviço faz e não faz. O utilizador pode optar por não
+activar o AccessibilityService — nesse caso, o MIVLA permanece
+funcional através do menu de partilha do Android como fallback.
+
+A app não funciona sem que o utilizador active explicitamente, em
+sequência, as três permissões. Esta sequencialidade obrigatória garante
+que o utilizador tem consciência de cada permissão concedida.
+
+──────── FIM DA SECÇÃO COPIÁVEL ────────
+
+────────────────────────────────────────────────────────────────
+CAMPO 5: Privacy disclosure confirmation
+────────────────────────────────────────────────────────────────
+Resposta: Yes — documented in Privacy Policy:
+  Section 5.1 (Accessibility Service, narrow scope)
+  Section 5.3 (MediaProjection screen capture)
+URL: https://www.mivla.app/privacy/pt/
+
+────────────────────────────────────────────────────────────────
+CAMPO 6: Video walkthrough (opcional, decisão adiada)
+────────────────────────────────────────────────────────────────
+
+Decisão: submeter sem vídeo na primeira submissão.
+Se Google solicitar, gravar walkthrough de 45-60s mostrando:
+
+  1. Onboarding screen com os três botões (5s)
+  2. Activação do overlay nas Definições Android (10s)
+  3. Activação do AccessibilityService nas Definições Android (10s)
+  4. Diálogo MediaProjection nativo e aceitação (5s)
+  5. Voltar ao Instagram e fazer scroll — overlay aparece com semáforos (15s)
+  6. Long-press num browser ou WhatsApp — análise on-demand (10s)
+  7. Resultado e dismiss, sem dados a sair do device (5s)
+
+Hospedar em YouTube como "unlisted" e colar URL no Console.
+
+================================================================
+ESTRATÉGIA DE SUBMISSÃO E DEFESA
+================================================================
+
+Pontos fortes a destacar se a Google pedir clarificação adicional:
+
+1. Privilégio mínimo: AccessibilityService apenas reage a um único tipo
+   de evento (TYPE_WINDOW_STATE_CHANGED). Defesa demonstrável por
+   inspecção de código.
+
+2. Separação arquitectural: a captura efectiva passa pela
+   MediaProjection, com consentimento próprio do sistema. Nem o
+   AccessibilityService nem a MediaProjection podem ser activados
+   silenciosamente.
+
+3. Interesse público claro: combate à desinformação visual, alinhado
+   com prioridades regulatórias da própria Google (compromissos com a
+   Comissão Europeia sobre desinformação) e com a EU AI Act Artigo 50
+   (em vigor desde 2 Agosto 2026), que exige transparência sobre
+   conteúdo gerado por IA.
+
+4. Zero recolha de dados — verificável por inspecção do APK (sem SDKs
+   de analytics, sem endpoints HTTP fora do Google Play Billing).
+
+5. Fallback funcional sem AccessibilityService: a app continua útil
+   através do menu de partilha do Android. Isto demonstra que o
+   AccessibilityService é uma melhoria de experiência, não um vector
+   coercivo.
+
+Vulnerabilidades a antecipar e respostas preparadas:
+
+PERGUNTA: "Por que não usar apenas Share Intent, que não requer
+AccessibilityService?"
+RESPOSTA: "Share Intent é o nosso fallback documentado (Política de
+Privacidade Secção 5.7). Mas requer acção peça-a-peça do utilizador,
+o que é incompatível com avaliação contínua durante o scroll em redes
+sociais — o caso de uso primário."
+
+PERGUNTA: "Por que precisa o AccessibilityService de saber que app
+está em primeiro plano?"
+RESPOSTA: "Para activar o overlay automático apenas nas cinco
+plataformas onde foi explicitamente desenhado para operar. Sem este
+sinal, o overlay teria de operar globalmente ou ser activado
+manualmente pelo utilizador a cada vez que abre uma rede social."
+
+PERGUNTA: "Por que MediaProjection persistente em vez de
+ecrã-a-ecrã?"
+RESPOSTA: "O Android exige consentimento explícito uma vez por
+sessão (não por ecrã capturado), o que é compatível com o nosso
+caso de uso e está alinhado com o design da API. Após boot do
+dispositivo, o utilizador volta a ser solicitado a consentir."
+
+================================================================
