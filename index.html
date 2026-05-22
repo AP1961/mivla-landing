@@ -2169,13 +2169,13 @@ body.legal-pt .lm-en { display: none !important; }
         <div class="plan-name" data-i18n="plan-base">Base</div>
         <p class="plan-tag" data-i18n="base-tag">Essential protection for everyday browsing</p>
         <div class="plan-price">
-          <div class="price-n"><sup id="sym1">€</sup><span id="bp">49.99</span></div>
+          <div class="price-n"><sup id="sym1">€</sup><span id="bp">39.99</span></div>
           <span class="price-eur-ref" id="eurRefBase"></span>
           <p class="price-p" id="price-p-base">per month · via App Store or Google Play (Android)</p>
-          <p class="price-a" id="ba" style="visibility:visible" data-i18n="ann-base">€49.99/year — 2 months free</p>
+          <p class="price-a" id="ba" style="visibility:visible" data-i18n="ann-base">€39.99/year — 2 months free</p>
           <div class="amb-price-block" id="ambBlockBase" style="display:none">
-            <span class="amb-orig-price"><sup id="ambSymOrigBase">€</sup><span id="ambOrigBase">49.99</span>/year</span>
-            <div class="amb-final-price"><sup id="ambSymFinalBase">€</sup><span id="ambFinalBase">24.99</span></div>
+            <span class="amb-orig-price"><sup id="ambSymOrigBase">€</sup><span id="ambOrigBase">39.99</span>/year</span>
+            <div class="amb-final-price"><sup id="ambSymFinalBase">€</sup><span id="ambFinalBase">19.99</span></div>
             <span class="amb-yr">/year</span>
             <span class="amb-eur-ref" id="ambEurRefBase"></span>
             <span class="amb-price-badge">👑 -50% Ambassador</span>
@@ -2196,13 +2196,13 @@ body.legal-pt .lm-en { display: none !important; }
         <div class="plan-name" data-i18n="plan-premium">Premium</div>
         <p class="plan-tag" data-i18n="prem-tag">Full protection with deep analysis</p>
         <div class="plan-price">
-          <div class="price-n"><sup id="sym2">€</sup><span id="pp">99.99</span></div>
+          <div class="price-n"><sup id="sym2">€</sup><span id="pp">79.99</span></div>
           <span class="price-eur-ref" id="eurRefPrem"></span>
           <p class="price-p" id="price-p-prem">per month · via App Store or Google Play (Android)</p>
-          <p class="price-a" id="pa" style="visibility:visible" data-i18n="ann-prem">€99.99/year — 2 months free</p>
+          <p class="price-a" id="pa" style="visibility:visible" data-i18n="ann-prem">€79.99/year — 2 months free</p>
           <div class="amb-price-block" id="ambBlockPrem" style="display:none">
-            <span class="amb-orig-price"><sup id="ambSymOrigPrem">€</sup><span id="ambOrigPrem">99.99</span>/year</span>
-            <div class="amb-final-price"><sup id="ambSymFinalPrem">€</sup><span id="ambFinalPrem">49.99</span></div>
+            <span class="amb-orig-price"><sup id="ambSymOrigPrem">€</sup><span id="ambOrigPrem">79.99</span>/year</span>
+            <div class="amb-final-price"><sup id="ambSymFinalPrem">€</sup><span id="ambFinalPrem">39.99</span></div>
             <span class="amb-yr">/year</span>
             <span class="amb-eur-ref" id="ambEurRefPrem"></span>
             <span class="amb-price-badge">👑 -50% Ambassador</span>
@@ -2546,7 +2546,7 @@ function updateSem(s){
 }
 
 // Pricing
-const prices={m:{b:'4.99',p:'9.99'},a:{b:'49.99',p:'99.99'}};
+const prices={m:{b:'3.99',p:'7.99'},a:{b:'39.99',p:'79.99'}};
 function setP(m){
   var bM=document.getElementById('bM'); if(bM) bM.classList.toggle('on',m==='m');
   var bA=document.getElementById('bA'); if(bA) bA.classList.toggle('on',m==='a');
@@ -2555,11 +2555,11 @@ function setP(m){
   if(nudge) nudge.classList.toggle('hidden', m==='a');
   // Prices per currency
   var _allPrices = {
-    'EUR': {m:{b:'4.99', p:'9.99'}, a:{b:'49.99', p:'99.99'}},
-    'GBP': {m:{b:'4.49', p:'8.99'}, a:{b:'44.99', p:'89.99'}},
-    'USD': {m:{b:'5.49', p:'10.99'},a:{b:'54.99', p:'109.99'}},
-    'BRL': {m:{b:'24.90',p:'49.90'},a:{b:'249',   p:'499'}},
-    'IDR': {m:{b:'89.000',p:'179.000'},a:{b:'899.000',p:'1.799.000'}}
+    'EUR': {m:{b:'3.99', p:'7.99'}, a:{b:'39.99', p:'79.99'}},
+    'GBP': {m:{b:'3.59', p:'7.19'}, a:{b:'35.99', p:'71.99'}},
+    'USD': {m:{b:'4.39', p:'8.79'},a:{b:'43.99', p:'87.99'}},
+    'BRL': {m:{b:'19.90',p:'39.90'},a:{b:'199',   p:'399'}},
+    'IDR': {m:{b:'71.000',p:'142.000'},a:{b:'711.000',p:'1.422.000'}}
   };
   var cur = (typeof currentCurrency !== 'undefined' && currentCurrency) ? currentCurrency : 'EUR';
   var sym = (typeof currentSymbol !== 'undefined' && currentSymbol) ? currentSymbol : '€';
@@ -2622,8 +2622,8 @@ function setP(m){
   var refAmbPrem = document.getElementById('ambEurRefPrem');
   if(refBase){ refBase.classList.toggle('visible',!isEur); if(!isEur) refBase.textContent='(€'+eurPr.b+')'; }
   if(refPrem){ refPrem.classList.toggle('visible',!isEur); if(!isEur) refPrem.textContent='(€'+eurPr.p+')'; }
-  if(refAmbBase){ refAmbBase.classList.toggle('visible',!isEur&&a&&!!hasRef); if(!isEur&&a&&hasRef) refAmbBase.textContent='(€24.99)'; }
-  if(refAmbPrem){ refAmbPrem.classList.toggle('visible',!isEur&&a&&!!hasRef); if(!isEur&&a&&hasRef) refAmbPrem.textContent='(€49.99)'; }
+  if(refAmbBase){ refAmbBase.classList.toggle('visible',!isEur&&a&&!!hasRef); if(!isEur&&a&&hasRef) refAmbBase.textContent='(€19.99)'; }
+  if(refAmbPrem){ refAmbPrem.classList.toggle('visible',!isEur&&a&&!!hasRef); if(!isEur&&a&&hasRef) refAmbPrem.textContent='(€39.99)'; }
 }
 
 // FAQ — multilingual
@@ -3102,8 +3102,8 @@ const i18n = {
   "faq-q6": {en:"Can I cancel my subscription?", pt:"Posso cancelar a minha subscrição?", es:"¿Puedo cancelar mi suscripción?", fr:"Puis-je annuler mon abonnement?", it:"Posso cancellare il mio abbonamento?", de:"Kann ich mein Abonnement kündigen?", id:"Bisakah saya membatalkan langganan?"},
   "faq-a6": {en:"Yes, anytime through the App Store subscriptions settings. No questions, no lock-in. Your data stays on your device and is never stored on our servers regardless of subscription status.", pt:"Sim, a qualquer momento através das definições de subscrições da App Store. Sem perguntas, sem compromissos. Os teus dados ficam no teu dispositivo e nunca são guardados nos nossos servidores.", es:"Sí, en cualquier momento a través de la configuración de suscripciones de la App Store. Sin preguntas, sin bloqueos. Tus datos permanecen en tu dispositivo.", fr:"Oui, à tout moment via les paramètres d'abonnements de l'App Store. Pas de questions, pas d'engagement. Vos données restent sur votre appareil.", it:"Sì, in qualsiasi momento tramite le impostazioni degli abbonamenti dell'App Store. Nessuna domanda, nessun vincolo. I tuoi dati rimangono sul tuo dispositivo.", de:"Ja, jederzeit über die App Store-Abonnementeinstellungen. Keine Fragen, keine Bindung. Ihre Daten bleiben auf Ihrem Gerät.", id:"Ya, kapan saja melalui pengaturan langganan App Store. Tidak ada pertanyaan, tidak ada keterikatan. Data Anda tetap di perangkat Anda."},
 
-  "ann-base": {en:"€49.99/year — 2 months free", pt:"€49.99/ano — 2 meses grátis", "pt-br":"€49,99/ano — 2 meses grátis", es:"€49,99/año — 2 meses gratis", fr:"€49,99/an — 2 mois offerts", it:"€49,99/anno — 2 mesi gratis", de:"€49,99/Jahr — 2 Monate gratis", id:"€49,99/tahun — 2 bulan gratis", "en-us":"€49.99/year — 2 months free"},
-  "ann-prem": {en:"€99.99/year — 2 months free", pt:"€99.99/ano — 2 meses grátis", "pt-br":"€99,99/ano — 2 meses grátis", es:"€99,99/año — 2 meses gratis", fr:"€99,99/an — 2 mois offerts", it:"€99,99/anno — 2 mesi gratis", de:"€99,99/Jahr — 2 Monate gratis", id:"€99,99/tahun — 2 bulan gratis", "en-us":"€99.99/year — 2 months free"},
+  "ann-base": {en:"€39.99/year — 2 months free", pt:"€39.99/ano — 2 meses grátis", "pt-br":"€39,99/ano — 2 meses grátis", es:"€39,99/año — 2 meses gratis", fr:"€39,99/an — 2 mois offerts", it:"€39,99/anno — 2 mesi gratis", de:"€39,99/Jahr — 2 Monate gratis", id:"€39,99/tahun — 2 bulan gratis", "en-us":"€39.99/year — 2 months free"},
+  "ann-prem": {en:"€79.99/year — 2 months free", pt:"€79.99/ano — 2 meses grátis", "pt-br":"€79,99/ano — 2 meses grátis", es:"€79,99/año — 2 meses gratis", fr:"€79,99/an — 2 mois offerts", it:"€79,99/anno — 2 mesi gratis", de:"€79,99/Jahr — 2 Monate gratis", id:"€79,99/tahun — 2 bulan gratis", "en-us":"€79.99/year — 2 months free"},
 
   "dl-appstore":  {en:"Download on App Store", pt:"Descarregar na App Store", "pt-br":"Baixar na App Store", es:"Descargar en App Store", fr:"Télécharger sur l'App Store", it:"Scarica su App Store", de:"Im App Store laden", id:"Unduh di App Store", "en-us":"Download on App Store"},
   "sem-sub":      {en:"Calculated across 8 independent layers. Results are probabilities, not certainties.", pt:"Calculado em 8 camadas independentes. Os resultados são probabilidades, não certezas absolutas.", "pt-br":"Calculado em 8 camadas independentes. Os resultados são probabilidades, não certezas.", es:"Calculado en 8 capas independientes. Los resultados son probabilidades, no certezas.", fr:"Calculé sur 8 couches indépendantes. Les résultats sont des probabilités, pas des certitudes.", it:"Calcolato su 8 livelli indipendenti. I risultati sono probabilità, non certezze.", de:"Über 8 unabhängige Schichten berechnet. Ergebnisse sind Wahrscheinlichkeiten, keine Gewissheiten.", id:"Dihitung di 8 lapisan independen. Hasilnya adalah probabilitas, bukan kepastian."},
@@ -3490,11 +3490,11 @@ function setLang(lang, flag, code, sym, currency, evt){
   if (typeof _lmSetLang === 'function') _lmSetLang(lang);
   // Update prices per currency
   var _prices = {
-    'EUR': {mo_b:'4.99', mo_p:'9.99', yr_b:'49.99', yr_p:'99.99'},
-    'GBP': {mo_b:'4.49', mo_p:'8.99', yr_b:'44.99', yr_p:'89.99'},
-    'USD': {mo_b:'5.49', mo_p:'10.99', yr_b:'54.99', yr_p:'109.99'},
-    'BRL': {mo_b:'24.90', mo_p:'49.90', yr_b:'249', yr_p:'499'},
-    'IDR': {mo_b:'89.000', mo_p:'179.000', yr_b:'899.000', yr_p:'1.799.000'}
+    'EUR': {mo_b:'3.99', mo_p:'7.99', yr_b:'39.99', yr_p:'79.99'},
+    'GBP': {mo_b:'3.59', mo_p:'7.19', yr_b:'35.99', yr_p:'71.99'},
+    'USD': {mo_b:'4.39', mo_p:'8.79', yr_b:'43.99', yr_p:'87.99'},
+    'BRL': {mo_b:'19.90', mo_p:'39.90', yr_b:'199', yr_p:'399'},
+    'IDR': {mo_b:'71.000', mo_p:'142.000', yr_b:'711.000', yr_p:'1.422.000'}
   };
   var _p = _prices[currency] || _prices['EUR'];
   // Update prices per currency
@@ -3547,7 +3547,7 @@ function setLang(lang, flag, code, sym, currency, evt){
 // Currency patch — merged into setP above via wrapper
 function _applyPricingCurrency(m){
   const isEur = currentCurrency === 'EUR';
-  const prices = {m:{eur:{b:'4.99',p:'9.99'}},a:{eur:{b:'4.16',p:'8.33'}}};
+  const prices = {m:{eur:{b:'3.99',p:'7.99'}},a:{eur:{b:'3.33',p:'6.67'}}};
   const pr = prices[m] && prices[m][isEur?'eur':'usd'];
   if(!pr) return;
   var bp=document.getElementById('bp'); if(bp) bp.textContent=pr.b;
@@ -3997,8 +3997,8 @@ function calcFounderStatus(f){
   const now=new Date(),activated=new Date(f.activatedAt);
   const daysSince=Math.floor((now-activated)/(1000*60*60*24));
   const trialLeft=Math.max(0,30-daysSince);
-  if(f.subscription==="annual")return{status:"annual",label:"Anual",color:"#2EC486",trialLeft:0,price:f.tier==="premium"?"€49,99/ano":"€24,99/ano",badge:"50% off"};
-  if(f.subscription==="monthly")return{status:"monthly",label:"Mensal",color:"#22D3EE",trialLeft:0,price:f.tier==="premium"?"€9,99/mês":"€4,99/mês",badge:"Preço normal"};
+  if(f.subscription==="annual")return{status:"annual",label:"Anual",color:"#2EC486",trialLeft:0,price:f.tier==="premium"?"€39,99/ano":"€19,99/ano",badge:"50% off"};
+  if(f.subscription==="monthly")return{status:"monthly",label:"Mensal",color:"#22D3EE",trialLeft:0,price:f.tier==="premium"?"€7,99/mês":"€3,99/mês",badge:"Preço normal"};
   if(daysSince<30)return{status:"trial",label:"Trial",color:"#F4D35E",trialLeft,price:"Grátis",badge:trialLeft+"d restantes"};
   return{status:"inactive",label:"Inactivo",color:"#E63946",trialLeft:0,price:"—",badge:"Expirado"};
 }
@@ -4038,9 +4038,9 @@ function genAll(){
     const subsMo=Math.round(subs*.6),subsAn=subs-subsMo;
     const normMo=Math.round(subsMo*.65),premMo=subsMo-normMo;
     const normAn=Math.round(subsAn*.65),premAn=subsAn-normAn;
-    const revMo=Math.round(normMo*4.99+premMo*9.99);
-    const revAn=Math.round(normAn*(49.99/12)+premAn*(99.99/12));
-    const cashAn=Math.round(normAn*49.99+premAn*99.99);
+    const revMo=Math.round(normMo*3.99+premMo*7.99);
+    const revAn=Math.round(normAn*(39.99/12)+premAn*(79.99/12));
+    const cashAn=Math.round(normAn*39.99+premAn*79.99);
     const revenue=revMo+revAn,cashflow=revMo+cashAn;
     const threats=Math.round((10+Math.random()*20)*g*wf);
     const scans=dl*Math.round(3+Math.random()*4);
@@ -4328,13 +4328,13 @@ function render(){
     <div class="sec">SPLIT MENSAL vs ANUAL</div>
     <div class="g2">
       <div class="card"><div class="card-t" style="color:${G.orange}">MENSAIS</div>
-        ${[{t:"Normal €4,99/mês",v:T.normMo,r:T.normMo*4.99,c:G.gold},{t:"Premium €9,99/mês",v:T.premMo,r:T.premMo*9.99,c:G.purple}].map((t,i,a)=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 0;${i<a.length-1?"border-bottom:1px solid rgba(255,255,255,.04)":""}"><div style="width:7px;height:7px;border-radius:2px;background:${t.c}"></div><span style="flex:1;font-size:12px;color:${G.white}">${t.t}</span><span style="font-family:var(--font);font-size:11px;color:${G.grayL}">${t.v}</span><span style="font-family:var(--font);font-size:12px;font-weight:700;color:${t.c}">${fE(Math.round(t.r))}</span></div>`).join("")}
-        <div style="margin-top:10px;font-family:var(--font);font-size:15px;font-weight:800;color:${G.orange}">Total: ${fE(Math.round(T.normMo*4.99+T.premMo*9.99))}</div>
+        ${[{t:"Normal €3,99/mês",v:T.normMo,r:T.normMo*3.99,c:G.gold},{t:"Premium €7,99/mês",v:T.premMo,r:T.premMo*7.99,c:G.purple}].map((t,i,a)=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 0;${i<a.length-1?"border-bottom:1px solid rgba(255,255,255,.04)":""}"><div style="width:7px;height:7px;border-radius:2px;background:${t.c}"></div><span style="flex:1;font-size:12px;color:${G.white}">${t.t}</span><span style="font-family:var(--font);font-size:11px;color:${G.grayL}">${t.v}</span><span style="font-family:var(--font);font-size:12px;font-weight:700;color:${t.c}">${fE(Math.round(t.r))}</span></div>`).join("")}
+        <div style="margin-top:10px;font-family:var(--font);font-size:15px;font-weight:800;color:${G.orange}">Total: ${fE(Math.round(T.normMo*3.99+T.premMo*7.99))}</div>
       </div>
       <div class="card"><div class="card-t" style="color:${G.cyan}">ANUAIS</div>
-        ${[{t:"Normal €49,99/ano",v:T.normAn,r:T.normAn*49.99,c:G.gold},{t:"Premium €99,99/ano",v:T.premAn,r:T.premAn*99.99,c:G.purple}].map((t,i,a)=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 0;${i<a.length-1?"border-bottom:1px solid rgba(255,255,255,.04)":""}"><div style="width:7px;height:7px;border-radius:2px;background:${t.c}"></div><span style="flex:1;font-size:12px;color:${G.white}">${t.t}</span><span style="font-family:var(--font);font-size:11px;color:${G.grayL}">${t.v}</span><span style="font-family:var(--font);font-size:12px;font-weight:700;color:${t.c}">${fE(Math.round(t.r))}</span></div>`).join("")}
-        <div style="margin-top:10px;font-family:var(--font);font-size:15px;font-weight:800;color:${G.cyan}">Total Cash: ${fE(Math.round(T.normAn*49.99+T.premAn*99.99))}</div>
-        <div style="font-size:9px;color:${G.gray};margin-top:3px;font-family:var(--font)">Reconhecido: ${fE(Math.round(T.normAn*(49.99/12)+T.premAn*(99.99/12)))}/mês</div>
+        ${[{t:"Normal €39,99/ano",v:T.normAn,r:T.normAn*39.99,c:G.gold},{t:"Premium €79,99/ano",v:T.premAn,r:T.premAn*79.99,c:G.purple}].map((t,i,a)=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 0;${i<a.length-1?"border-bottom:1px solid rgba(255,255,255,.04)":""}"><div style="width:7px;height:7px;border-radius:2px;background:${t.c}"></div><span style="flex:1;font-size:12px;color:${G.white}">${t.t}</span><span style="font-family:var(--font);font-size:11px;color:${G.grayL}">${t.v}</span><span style="font-family:var(--font);font-size:12px;font-weight:700;color:${t.c}">${fE(Math.round(t.r))}</span></div>`).join("")}
+        <div style="margin-top:10px;font-family:var(--font);font-size:15px;font-weight:800;color:${G.cyan}">Total Cash: ${fE(Math.round(T.normAn*39.99+T.premAn*79.99))}</div>
+        <div style="font-size:9px;color:${G.gray};margin-top:3px;font-family:var(--font)">Reconhecido: ${fE(Math.round(T.normAn*(39.99/12)+T.premAn*(79.99/12)))}/mês</div>
       </div>
     </div>
     <div class="sec">COMISSÕES & NET REVENUE</div>
@@ -4482,7 +4482,7 @@ function render(){
       <div class="card"><div class="card-t">FAIXA ETÁRIA × TIER</div>
         <div style="color:${G.gray};font-size:9px;margin-bottom:10px">Premium concentrado nos 45–64 — maior willingness to pay</div>
         <div class="cw" style="height:175px"><canvas id="c-dt"></canvas></div>
-        <div class="leg-row"><div class="leg-it"><div class="leg-sq" style="background:${G.gold}"></div>Base €4,99</div><div class="leg-it"><div class="leg-sq" style="background:${G.purple}"></div>Premium €9,99</div></div>
+        <div class="leg-row"><div class="leg-it"><div class="leg-sq" style="background:${G.gold}"></div>Base €3,99</div><div class="leg-it"><div class="leg-sq" style="background:${G.purple}"></div>Premium €7,99</div></div>
       </div>
       <div class="card"><div class="card-t">FAIXA ETÁRIA × SO</div>
         <div style="color:${G.gray};font-size:9px;margin-bottom:10px">iOS tende a ser mais velho · Android mais jovem</div>
@@ -5438,7 +5438,7 @@ window.initDashboard=function(){
         <li><strong class="lm-en">Platform:</strong><strong class="lm-pt">Plataforma:</strong> iOS &amp; Android</li>
         <li><strong class="lm-en">Supported networks:</strong><strong class="lm-pt">Redes suportadas:</strong> Instagram, TikTok, YouTube, Facebook, X</li>
         <li><strong class="lm-en">Privacy:</strong><strong class="lm-pt">Privacidade:</strong> 100% <span class="lm-en">on-device. No social media content ever leaves the user's device.</span><span class="lm-pt">no dispositivo. Nenhum conteúdo de redes sociais sai do dispositivo do utilizador.</span></li>
-        <li><strong class="lm-en">Subscription:</strong><strong class="lm-pt">Subscrição:</strong> Base €4.99/mês · Premium €9.99/mês</li>
+        <li><strong class="lm-en">Subscription:</strong><strong class="lm-pt">Subscrição:</strong> Base €3.99/mês · Premium €7.99/mês</li>
         <li><strong class="lm-en">Trial:</strong><strong class="lm-pt">Teste:</strong> 3 <span class="lm-en">days free for all new users</span><span class="lm-pt">dias gratuitos para todos os novos utilizadores</span></li>
         <li><strong class="lm-en">EU AI Act:</strong><strong class="lm-pt">EU AI Act:</strong> <span class="lm-en">Compliant</span><span class="lm-pt">Conforme</span></li>
       </ul>
